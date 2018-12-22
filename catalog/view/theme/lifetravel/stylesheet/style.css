@@ -1,0 +1,96 @@
+@font-face {
+  font-family: 'AvertaDemoPE';
+  src: url("./fonts/AvertaDemoPECuttedDemo-Regular.otf");
+  font-weight: 400; }
+@font-face {
+  font-family: 'AvertaDemoPE';
+  src: url("./fonts/AvertaDemoPE-ExtraBold.otf");
+  font-weight: 800; }
+*, a, ol, ul, li, span, p, div, h1, h2, h3, h4, h5, h6 {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  color: #795348; }
+
+body {
+  font-family: 'AvertaDemoPE';
+  font-weight: 400;
+  color: #795348; }
+
+header {
+  display: none; }
+
+.breadcrumb {
+  display: none; }
+
+#content {
+  min-height: 100vh; }
+
+footer {
+  display: none; }
+
+.account-login #content .content-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; }
+  .account-login #content .content-container .form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    padding: 25px 40px 30px 40px;
+    border-radius: 10px;
+    background-color: #d6ae75; }
+    .account-login #content .content-container .form-wrapper .headings-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: stretch; }
+      .account-login #content .content-container .form-wrapper .headings-wrapper h2 {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase; }
+      .account-login #content .content-container .form-wrapper .headings-wrapper .authentication {
+        margin: 0px 50px 0px 0px; }
+      .account-login #content .content-container .form-wrapper .headings-wrapper .registration {
+        opacity: 0.5;
+        text-shadow: none;
+        transition: text-shadow 0.3s ease-out, opacity 0.3s ease-out; }
+        .account-login #content .content-container .form-wrapper .headings-wrapper .registration:hover {
+          opacity: 1;
+          text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.3);
+          transition: text-shadow 0.3s ease-out, opacity 0.3s ease-out; }
+    .account-login #content .content-container .form-wrapper form .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start; }
+      .account-login #content .content-container .form-wrapper form .input-wrapper input {
+        background-color: #ffffff;
+        border: 1px solid #ffffff;
+        border-radius: 10px;
+        padding: 5px 10px 5px 10px;
+        margin: 20px 0px 0px 0px; }
+        .account-login #content .content-container .form-wrapper form .input-wrapper input:first-child {
+          margin: 20px 0px 0px 0px; }
+    .account-login #content .content-container .form-wrapper form .submit {
+      background-color: rgba(255, 255, 255, 0.6);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      color: #795348;
+      padding: 5px 10px 5px 10px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.3s ease-out;
+      border-radius: 10px;
+      margin: 20px 0px 0px 0px; }
+      .account-login #content .content-container .form-wrapper form .submit:hover {
+        transition: background-color 0.3s ease-out;
+        background-color: rgba(255, 255, 255, 0.9); }
+
+/*# sourceMappingURL=style.css.map */

@@ -121,6 +121,9 @@ class ControllerAccountLogin extends Controller {
 		$data['text_i_am_returning_customer'] = $this->language->get('text_i_am_returning_customer');
 		$data['text_forgotten'] = $this->language->get('text_forgotten');
 
+                $data['text_authentication'] = $this->language->get('text_authentication');
+                $data['text_submit'] = $this->language->get('text_submit');
+                
 		$data['entry_email'] = $this->language->get('entry_email');
 		$data['entry_password'] = $this->language->get('entry_password');
 

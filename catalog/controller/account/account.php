@@ -48,7 +48,17 @@ class ControllerAccountAccount extends Controller {
 		$data['text_transaction'] = $this->language->get('text_transaction');
 		$data['text_newsletter'] = $this->language->get('text_newsletter');
 		$data['text_recurring'] = $this->language->get('text_recurring');
-
+                
+                $data['text_user_navbar'] = $this->language->get('text_user_navbar');
+                $data['text_manual_materials'] = $this->language->get('text_manual_materials');
+                
+                $data['text_logout'] = $this->language->get('text_logout');
+                $data['text_my_profile'] = $this->language->get('text_my_profile');
+                $data['text_my_projects'] = $this->language->get('text_my_projects');
+                $data['text_settings'] = $this->language->get('text_settings');
+                $data['text_photo'] = $this->language->get('text_photo');
+                $data['text_change_password'] = $this->language->get('text_change_password');
+                
 		$data['edit'] = $this->url->link('account/edit', '', true);
 		$data['password'] = $this->url->link('account/password', '', true);
 		$data['address'] = $this->url->link('account/address', '', true);
@@ -73,7 +83,14 @@ class ControllerAccountAccount extends Controller {
 		$data['wishlist'] = $this->url->link('account/wishlist');
 		$data['order'] = $this->url->link('account/order', '', true);
 		$data['download'] = $this->url->link('account/download', '', true);
-		
+                
+		$data['logout'] = $this->url->link('account/logout', true);
+                $data['my_profile'] = $this->url->link('account/account', true);
+                $data['my_projects'] = $this->url->link('account/my_projects', true);
+                $data['settings'] = $this->url->link('account/settings', true);
+                $data['photo'] = $this->url->link('account/photo', true);
+                $data['change_password'] = $this->url->link('account/change_password', true);
+                
 		if ($this->config->get('reward_status')) {
 			$data['reward'] = $this->url->link('account/reward', '', true);
 		} else {
