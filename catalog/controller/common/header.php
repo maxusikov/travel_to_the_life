@@ -6,6 +6,9 @@ class ControllerCommonHeader extends Controller {
 
 		$data['analytics'] = array();
 
+                $this->document->addScript('/catalog/view/javascript/slick-master/slick/slick.min.js');
+                $this->document->addStyle('/catalog/view/javascript/slick-master/slick/slick.css');
+                
 		$analytics = $this->model_extension_extension->getExtensions('analytics');
 
 		foreach ($analytics as $analytic) {
