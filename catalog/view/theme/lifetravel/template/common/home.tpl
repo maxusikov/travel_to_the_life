@@ -1,4 +1,3 @@
-.01.0.0
 <div class="container">
   <div class="row"><?php echo $column_left; ?>
     <?php if ($column_left && $column_right) { ?>

@@ -19,6 +19,7 @@ html {
 
 body {
   font-family: 'AvertaDemoPE';
+  font-size: 16px;
   font-weight: 400;
   color: #795348; }
 
@@ -47,7 +48,8 @@ footer {
     justify-content: center;
     padding: 25px 40px 30px 40px;
     border-radius: 10px;
-    background-color: #d6ae75; }
+    border: 3px solid rgba(35, 82, 124, 0.8);
+    background-color: rgba(255, 255, 255, 0.75); }
     .account-login #content .content-container .form-wrapper .headings-wrapper {
       display: flex;
       flex-direction: row;
@@ -76,7 +78,7 @@ footer {
       justify-content: flex-start; }
       .account-login #content .content-container .form-wrapper form .input-wrapper input {
         background-color: #ffffff;
-        border: 1px solid #ffffff;
+        border: 1px solid #cfcfcf;
         border-radius: 10px;
         padding: 5px 10px 5px 10px;
         margin: 20px 0px 0px 0px; }
@@ -235,7 +237,7 @@ footer {
     margin: 0px 0px 0px 0px;
     padding: 70px 0px 70px 0px; }
     .landing-page .screen-container:nth-child(2n) {
-      background-color: rgba(255, 255, 255, 0.5); }
+      background-color: rgba(255, 255, 255, 0.75); }
     .landing-page .screen-container .container-row {
       width: 1170px;
       margin: 0px auto 0px auto;
@@ -288,13 +290,33 @@ footer {
         margin: 20px 0px 0px 0px; }
       .landing-page .screen-container#headline .container-row .heading-dates {
         margin: 20px 0px 0px 0px; }
-    .landing-page .screen-container#program-description .container-row {
-      margin: 150px auto 150px auto; }
-      .landing-page .screen-container#program-description .container-row .free-price-text {
-        text-align: center;
-        font-size: 20px;
-        line-height: 24px;
-        margin: 80px 0px 0px 0px; }
+      .landing-page .screen-container#headline .container-row .registration-link {
+        width: 450px;
+        text-transform: uppercase;
+        color: #02006d;
+        font-size: 50px;
+        line-height: 50px;
+        font-weight: 400;
+        cursor: pointer;
+        margin: 70px auto 70px auto;
+        border-radius: 10px;
+        padding: 20px 30px 20px 30px;
+        background-color: rgba(255, 255, 255, 0.4);
+        text-shadow: 0px 0px 3px rgba(255, 255, 255, 0);
+        transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out; }
+        .landing-page .screen-container#headline .container-row .registration-link:hover {
+          background-color: rgba(255, 255, 255, 0.75);
+          text-shadow: 0px 0px 2px rgba(2, 0, 109, 0.75);
+          transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out; }
+    .landing-page .screen-container#program-description {
+      background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2)); }
+      .landing-page .screen-container#program-description .container-row {
+        margin: 150px auto 150px auto; }
+        .landing-page .screen-container#program-description .container-row .free-price-text {
+          text-align: center;
+          font-size: 20px;
+          line-height: 24px;
+          margin: 80px 0px 0px 0px; }
     .landing-page .screen-container#levels .container-row .slider .carousel-slideshow {
       height: 400px; }
       .landing-page .screen-container#levels .container-row .slider .carousel-slideshow .visible-area {
@@ -323,7 +345,7 @@ footer {
           padding: 30px 30px;
           border-radius: 10px;
           border: 1px solid rgba(0, 0, 0, 0.25);
-          background-color: rgba(255, 255, 255, 0.75); }
+          background-color: rgba(255, 255, 255, 0.85); }
           .landing-page .screen-container#expert-jury .container-row ul.jury-list li .jury-photo {
             max-height: 300px;
             max-width: 50%;
@@ -459,14 +481,109 @@ footer {
               max-width: 100%;
               max-height: 80px; }
 
+.account-register #content {
+  width: 760px;
+  margin: 30px auto 30px auto;
+  float: none; }
+  .account-register #content > h1.heading {
+    text-align: center;
+    margin: 0px 0px 10px 0px;
+    background: radial-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.3));
+    border-radius: 50%; }
+  .account-register #content .already-registered-text {
+    text-align: center;
+    margin: 0px 0px 10px 0px;
+    background: radial-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.3));
+    border-radius: 50%; }
+  .account-register #content .registration-form-wrapper {
+    width: 100%;
+    border-radius: 10px;
+    border: 10px solid rgba(255, 255, 255, 0.5);
+    padding: 0px 0px 0px 0px;
+    background-color: rgba(255, 255, 255, 0.75); }
+    .account-register #content .registration-form-wrapper form {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start; }
+      .account-register #content .registration-form-wrapper form .input-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: stretch;
+        padding: 7px 35px 7px 35px; }
+        .account-register #content .registration-form-wrapper form .input-group:nth-child(2n) {
+          background-color: rgba(0, 0, 0, 0.1); }
+        .account-register #content .registration-form-wrapper form .input-group .label-wrapper {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center; }
+          .account-register #content .registration-form-wrapper form .input-group .label-wrapper label {
+            margin: 0px 0px 0px 0px; }
+          .account-register #content .registration-form-wrapper form .input-group .label-wrapper .error {
+            color: red;
+            font-size: 10px;
+            font-style: italic ""; }
+        .account-register #content .registration-form-wrapper form .input-group input {
+          width: 200px;
+          margin: 0px 0px 0px 20px;
+          padding: 2px 5px;
+          border-radius: 8px;
+          border: 1px solid #d6ae75;
+          outline: none; }
+      .account-register #content .registration-form-wrapper form .teacher-information-text {
+        text-align: center;
+        margin: 25px 0px 10px 0px;
+        font-size: 14px; }
+      .account-register #content .registration-form-wrapper form .submit-area {
+        justify-content: center; }
+
+.account-account .container #content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: stretch; }
+  .account-account .container #content .navigation-wrapper {
+    width: 300px;
+    background-color: rgba(224, 224, 224, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start; }
+    .account-account .container #content .navigation-wrapper h2 {
+      padding: 10px 20px 10px 20px; }
+    .account-account .container #content .navigation-wrapper ul.list-unstyled {
+      padding: 10px 20px 10px 20px; }
+  .account-account .container #content .content-wrapper {
+    flex: 1; }
+
+form .submit {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 3px 8px;
+  color: #ffffff;
+  background-color: #d6ae75;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-out; }
+  form .submit:hover {
+    opacity: 1;
+    transition: opacity 0.3s ease-out; }
+
 #background-container {
   position: fixed;
   top: 0px;
   right: 0px;
   bottom: 0px;
   left: 0px;
-  opacity: 0.4;
-  z-index: -1; }
+  opacity: 1;
+  z-index: -1;
+  background-color: black; }
   #background-container .background {
     transform: translate(-50%, -50%);
     position: absolute;
@@ -478,7 +595,7 @@ footer {
     opacity: 0;
     transition: opacity 0.3s ease-out; }
     #background-container .background.active {
-      opacity: 1;
+      opacity: 0.5;
       transition: opacity 0.3s ease-out; }
 
 /*# sourceMappingURL=style.css.map */

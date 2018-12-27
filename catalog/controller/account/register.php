@@ -20,6 +20,27 @@ class ControllerAccountRegister extends Controller {
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$customer_id = $this->model_account_customer->addCustomer($this->request->post);
+                        
+                        $customer_data = [
+                            'customer_id'              => $customer_id,
+                            'full_name'                => $this->request->post['full_name'],
+                            'email'                    => $this->request->post['email'],
+                            'birth_date'               => $this->request->post['birth_data'],
+                            'city'                     => $this->request->post['city'],
+                            'telephone'                => $this->request->post['telephone'],
+                            'teacher_name'             => $this->request->post['teacher_name'],
+                            'teacher_phone'            => $this->request->post['teacher_phone'],
+                            'teacher_email'            => $this->request->post['teacher_email'],
+                            'favorite_film'            => $this->request->post['favorite_film'],
+                            'favorite_film_influence'  => $this->request->post['favorite_film_influence'],
+                            'profession'               => $this->request->post['profession'],
+                            'profession_opportunities' => $this->request->post['profession_opportunities'],
+                            'password'                 => $this->request->post['password'],
+                            'confirm'                  => $this->request->post['confirm'],
+                            'agree'                    => $this->request->post['agree']
+                        ];
+                        
+                        $add_customer_data = $this->model_account_customer->addCustomerDataById($customer_data);
 
 			// Clear any previous login attempts for unregistered accounts.
 			$this->model_account_customer->deleteLoginAttempts($this->request->post['email']);
@@ -271,6 +292,129 @@ class ControllerAccountRegister extends Controller {
 			$data['zone_id'] = '';
 		}
 
+                // LifeTravel <<
+                if (isset($this->request->post['email'])) {
+			$data['email'] = (string)$this->request->post['email'];
+		} elseif (isset($this->session->data['shipping_address']['email'])) {
+			$data['email'] = $this->session->data['shipping_address']['email'];
+		} else {
+			$data['email'] = '';
+		}
+                
+                if (isset($this->request->post['full_name'])) {
+			$data['full_name'] = (string)$this->request->post['full_name'];
+		} elseif (isset($this->session->data['shipping_address']['full_name'])) {
+			$data['full_name'] = $this->session->data['shipping_address']['full_name'];
+		} else {
+			$data['full_name'] = '';
+		}
+                
+                if (isset($this->request->post['birth_date'])) {
+			$data['birth_date'] = (string)$this->request->post['birth_date'];
+		} elseif (isset($this->session->data['shipping_address']['birth_date'])) {
+			$data['birth_date'] = $this->session->data['shipping_address']['birth_date'];
+		} else {
+			$data['birth_date'] = '';
+		}
+                
+                if (isset($this->request->post['city'])) {
+			$data['city'] = (string)$this->request->post['city'];
+		} elseif (isset($this->session->data['shipping_address']['city'])) {
+			$data['city'] = $this->session->data['shipping_address']['city'];
+		} else {
+			$data['city'] = '';
+		}
+                
+                if (isset($this->request->post['study_place'])) {
+			$data['study_place'] = (string)$this->request->post['study_place'];
+		} elseif (isset($this->session->data['shipping_address']['study_place'])) {
+			$data['study_place'] = $this->session->data['shipping_address']['study_place'];
+		} else {
+			$data['study_place'] = '';
+		}
+                
+                if (isset($this->request->post['telephone'])) {
+			$data['telephone'] = (string)$this->request->post['telephone'];
+		} elseif (isset($this->session->data['shipping_address']['telephone'])) {
+			$data['telephone'] = $this->session->data['shipping_address']['telephone'];
+		} else {
+			$data['telephone'] = '';
+		}
+                
+                if (isset($this->request->post['teacher_name'])) {
+			$data['teacher_name'] = (string)$this->request->post['teacher_name'];
+		} elseif (isset($this->session->data['shipping_address']['teacher_name'])) {
+			$data['teacher_name'] = $this->session->data['shipping_address']['teacher_name'];
+		} else {
+			$data['teacher_name'] = '';
+		}
+                
+                if (isset($this->request->post['teacher_phone'])) {
+			$data['teacher_phone'] = (string)$this->request->post['teacher_phone'];
+		} elseif (isset($this->session->data['shipping_address']['teacher_phone'])) {
+			$data['teacher_phone'] = $this->session->data['shipping_address']['teacher_phone'];
+		} else {
+			$data['teacher_phone'] = '';
+		}
+                
+                if (isset($this->request->post['teacher_email'])) {
+			$data['teacher_email'] = (string)$this->request->post['teacher_email'];
+		} elseif (isset($this->session->data['shipping_address']['teacher_email'])) {
+			$data['teacher_email'] = $this->session->data['shipping_address']['teacher_email'];
+		} else {
+			$data['teacher_email'] = '';
+		}
+                
+                if (isset($this->request->post['favorite_film'])) {
+			$data['favorite_film'] = (string)$this->request->post['favorite_film'];
+		} elseif (isset($this->session->data['shipping_address']['favorite_film'])) {
+			$data['favorite_film'] = $this->session->data['shipping_address']['favorite_film'];
+		} else {
+			$data['favorite_film'] = '';
+		}
+                
+                if (isset($this->request->post['favorite_film_influence'])) {
+			$data['favorite_film_influence'] = (string)$this->request->post['favorite_film_influence'];
+		} elseif (isset($this->session->data['shipping_address']['favorite_film_influence'])) {
+			$data['favorite_film_influence'] = $this->session->data['shipping_address']['favorite_film_influence'];
+		} else {
+			$data['favorite_film_influence'] = '';
+		}
+                
+                if (isset($this->request->post['profession'])) {
+			$data['profession'] = (string)$this->request->post['profession'];
+		} elseif (isset($this->session->data['shipping_address']['profession'])) {
+			$data['profession'] = $this->session->data['shipping_address']['profession'];
+		} else {
+			$data['profession'] = '';
+		}
+                
+                if (isset($this->request->post['profession_opportunities'])) {
+			$data['profession_opportunities'] = (string)$this->request->post['profession_opportunities'];
+		} elseif (isset($this->session->data['shipping_address']['profession_opportunities'])) {
+			$data['profession_opportunities'] = $this->session->data['shipping_address']['profession_opportunities'];
+		} else {
+			$data['profession_opportunities'] = '';
+		}
+                
+                if (isset($this->request->post['password'])) {
+			$data['password'] = (string)$this->request->post['password'];
+		} elseif (isset($this->session->data['shipping_address']['password'])) {
+			$data['password'] = $this->session->data['shipping_address']['password'];
+		} else {
+			$data['password'] = '';
+		}
+                
+                if (isset($this->request->post['confirm'])) {
+			$data['confirm'] = (string)$this->request->post['confirm'];
+		} elseif (isset($this->session->data['shipping_address']['confirm'])) {
+			$data['confirm'] = $this->session->data['shipping_address']['confirm'];
+		} else {
+			$data['confirm'] = '';
+		}
+                
+                // >> LifeTravel
+                
 		$this->load->model('localisation/country');
 
 		$data['countries'] = $this->model_localisation_country->getCountries();
@@ -354,18 +498,14 @@ class ControllerAccountRegister extends Controller {
 	}
 
 	private function validate() {
-		if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
-			$this->error['firstname'] = $this->language->get('error_firstname');
-		}
-
-		if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
-			$this->error['lastname'] = $this->language->get('error_lastname');
-		}
-
 		if ((utf8_strlen($this->request->post['email']) > 96) || !preg_match($this->config->get('config_mail_regexp'), $this->request->post['email'])) {
 			$this->error['email'] = $this->language->get('error_email');
 		}
 
+                if ((utf8_strlen(trim($this->request->post['full_name'])) < 1) || (utf8_strlen(trim($this->request->post['full_name'])) > 64)) {
+			$this->error['full_name'] = $this->language->get('error_full_name');
+		}
+                
 		if ($this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])) {
 			$this->error['warning'] = $this->language->get('error_exists');
 		}
@@ -374,50 +514,14 @@ class ControllerAccountRegister extends Controller {
 			$this->error['telephone'] = $this->language->get('error_telephone');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128)) {
-			$this->error['address_1'] = $this->language->get('error_address_1');
-		}
-
 		if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
 			$this->error['city'] = $this->language->get('error_city');
 		}
 
-		$this->load->model('localisation/country');
-
-		$country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
-
-		if ($country_info && $country_info['postcode_required'] && (utf8_strlen(trim($this->request->post['postcode'])) < 2 || utf8_strlen(trim($this->request->post['postcode'])) > 10)) {
-			$this->error['postcode'] = $this->language->get('error_postcode');
-		}
-
-		if ($this->request->post['country_id'] == '') {
-			$this->error['country'] = $this->language->get('error_country');
-		}
-
-		if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '' || !is_numeric($this->request->post['zone_id'])) {
-			$this->error['zone'] = $this->language->get('error_zone');
-		}
-
-		// Customer Group
-		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-			$customer_group_id = $this->request->post['customer_group_id'];
-		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
-		}
-
-		// Custom field validation
-		$this->load->model('account/custom_field');
-
-		$custom_fields = $this->model_account_custom_field->getCustomFields($customer_group_id);
-
-		foreach ($custom_fields as $custom_field) {
-            if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
-				$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-			} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
-            	$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-            }
-		}
-
+                if (!isset($this->request->post['agree'])) {
+                        $this->error['agree'] = $this->language->get('error_agree');
+                }
+                
 		if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
 			$this->error['password'] = $this->language->get('error_password');
 		}
@@ -432,17 +536,6 @@ class ControllerAccountRegister extends Controller {
 
 			if ($captcha) {
 				$this->error['captcha'] = $captcha;
-			}
-		}
-
-		// Agree to terms
-		if ($this->config->get('config_account_id')) {
-			$this->load->model('catalog/information');
-
-			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
-
-			if ($information_info && !isset($this->request->post['agree'])) {
-				$this->error['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);
 			}
 		}
 

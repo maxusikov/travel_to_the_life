@@ -39,5 +39,8 @@
     </div>
     <?php echo $column_right; ?>
   </div>
+  <div id="background-container">
+      <img class="background active" src="/catalog/view/theme/lifetravel/image/theme_images/background/1459078271127742859.jpg" />
+  </div>
 </div>
 <?php echo $footer; ?>

@@ -7,8 +7,9 @@
                 Санкт-Петербургского международного кинофестиваля «МИРОВОЙ»</h2>
            <h1 class="heading-2">«ПУТЕВКА В ЖИЗНЬ»<br />ВАШ СТАРТ В КИНО</h1>
            <h3 class="heading-dates">ноябрь 2018 - июнь 2020</h3>
-           <span class="timer-heading">До окончания регистрации осталось</span>
-           <span class="timer">1 дней 05 часов 18 минут 20 секунд</span>
+           <a href="<?php echo $registration; ?>" class="registration-link">Регистрация</a>
+           <!-- span class="timer-heading">До окончания регистрации осталось</span>
+           <span class="timer">1 дней 05 часов 18 минут 20 секунд</span -->
         </div>
     </div>
 
@@ -39,8 +40,8 @@
                                 <a class="registration-link" href="<?php echo $registration; ?>">Пройдите регистрацию</a>
                                 <span>Подтвердите регистрацию по электронной почте</span>
                                 <span>Получите доступ к Вашему Личному кабинету для дальнейшего участия в программе</span>
-                                <span>Регистрация осуществляется до 31.12.2018 включительно (дату можно менять)<br />
-                 с 01.01.2019 00:01 появляется красным надпись: «Регистрация завершена»</span>
+                                <!-- span>Регистрация осуществляется до 31.12.2018 включительно (дату можно менять)<br />
+                 с 01.01.2019 00:01 появляется красным надпись: «Регистрация завершена»</span -->
                             </li>
                             <li class="item slide level level-2">
                                 <span>Напишите эссе (сценарий) и ответьте развернуто на несколько вопросов в Вашем Личном кабинете =></span>
@@ -305,11 +306,7 @@
             window._background_container.find('.background-' + bg_screen).addClass('active');
             
             window._current_bg = bg_screen;
-            
-            console.log("Test: ", top_pos);
-            console.log("Test2 : ", window._current_bg);
         }
-        
     });
 </script>
 
