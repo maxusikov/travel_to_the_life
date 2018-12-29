@@ -24,7 +24,7 @@
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
             <div class="input-group">
                 <div class="label-wrapper">
-                    <label for="user_login">E-mail(Логин)</label>
+                    <label for="user_login">E-mail(Логин)<span class="required-mark">*</span></label>
                     <?php if(isset($error_email)) { ?>
                     <span class="error"><?php echo $error_email; ?></span>
                     <?php } ?>
@@ -33,7 +33,7 @@
             </div>
             <div class="input-group">
                 <div class="label-wrapper">
-                    <label for="full_name">Ф.И.О.</label>
+                    <label for="full_name">Ф.И.О.<span class="required-mark">*</span></label>
                     <?php if(isset($error_full_name)) { ?>
                     <span class="error"><?php echo $error_full_name; ?></span>
                     <?php } ?>
@@ -42,7 +42,7 @@
             </div>
             <div class="input-group">
                 <div class="label-wrapper">
-                    <label for="birth_date">Дата рождения (к участию принимаются подростки в возрасте от 14 лет)</label>
+                    <label for="birth_date">Дата рождения (к участию принимаются подростки в возрасте от 14 лет)<span class="required-mark">*</span></label>
                     <?php if(isset($error_birth_date)) { ?>
                     <span class="error"><?php echo $error_birth_date; ?></span>
                     <?php } ?>
@@ -51,7 +51,7 @@
             </div>            
             <div class="input-group">
                 <div class="label-wrapper">
-                    <label for="city">Город проживания</label>
+                    <label for="city">Город проживания<span class="required-mark">*</span></label>
                     <?php if(isset($error_city)) { ?>
                     <span class="error"><?php echo $error_city; ?></span>
                     <?php } ?>
@@ -69,7 +69,7 @@
             </div>
             <div class="input-group">
                 <div class="label-wrapper">
-                    <label for="telephone">Номер контактного телефона</label>
+                    <label for="telephone">Номер контактного телефона<span class="required-mark">*</span></label>
                     <?php if(isset($error_telephone)) { ?>
                     <span class="error"><?php echo $error_telephone; ?></span>
                     <?php } ?>
@@ -144,7 +144,7 @@
             </div>
             <div class="input-group">
                 <div class="label-wrapper">
-                    <label for="password">Введите пароль</label>
+                    <label for="password">Введите пароль<span class="required-mark">*</span></label>
                     <?php if(isset($error_password)) { ?>
                     <span class="error"><?php echo $error_password; ?></span>
                     <?php } ?>
@@ -153,7 +153,7 @@
             </div>
             <div class="input-group">
                 <div class="label-wrapper">
-                    <label for="confirm">Повторно пароль</label>
+                    <label for="confirm">Повторно пароль<span class="required-mark">*</span></label>
                     <?php if(isset($error_confirm)) { ?>
                     <span class="error"><?php echo $error_confirm; ?></span>
                     <?php } ?>
