@@ -1,11 +1,4 @@
 <div class="navbar">
-  <!-- ul>
-    <?php foreach($navbar as $navbar_item){ ?>
-    <li>
-        <a href="<?php echo $navbar_item['href']; ?>"><?php echo $navbar_item['text']; ?></a>
-    </li>
-    <?php } ?>
-  </ul -->
   <ul>
     <li>
       <a href="#headline">Главная</a>
@@ -17,13 +10,16 @@
       <a href="#levels">Этапы</a>
     </li>
     <li>
-      <a href="#expert-jury">Экспертное жюри</a>
+      <a href="#expert-jury">Жюри</a>
     </li>
     <li>
       <a href="#teaching-session">Обучающая сессия</a>
     </li>
     <li>
       <a href="#organizer">Организатор</a>
+    </li>
+    <li>
+        <a href="<?php echo $personal_account; ?>">Личный кабинет</a>
     </li>
   </ul>
 </div>

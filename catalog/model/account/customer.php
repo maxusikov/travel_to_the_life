@@ -205,7 +205,6 @@ class ModelAccountCustomer extends Model {
         
         public function updateCustomerDataById($data) {
             $sql  = "UPDATE `" . DB_PREFIX . "customer_data` SET ";
-            $sql .= "customer_id='" . (int)$data['customer_id'] . "', ";
             $sql .= "email='" . (string)$data['email'] . "', ";
             $sql .= "full_name='" . (string)$data['full_name'] . "', ";
             $sql .= "birth_date='" . (string)$data['birth_date'] . "', ";
@@ -220,7 +219,8 @@ class ModelAccountCustomer extends Model {
             
             $sql .= "favorite_film_influence='" . (string)$data['favorite_film_influence'] . "', ";
             $sql .= "profession='" . (string)$data['profession'] . "', ";
-            $sql .= "profession_opportunities='" . (string)$data['profession_opportunities'] . "'";
+            $sql .= "profession_opportunities='" . (string)$data['profession_opportunities'] . "' ";
+            $sql .= "WHERE customer_id='" . (int)$data['customer_id'] . "'";
             
             $result = $this->db->query($sql);
             
@@ -229,6 +229,28 @@ class ModelAccountCustomer extends Model {
         
         public function getCustomerDataById($customer_id) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "customer_data` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        
+        public function getCustomerDataByEmail($customer_email) {
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_data` WHERE email='" . (string)$customer_email . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        
+        public function saveCustomerLevel1Data($level_data){
+            $sql = "INSERT INTO `" . DB_PREFIX . "customer_level_1` (customer_id, esse) VALUES('" . (int)$level_data['customer_id'] . "', '" . (string)$level_data['esse'] . "') ON DUPLICATE KEY UPDATE esse='" . (string)$level_data['esse'] . "'";
+            
+            return $this->db->query($sql);
+        }
+        
+        public function getCustomerLevel1Data($customer_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_level_1` WHERE customer_id='" . (int)$customer_id . "'";
             
             $result = $this->db->query($sql);
             

@@ -30,6 +30,8 @@ class ControllerLandingNavbar extends Controller {
                     ],
                 ];
                 
+                $data['personal_account'] = $this->url->link('account/account', true);
+                
 		return $this->load->view('landing/navbar', $data);
 	}
 }

@@ -17,22 +17,22 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="navigation-wrapper">
+      <div id="navbar" class="navigation-wrapper">
         <h2><?php echo $text_user_navbar; ?></h2>
         <ul class="list-unstyled">
-            <li><a onclick="javascript:togglePanel('profile');"><?php echo $text_my_profile; ?></a></li>
-            <!-- li><a href="<?php echo $my_projects; ?>"><?php echo $text_my_projects; ?></a></li -->
+            <li><a onclick="javascript:togglePanel('profile');" class="active"><?php echo $text_my_profile; ?></a></li>
+            <li><a onclick="javascript:togglePanel('projects');"><?php echo $text_my_projects; ?></a></li>
             <!-- li><a href="<?php echo $settings; ?>"><?php echo $text_settings; ?></a></li -->
             <!-- li><a href="<?php echo $photo; ?>"><?php echo $text_photo; ?></a></li -->
             <!-- li><a href="<?php echo $change_password; ?>"><?php echo $text_change_password; ?></a></li -->
         </ul>
 
         <ul class="list-unstyled">
-            <li><a href="<?php echo $logout; ?>">Logout</a></li>
+            <li><a href="<?php echo $logout; ?>">Выход</a></li>
         </ul>
       </div>
       <div class="content-wrapper">
-        <div id="profile" class="profile panel">
+        <div id="profile" class="profile panel active">
             <div class="form-wrapper">
                 <form action="<?php echo $action; ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="customer_id" value="<?php echo $customer_data['customer_id']; ?>" />
@@ -134,13 +134,106 @@
                         <input type="hidden" name="teacher_phone" value="<?php echo $customer_data['teacher_phone']; ?>" />
                     </div>
                     <div class="input-wrapper">
-                        <a class="button submit" onclick="javascript:$(this).closest('form').submit();">Отправить</a>
+                        <a class="button submit" onclick="javascript:$(this).closest('form').submit();">Сохранить</a>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div id="projects" class="projects panel">
+            <ul class="level-tabs">
+                <li class="level-1 active">
+                    <a onclick="toggleLevelPanel('level-1');">Этап 1</a>
+                </li>
+                <li class="level-2">
+                    <a onclick="toggleLevelPanel('level-2');">Этап 2</a>
+                </li>
+            </ul>
+            <div class="level-area">
+                <div id="level-1" class="level-wrapper active">
+                    <div class="esse-form form-wrapper">
+                        <form method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="level" value="1" />
+                            <div class="input-group textarea-group">
+                                <div class="label-wrapper">
+                                    <label for="customer-esse">Эссе</label>
+                                </div>
+                                <textarea name="customer_esse"><?php echo $customer_level_1_esse; ?></textarea>
+                            </div>
+                            <div class="input-wrapper">
+                                <a class="button submit" onclick="javascript:saveLevelData($(this));">Сохранить</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="level-2" class="level-wrapper">
+                    Этап 2 в подготовке
+                </div>
             </div>
         </div>
       </div>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
+<div id="ajax-response-info">
+    <div class="info-wrapper">
+        <div class="info-content"></div>
+    </div>
+</div>
 <?php echo $footer; ?> 
+
+<script type="text/javascript">
+    function togglePanel(panel_id){
+        var current_panel_id = $('.content-wrapper .panel.active').id;
+        
+        if (panel_id != current_panel_id) {
+            $('.content-wrapper .panel.active').removeClass('active');
+            $('.content-wrapper #' + panel_id).addClass('active');
+            
+            $('#navbar ul.list-unstyled li a.active').removeClass('active');
+            $(event.target).addClass('active');
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function toggleLevelPanel(level){
+        var current_level_panel = $('#projects .level-area .level-wrapper.active').id;
+        
+        if (level != current_level_panel) {
+            $('#projects .level-area .level-wrapper.active').removeClass('active');
+            $('#projects .level-area #' + level).addClass('active');
+            
+            $('#projects .level-tabs li.active').removeClass('active');
+            $('#projects .level-tabs li.' + level).addClass('active');
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ajaxStart(function(){
+        
+    });
+    $(document).ajaxStop(function(){
+        
+    });
+    
+    function saveLevelData(){
+        var form = $(event.target).closest('form');
+        
+        $.ajax({
+            url: '<?php echo $save_customer_level_data; ?>',
+            method: 'POST',
+            data: form.serialize(),
+            success: function(response_data){
+                var response_data = JSON.parse(response_data);
+                var response_info = $('#ajax-response-info');
+                response_info.addClass(response_data.result + ' active');
+                response_info.find('.info-content').html(response_data.info);
+                
+                setTimeout(function(){
+                    response_info.removeClass(response_data.result + ' active');
+                }, 1000);
+            }
+        });
+    }
+</script>

@@ -117,10 +117,17 @@ class ControllerAccountAccount extends Controller {
                 $data['photo'] = $this->url->link('account/photo', true);
                 $data['change_password'] = $this->url->link('account/change_password', true);
                 
+                $data['save_customer_level_data'] = $this->url->link('account/account/saveCustomerLevelData', true);
+                
+                $c_id = $this->customer->isLogged();
+                
                 $this->load->model('account/customer');
                 
-                $data['customer_data'] = $this->model_account_customer->getCustomerDataById($this->customer->isLogged());
-                                
+                $data['customer_data'] = $this->model_account_customer->getCustomerDataById($c_id);
+                
+                $customer_level_1_data = $this->model_account_customer->getCustomerLevel1Data($c_id);
+                $data['customer_level_1_esse'] = isset($customer_level_1_data['esse']) ? $customer_level_1_data['esse'] : '';
+                
                 if (isset($this->request->post['email'])) {
 			$data['email'] = (string)$this->request->post['email'];
 		} elseif (isset($this->session->data['shipping_address']['email'])) {
@@ -300,4 +307,43 @@ class ControllerAccountAccount extends Controller {
 
 		return !$this->error;
 	}
+        
+        public function saveCustomerLevelData(){
+            $this->load->model('account/customer');
+            
+            $response = [
+                'result' => 'info',
+                'info'   => 'Ничего не добавлено. Обратитесь к администратору.'
+            ];
+            
+            if (isset($this->request->post['level'])) {
+                switch ($this->request->post['level']){
+                    case 1:
+                        if (isset($this->request->post['customer_esse'])) {
+                            $levelData = [
+                                'customer_id' => $this->customer->isLogged(),
+                                'esse' => $this->request->post['customer_esse']
+                            ];
+                            
+                            if ($this->model_account_customer->saveCustomerLevel1Data($levelData)){
+                                $response['result'] = 'success';
+                                $response['info'] = 'Информация этапа №1 обновлена';
+                            };
+                        }
+                        
+                        break;
+                    
+                    case 2:
+                        break;
+                    
+                    case 3:
+                        break;
+                    
+                    case 4:
+                        break;
+                }
+            }
+            
+            echo json_encode($response);
+        }
 }

@@ -12,7 +12,7 @@ $_['text_returning_customer']      = 'Я уже зарегистрирован';
 $_['text_i_am_returning_customer'] = 'Авторизация';
 $_['text_forgotten']               = 'Забыли пароль?';
 
-$_['text_authentication']          = 'Аутентикация';
+$_['text_authentication']          = 'Вход';
 $_['text_submit']                  = 'Отправить';
 
 // Entry
