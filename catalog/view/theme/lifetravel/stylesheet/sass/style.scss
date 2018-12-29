@@ -402,16 +402,43 @@ footer {
             .container-row {
                 text-align: center;
                 justify-content: center;
-                margin: 150px auto 150px auto;
+                margin: 50px auto 150px auto;
                 
-                .ipces-logo {
-                    position: absolute;
-                    top: 20px;
-                    left: 20px;
-                    width: 130px;
+                .logos {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    
+                    .logo-wrapper {
+                        width: 350px;
+                        height: 150px;
+                        position: relative;
+                        background-color: #ffffff;
+                        border-radius: 10px;
+                        
+                        .logo {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 90%;
+
+                            &.foundation {
+
+                            }
+                            &.ipces {
+
+                            }
+                        }
+                    }
                 }
                 
-                .heading {}
+                
+                
+                .heading {
+                    margin: 100px 0px 0px 0px;
+                }
                 .heading-2 {
                     margin: 20px 0px 0px 0px;
                 }
@@ -1047,6 +1074,25 @@ footer {
     }
 }
 
+.button {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 3px 8px;
+    color: #ffffff;
+    background-color: $primary-color;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-out;
+
+    &:hover {
+        opacity: 1;
+        transition: opacity 0.3s ease-out;
+    }
+}
+
 form {
     .input-group, .input-wrapper {
         display: flex;
@@ -1083,22 +1129,7 @@ form {
     }
     
     .submit {
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        padding: 3px 8px;
-        color: #ffffff;
-        background-color: $primary-color;
-        font-size: 14px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        cursor: pointer;
-        opacity: 0.8;
-        transition: opacity 0.3s ease-out;
-
-        &:hover {
-            opacity: 1;
-            transition: opacity 0.3s ease-out;
-        }
+        
     }
 }
 
@@ -1179,6 +1210,47 @@ form {
         .info-content {
             background-color: transparent;
             transition: background-color 0.2s ease-out;
+        }
+    }
+}
+
+.account-logout, .account-success {
+    #content {
+        position: relative;
+        
+        .content-wrapper {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            .inner-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: #ffffff;
+                padding: 20px 30px;
+                border-radius: 10px;
+                border: 1px solid $primary-color;
+                
+                .heading {
+                    
+                }
+
+                .message {
+                    margin: 20px 0px 0px 0px;
+                }
+
+                .buttons {
+                    margin: 30px 0px 0px 0px;
+                }
+            }
         }
     }
 }

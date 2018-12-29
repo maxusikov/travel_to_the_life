@@ -281,12 +281,26 @@ footer {
     .landing-page .screen-container#headline .container-row {
       text-align: center;
       justify-content: center;
-      margin: 150px auto 150px auto; }
-      .landing-page .screen-container#headline .container-row .ipces-logo {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        width: 130px; }
+      margin: 50px auto 150px auto; }
+      .landing-page .screen-container#headline .container-row .logos {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between; }
+        .landing-page .screen-container#headline .container-row .logos .logo-wrapper {
+          width: 350px;
+          height: 150px;
+          position: relative;
+          background-color: #ffffff;
+          border-radius: 10px; }
+          .landing-page .screen-container#headline .container-row .logos .logo-wrapper .logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%; }
+      .landing-page .screen-container#headline .container-row .heading {
+        margin: 100px 0px 0px 0px; }
       .landing-page .screen-container#headline .container-row .heading-2 {
         margin: 20px 0px 0px 0px; }
       .landing-page .screen-container#headline .container-row .heading-dates {
@@ -688,6 +702,22 @@ footer {
             .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .submit {
               margin: 10px 0px 10px 0px; }
 
+.button {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 3px 8px;
+  color: #ffffff;
+  background-color: #d6ae75;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-out; }
+  .button:hover {
+    opacity: 1;
+    transition: opacity 0.3s ease-out; }
+
 form .input-group, form .input-wrapper {
   display: flex;
   flex-direction: row;
@@ -706,21 +736,6 @@ form .input-wrapper {
   margin: 10px 0px 0px 0px; }
   form .input-wrapper:first-child {
     margin: 0px 0px 0px 0px; }
-form .submit {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 3px 8px;
-  color: #ffffff;
-  background-color: #d6ae75;
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.3s ease-out; }
-  form .submit:hover {
-    opacity: 1;
-    transition: opacity 0.3s ease-out; }
 
 #background-container {
   position: fixed;
@@ -778,5 +793,31 @@ form .submit {
     #ajax-response-info .info-wrapper .info-content {
       background-color: transparent;
       transition: background-color 0.2s ease-out; }
+
+.account-logout #content, .account-success #content {
+  position: relative; }
+  .account-logout #content .content-wrapper, .account-success #content .content-wrapper {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+    .account-logout #content .content-wrapper .inner-wrapper, .account-success #content .content-wrapper .inner-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      border: 1px solid #d6ae75; }
+      .account-logout #content .content-wrapper .inner-wrapper .message, .account-success #content .content-wrapper .inner-wrapper .message {
+        margin: 20px 0px 0px 0px; }
+      .account-logout #content .content-wrapper .inner-wrapper .buttons, .account-success #content .content-wrapper .inner-wrapper .buttons {
+        margin: 30px 0px 0px 0px; }
 
 /*# sourceMappingURL=style.css.map */

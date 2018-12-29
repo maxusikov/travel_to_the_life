@@ -3,6 +3,14 @@
     <?php echo $navbar; ?>
     <div id="headline" class="screen-container screen-1">
         <div class="container-row">
+            <div class="logos">
+                <div class="logo-wrapper">
+                    <img class="logo foundation" src="/catalog/view/theme/lifetravel/image/theme_images/logo/grant_foundation.png" title="Фонд президентских грантов" alt="Фонд президентских грантов" />
+                </div>
+                <div class="logo-wrapper">
+                    <img class="logo ipces" src="/catalog/view/theme/lifetravel/image/theme_images/logo/_ipces_tr_BIG.png" title="IPCES production" alt="IPCES production" />
+                </div>
+            </div>
             <h2 class="heading">Проект поддержки талантливых детей в рамках<br />
                 Санкт-Петербургского международного кинофестиваля «МИРОВОЙ»</h2>
            <h1 class="heading-2">«ПУТЕВКА В ЖИЗНЬ»<br />ВАШ СТАРТ В КИНО</h1>
