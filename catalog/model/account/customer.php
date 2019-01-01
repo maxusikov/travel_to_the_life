@@ -244,7 +244,7 @@ class ModelAccountCustomer extends Model {
         }
         
         public function saveCustomerLevel1Data($level_data){
-            $sql = "INSERT INTO `" . DB_PREFIX . "customer_level_1` (customer_id, esse) VALUES('" . (int)$level_data['customer_id'] . "', '" . (string)$level_data['esse'] . "') ON DUPLICATE KEY UPDATE esse='" . (string)$level_data['esse'] . "'";
+            $sql = "INSERT INTO `" . DB_PREFIX . "customer_level_1` (customer_id, speciality_perspective, esse) VALUES('" . (int)$level_data['customer_id'] . "', '" . (string)$level_data['speciality_perspective'] . "', '" . (string)$level_data['esse'] . "') ON DUPLICATE KEY UPDATE esse='" . (string)$level_data['esse'] . "', speciality_perspective='" . (string)$level_data['speciality_perspective'] . "', film_information='" . $level_data['film_information'] . "'";
             
             return $this->db->query($sql);
         }
@@ -253,7 +253,58 @@ class ModelAccountCustomer extends Model {
             $sql = "SELECT * FROM `" . DB_PREFIX . "customer_level_1` WHERE customer_id='" . (int)$customer_id . "'";
             
             $result = $this->db->query($sql);
+
+            return $result->row;
+        }
+        
+        public function saveCustomerRepresenter($representer_data){
+            $sql  = "INSERT INTO `" . DB_PREFIX . "customer_representer` (customer_id, representer_name, representer_email, representer_phone) VALUES('" . (int)$representer_data['customer_id'] .  "', '" . (string)$representer_data['representer_name'] . "', '" . (string)$representer_data['representer_email'] . "', '" . (string)$representer_data['representer_phone'] . "') ON DUPLICATE KEY UPDATE ";
+            $sql .= "representer_name='" . (string)$representer_data['representer_name'] . "', ";
+            $sql .= "representer_email='" . (string)$representer_data['representer_email'] . "', ";
+            $sql .= "representer_phone='" . (string)$representer_data['representer_phone'] . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function getCustomerRepresenter($customer_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_representer` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
             
             return $result->row;
+        }
+        
+        public function addCustomerFile($file_data){
+            $sql = "INSERT INTO `" . DB_PREFIX . "customer_files` (customer_id, filename, purpose) VALUES('" . $file_data['customer_id'] . "', '" . $file_data['filename'] . "', '" . $file_data['purpose'] . "')";            
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function getUploadedFileById($file_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_files` WHERE file_id='"  . (int)$file_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        
+        public function deleteUploadedCustomerFIleById($file_id){
+            $sql = "DELETE FROM `" . DB_PREFIX . "` customer_files WHERE file_id='" . (int)$file_id . "'";
+            
+            $result = $thid->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function getCustomerFilesByCustomerId($customer_id, $purpose){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_files` WHERE customer_id='" . (int)$customer_id . "' AND purpose='" . (string)$purpose . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
         }
 }

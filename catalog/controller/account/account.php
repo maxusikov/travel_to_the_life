@@ -118,6 +118,8 @@ class ControllerAccountAccount extends Controller {
                 $data['change_password'] = $this->url->link('account/change_password', true);
                 
                 $data['save_customer_level_data'] = $this->url->link('account/account/saveCustomerLevelData', true);
+                $data['upload_file'] = $this->url->link('account/account/uploadLevel1File', true);
+                $data['delete_file'] = $this->url->link('account/account/deleteFile', true);
                 
                 $c_id = $this->customer->isLogged();
                 
@@ -126,7 +128,19 @@ class ControllerAccountAccount extends Controller {
                 $data['customer_data'] = $this->model_account_customer->getCustomerDataById($c_id);
                 
                 $customer_level_1_data = $this->model_account_customer->getCustomerLevel1Data($c_id);
+                $data['customer_level_1_film_information'] = isset($customer_level_1_data['film_information']) ? $customer_level_1_data['film_information'] : '';
+                $data['customer_level_1_speciality_perspective'] = isset($customer_level_1_data['speciality_perspective']) ? $customer_level_1_data['speciality_perspective'] : '';
                 $data['customer_level_1_esse'] = isset($customer_level_1_data['esse']) ? $customer_level_1_data['esse'] : '';
+                
+                $customer_representer_data = $this->model_account_customer->getCustomerRepresenter($c_id);
+                $data['customer_representer'] = [
+                    'name'  => $customer_representer_data['representer_name'],
+                    'phone' => $customer_representer_data['representer_phone'],
+                    'email' => $customer_representer_data['representer_email']
+                ];
+                
+                $customer_uploaded_files = $this->model_account_customer->getCustomerFilesByCustomerId($c_id, "level1__files");
+                $data['uploaded_files'] = $customer_uploaded_files;
                 
                 if (isset($this->request->post['email'])) {
 			$data['email'] = (string)$this->request->post['email'];
@@ -296,6 +310,14 @@ class ControllerAccountAccount extends Controller {
                     }
                 }
 
+                if(isset($this->request->post['agreement'])){
+                    echo "<br  />Error agreement test<br />";
+                    if($this->request->post['agreement'] == '0'){
+                        echo "<br  />Error agreement test<br />";
+                        $this->error['agreement'] = $this->language->get('error_agreement');
+                    }
+                }
+                
 		// Captcha
 		if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register', (array)$this->config->get('config_captcha_page'))) {
 			$captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
@@ -308,41 +330,194 @@ class ControllerAccountAccount extends Controller {
 		return !$this->error;
 	}
         
-        public function saveCustomerLevelData(){
-            $this->load->model('account/customer');
-            
-            $response = [
-                'result' => 'info',
-                'info'   => 'Ничего не добавлено. Обратитесь к администратору.'
+        public function uploadLevel1File(){
+            $response_status = [
+                'status' => 'info',
+                'info' => 'Выберите файл'
             ];
             
-            if (isset($this->request->post['level'])) {
-                switch ($this->request->post['level']){
-                    case 1:
-                        if (isset($this->request->post['customer_esse'])) {
-                            $levelData = [
-                                'customer_id' => $this->customer->isLogged(),
-                                'esse' => $this->request->post['customer_esse']
+            if (is_uploaded_file($this->request->files['attached_file']['tmp_name'])) {
+                $upload_status = true;
+                
+                $file = $this->request->files['attached_file'];
+                
+                $uploads_directory = DIR_UPLOAD;
+                
+                // Check file size
+                if ($file["size"] > 5000000) {
+                    $response_status = [
+                        'status'   => 'fail',
+                        'info'     => 'Файл слишком большой!!!(допустимый размер 5Мб)',
+                        'filename' => $file['name']
+                    ];
+                    
+                    $upload_status = false;
+                }
+                
+                if($upload_status){
+                    $c_id = $this->customer->isLogged();
+                    $customer_dir = $upload_directory . "/" . $_id;
+                    
+                    if(!is_dir($upload_directory)){
+                        mkdir($customer_directory);
+                    }
+                        
+                    $uploads_customer_directory = $customer_directory . "/" . "uploads";
+                    
+                    if(!is_dir($uploads_customer_directory)){
+                        mkdir($uploads_customer_directory);
+                    }
+                    
+                    $full_file_name = $uploads_customer_directory . "/" . $file['name'];
+                    
+                    if (move_uploaded_file($file['tmp_name'], $full_file_name)) {
+                        $file_data = [
+                            'customer_id' => $c_id,
+                            'filename'    => $file['name'],
+                            'purpose'     => 'level1__files'
+                        ];
+                    
+                        if($this->model_account_customer->addCustomerFile($file_data)){
+                            $response_status = [
+                                'status' => 'success',
+                                'info'   => 'Файл загружен успешно'
                             ];
-                            
+                        } else {
+                            $response_status = [
+                                'status' => 'fail',
+                                'info'   => 'Ошибка записи базы данных!!!'
+                            ];
+                        };
+                    } else {
+                        $response_status = [
+                            'status' => 'fail',
+                            'info'   => 'Ошибка сохранения файла!!!'
+                        ];
+                    }
+                }
+            }
+            
+            echo json_encode($response_status);
+        }     
+        
+        public function deleteFile(){
+            $response_data = [
+                'status' => 'info',
+                'info'   => 'Файл отстутствует'
+            ];
+            
+            if(isset($this->request->post['file_id'])) {
+                $file_id = $this->request->post['file_id'];
+                
+                $filedata = $this->model_account_customer->getUploadedFileById($file_id);
+                $full_filename = DIR_UPLOAD . "/" . $this->customer->isLogged() . "/" . $filedata['filename'];
+                
+                if(is_file($full_filename)){
+                    if(unlink($full_filename)) {
+                        if($this->model_account_customer->deleteUploadedCustomerFIleById($file_id)){
+                            $response_data = [
+                                'status' => 'success',
+                                'info'   => 'Файл удален успешно'
+                            ];
+                        } else {
+                            $response_data = [
+                                'status' => 'fail',
+                                'info'   => 'Ощибка удаления файла из БД!!!'
+                            ];
+                        };
+                    } else {
+                        $response_data = [
+                            'status' => 'fail',
+                            'info'   => 'Ощибка удаления файла!!!'
+                        ];
+                    }
+                } else {
+                    $response_data = [
+                        'status' => 'info',
+                        'info'   => 'Файл не существует'
+                    ];
+                }
+                
+                if ($this->model_account_customer->deleteUploadedFile($file_id)){
+                    $response_data = [
+                        'status' => 'success',
+                        'info'   => 'Файл успешно удален'
+                    ];
+                } else {
+                    $response_data = [
+                        'status' => 'fail',
+                        'info'   => 'Ошибка удаления файла'
+                    ];
+                };
+            }
+            
+            echo json_encode($response_data);
+        }
+        
+        public function saveCustomerLevelData(){
+            $this->load->language('account/account');
+            
+            if(isset($this->request->post['agreement']) && $this->request->post['agreement'] == '1'){
+                $this->load->model('account/customer');
+            
+                $response = [
+                    'result' => 'info',
+                    'info'   => 'Ничего не добавлено. Обратитесь к администратору.'
+                ];
+
+                if (isset($this->request->post['level'])) {
+                    switch ($this->request->post['level']){
+                        case 1:
+                            $levelData = [
+                                'customer_id'            => $this->customer->isLogged(),
+                                'speciality_perspective' => isset($this->request->post['speciality_perspective']) ? $this->request->post['speciality_perspective'] : '',
+                                'esse'                   => isset($this->request->post['customer_esse']) ? $this->request->post['customer_esse'] : '',
+                                'film_information'       => isset($this->request->post['film_information']) ? $this->request->post['film_information'] : ''
+                            ];
+
                             if ($this->model_account_customer->saveCustomerLevel1Data($levelData)){
                                 $response['result'] = 'success';
                                 $response['info'] = 'Информация этапа №1 обновлена';
+
+                                $customer_representer_data = [
+                                    'customer_id' => $this->customer->isLogged(),
+                                    'representer_name' => isset($this->request->post['parent']['name']) ? $this->request->post['parent']['name'] : '',
+                                    'representer_email' => isset($this->request->post['parent']['email']) ? $this->request->post['parent']['email'] : '',
+                                    'representer_phone' => isset($this->request->post['parent']['phone']) ? $this->request->post['parent']['phone'] : '',
+                                ];
+
+                                if ($this->model_account_customer->saveCustomerRepresenter($customer_representer_data)) {
+                                    $response['result'] = 'success';
+                                    $response['info'] = 'Информация этапа №1 обновлена';
+                                }else {
+                                    $response['result'] = 'fail';
+                                    $response['info'] = 'Информация этапа №1 не обновлена';
+                                };
+                            } else {
+                                $response['result'] = 'fail';
+                                $response['info'] = 'Информация этапа №1 не обновлена';
                             };
-                        }
-                        
-                        break;
-                    
-                    case 2:
-                        break;
-                    
-                    case 3:
-                        break;
-                    
-                    case 4:
-                        break;
+                            break;
+
+                        case 2:
+                            break;
+
+                        case 3:
+                            break;
+
+                        case 4:
+                            break;
+                    }
                 }
+            } else {
+                $response = [
+                    'result'  => 'fail',
+                    'info'    => $this->language->get('error_agreement'),
+                    'anchor'  => '#agreement',
+                    'timeout' => '10000'
+                ];
             }
+            
             
             echo json_encode($response);
         }

@@ -151,16 +151,96 @@
             <div class="level-area">
                 <div id="level-1" class="level-wrapper active">
                     <div class="esse-form form-wrapper">
-                        <form method="POST" enctype="multipart/form-data">
+                        <form id="data-form" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="level" value="1" />
+                            <span class="form-heading">Заполните анкету и выполните творческое задание</span>
                             <div class="input-group textarea-group">
                                 <div class="label-wrapper">
-                                    <label for="customer-esse">Эссе</label>
+                                    <label for="speciality_perspective">Почему считаете для себя перспективным получение образования в выбранной и указанной Вами специальности?</label>
                                 </div>
-                                <textarea name="customer_esse"><?php echo $customer_level_1_esse; ?></textarea>
+                                <textarea id="speciality_perspective" name="speciality_perspective"><?php echo $customer_level_1_speciality_perspective; ?></textarea>
                             </div>
+                            
+                            
+                            
+                            <!-- div id="uploaded-files" class="uploaded_files">
+                                <div class="input-group textarea-group">
+                                    <div class="label-wrapper">
+                                        <label for="portfolio-file">Здесь Вы можете прикрепить файл с Вашими работами или документами.</label>
+                                    </div>
+                                </div>
+                                <h3>Загруженные файлы:</h3>
+                                <ul class="files_list">
+                                  <?php if($uploaded_files){ ?>
+                                    <li class="headings">
+                                        <span class="filename">Имя файла</span>
+                                        <span class="actions">Действия</span>
+                                    </li>
+                                    <?php foreach ($uploaded_files as $file){ ?>
+                                    <li class="list-item">
+                                        <input class="file-id" type="hidden" name="file_id" value="<?php echo $file['file_id']; ?>" />
+                                        <span class="filename"><?php echo $file['filename']; ?></span>
+                                        <div class="actions">
+                                            <a onclick="button" onclick="javascript:removeUploadedFile($(this).closest('.list-item'));">Удалить файл</a>
+                                        </div>
+                                    </li>
+                                    <?php } ?>
+                                  <?php } else { ?>
+                                    <li class="empty">Не загружено ни одного файла</li>
+                                  <?php } ?>
+                                  <li id="upload-portfolio-file-container" class="upload-file-row upload-file-container" style="border: 2px solid red;">
+                                    <input id="portfolio-file" type="file" name="attached_file" value="" />
+                                    <input id="portfolio-file2" type="text" name="attached_file_text" value="" />
+                                    <a class="button" onclick="javascript:uploadFile($(this).closest('form'));">Загрузить</a>
+                                  </li>
+                                </ul>
+                            </div -->
+                            
+                            
+                            <div class="input-group textarea-group">
+                                <div class="label-wrapper">
+                                    <label for="customer-esse">Напишите эссе (сценарий) короткометражного документального фильма о Родном Крае (Владимирская область).</label>
+                                </div>
+                                <textarea id="customer-esse" name="customer_esse"><?php echo $customer_level_1_esse; ?></textarea>
+                            </div>
+                            <div class="input-group textarea-group">
+                                <div class="label-wrapper">
+                                    <label for="film-information">Как бы Вы его сняли и как Вы его видите. Какие сюжеты, места или люди войдут в этот фильм. Какую музыку Вы будете использовать в фильме и т.д.)</label>
+                                </div>
+                                <textarea id="film-information" name="film_information"><?php echo $customer_level_1_film_information; ?></textarea>
+                            </div>
+                            
+                            <div class="parent-area">
+                                <span class="parent-area-heading">Информация о родителе/законном представителе (для несовершеннолетних)</span>
+                                <div class="input-group">
+                                    <div class="label-wrapper">
+                                        <label for="parent-name">Фамилия, имя, отчество (полностью)</label>
+                                    </div>
+                                    <input id="parent-name" type="text" name="parent[name]" value="<?php echo $customer_representer['name'] ;?>" />
+                                </div>
+                                <div class="input-group">
+                                    <div class="label-wrapper">
+                                        <label for="parent-phone">Контактный телефон</label>
+                                    </div>
+                                    <input id="parent-phone" type="tel" name="parent[phone]" value="<?php echo $customer_representer['phone']; ?>" />
+                                </div>
+                                <div class="input-group">
+                                    <div class="label-wrapper">
+                                        <label for="parent-email">E-mail</label>
+                                    </div>
+                                    <input id="parent-email" type="email" name="parent[email]" value="<?php echo $customer_representer['email']; ?>" />
+                                </div>
+                            </div>
+                            
                             <div class="input-wrapper">
                                 <a class="button submit" onclick="javascript:saveLevelData($(this));">Сохранить</a>
+                            </div>
+                            <div class="input-wrapper agreement-area">
+                                <input id="agreement" type="hidden" name="agreement" value="0" />
+                                <a class="checkbox" onclick="javascript:toggleAgreement();">
+                                    <span class="check"></span>
+                                </a>
+                                <label for="agreement" class="attention"><a onclick="javascript:toggleAgreement();"><h3>Отправляя из данной формы, созданные мной материалы, я даю согласие на подписание Договора на отчуждение исключительных прав.</h3></a></label>
                             </div>
                         </form>
                     </div>
@@ -225,6 +305,72 @@
             method: 'POST',
             data: form.serialize(),
             success: function(response_data){
+                console.log("1: ", response_data);
+                var response_data = JSON.parse(response_data);
+                var response_info = $('#ajax-response-info');
+                response_info.addClass(response_data.result + ' active');
+                response_info.find('.info-content').html(response_data.info);
+                
+                $('#ajax-response-info').click(function(){
+                    $(this).removeClass(response_data.result + ' active');
+                });
+               
+                var timeout = (response_data.timeout) ? response_data.timeout : 1000;
+                setTimeout(function(){
+                    response_info.removeClass(response_data.result + ' active');
+                }, timeout);
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    function uploadFile(file_container){
+        var form = $('#data-form');
+        
+        $.ajax({
+            url: '<?php echo $upload_file; ?>',
+            method: "POST",
+            dataType: 'json',
+            enctype: 'multipart/form-data',
+            data: form.serialize(),
+            crossDomain: true,
+            beforeSend: function(xhr, obj){
+                console.log("BS xhr: ", xhr);
+                console.log("BS obj:", obj);
+            },
+            success: function(response_data){
+                var response_data = JSON.parse(response_data);
+                var list_container = $('#uploaded-files');
+                
+                var response_info = $('#ajax-response-info');
+                response_info.addClass(response_data.result + ' active');
+                response_info.find('.info-content').html(response_data.info);
+                
+                var timeout = (response_data.timeout) ? response_data.timeout : 1000;
+                
+                setTimeout(function(){
+                    response_info.removeClass(response_data.result + ' active');
+                }, timeout);
+            },
+            error:function(xhr){
+                console.log("Error: ", xhr);
+            }
+        });
+    }
+    
+    function removeUploadedFile(file_container){
+        var file_id = file_container.find('.file-id').val();
+        
+        $.ajax({
+            url: '<?php echo $delete_file; ?>',
+            method: "POST",
+            enctype: 'multipart/form-data',
+            dataType: 'json',
+            data: {
+                file_id: file_id
+            },
+            success: function(response_data){
                 var response_data = JSON.parse(response_data);
                 var response_info = $('#ajax-response-info');
                 response_info.addClass(response_data.result + ' active');
@@ -236,4 +382,26 @@
             }
         });
     }
+</script>
+
+<script type="text/javascript">
+    function toggleAgreement(){
+        var agreement = $('#agreement');
+        var agreement_area = agreement.closest('.agreement-area');
+        var is_agree = agreement.val();
+        
+        if(is_agree == '1'){
+            agreement_area.find('a.checkbox').removeClass('checked');
+            $(agreement).val('0');
+        } else {
+            agreement_area.find('a.checkbox').addClass('checked');
+            $(agreement).val('1');
+        }
+    }
+</script>
+
+<script type="text/javscript">
+    $(document).ready(function(){
+        document.scrollTop(0);
+    });
 </script>

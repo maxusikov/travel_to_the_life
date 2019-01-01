@@ -177,11 +177,11 @@
                     </div>
                 </li>
                 <li>
-                    <img class="jury-photo" src="/catalog/view/theme/lifetravel/image/theme_images/jury/gurnitskaya.jpg" alt="Гурницкая Ирина Александровна" title="Гурницкая Ирина Александровна" />
+                    <img class="jury-photo" src="/catalog/view/theme/lifetravel/image/theme_images/jury/gurn.jpg" alt="Гурницкая Ирина Александровна" title="Гурницкая Ирина Александровна" />
                     <div class="jury-info-wrapper">
                         <span class="jury-position">Руководитель программы «Путевка в жизнь»</span>
                         <span class="jury-name">Гурницкая Ирина Александровна</span>
-                        <span class="jury-description">Генеральный директор АНО " Агентство по международным проектам в области культуры, образования и спорта"</span>
+                        <span class="jury-description">Генеральный директор АНО "Агентство по международным проектам в области культуры, образования и спорта"</span>
                     </div>
                 </li>
                 <li>
