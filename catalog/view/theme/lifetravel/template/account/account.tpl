@@ -34,7 +34,7 @@
       <div class="content-wrapper">
         <div id="profile" class="profile panel active">
             <div class="form-wrapper">
-                <form action="<?php echo $action; ?>" method="POST" enctype="multipart/form-data">
+                <form id="profile-form" action="<?php echo $action; ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="customer_id" value="<?php echo $customer_data['customer_id']; ?>" />
                     <div class="input-wrapper">
                         <div class="label-wrapper">
@@ -134,7 +134,7 @@
                         <input type="hidden" name="teacher_phone" value="<?php echo $customer_data['teacher_phone']; ?>" />
                     </div>
                     <div class="input-wrapper">
-                        <a class="button submit" onclick="javascript:$(this).closest('form').submit();">Сохранить</a>
+                        <a class="button submit" onclick="javascript:saveProfileData();">Сохранить</a>
                     </div>
                 </form>
             </div>
@@ -339,6 +339,35 @@
     $(document).ajaxStop(function(){
         $('#preloader').removeClass('active');
     });
+    
+    function saveProfileData(){
+        var form = $('#profile-form');
+        
+        $.ajax({
+            url: '<?php echo $save_profile_data; ?>',
+            method: 'POST',
+            enctype: 'multipart/form-data',
+            data: form.serialize(),
+            success: function(response_data){
+                var response_data = JSON.parse(response_data);
+                var response_info = $('#ajax-response-info');
+                response_info.addClass(response_data.result + ' active');
+                response_info.find('.info-content').html(response_data.info);
+                
+                $('#ajax-response-info').click(function(){
+                    $(this).removeClass(response_data.result + ' active');
+                });
+               
+                var timeout = (response_data.timeout) ? response_data.timeout : 1000;
+                setTimeout(function(){
+                    response_info.removeClass(response_data.result + ' active');
+                }, timeout);
+            },
+            error: function(xhr){
+                console.log("Request error: ", xhr);
+            }
+        });
+    }
     
     function saveLevelData(){
         var form = $(event.target).closest('form');

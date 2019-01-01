@@ -227,6 +227,18 @@ class ModelAccountCustomer extends Model {
             return $result;
         }
         
+        public function saveProfileData($profile_data){
+            $sql  = "UPDATE `" . DB_PREFIX . "customer_data` SET ";
+            $sql .= "city='" . (string)$profile_data['city'] . "', ";
+            $sql .= "telephone='" . (string)$profile_data['telephone'] . "', ";
+            $sql .= "study_place='" . (string)$profile_data['study_place'] . "' ";
+            $sql .= "WHERE customer_id='" . (int)$profile_data['customer_id'] . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
         public function getCustomerDataById($customer_id) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "customer_data` WHERE customer_id='" . (int)$customer_id . "'";
             

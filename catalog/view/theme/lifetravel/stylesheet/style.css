@@ -600,7 +600,6 @@ footer {
     flex: 1; }
 .account-account .panel {
   flex: 1;
-  display: flex;
   flex-direction: row;
   padding: 0px 0px 0px 0px;
   display: none;
@@ -632,10 +631,12 @@ footer {
       .account-account .panel#profile .form-wrapper form .submit {
         margin: 20px auto 20px; }
   .account-account .panel#projects {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start; }
+    .account-account .panel#projects.active {
+      display: flex; }
     .account-account .panel#projects .level-tabs {
       display: flex;
       flex-direction: row;

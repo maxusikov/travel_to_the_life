@@ -117,6 +117,7 @@ class ControllerAccountAccount extends Controller {
                 $data['photo'] = $this->url->link('account/photo', true);
                 $data['change_password'] = $this->url->link('account/change_password', true);
                 
+                $data['save_profile_data'] = $this->url->link('account/account/saveProfileData', true);
                 $data['save_customer_level_data'] = $this->url->link('account/account/saveCustomerLevelData', true);
                 $data['upload_file'] = $this->url->link('account/account/uploadLevel1File', true);
                 $data['delete_file'] = $this->url->link('account/account/deleteFile', true);
@@ -379,18 +380,18 @@ class ControllerAccountAccount extends Controller {
                     
                         if($this->model_account_customer->addCustomerFile($file_data)){
                             $response_status = [
-                                'status' => 'success',
+                                'result' => 'success',
                                 'info'   => 'Файл загружен успешно'
                             ];
                         } else {
                             $response_status = [
-                                'status' => 'fail',
+                                'result' => 'fail',
                                 'info'   => 'Ошибка записи базы данных!!!'
                             ];
                         };
                     } else {
                         $response_status = [
-                            'status' => 'fail',
+                            'result' => 'fail',
                             'info'   => 'Ошибка сохранения файла!!!'
                         ];
                     }
@@ -402,7 +403,7 @@ class ControllerAccountAccount extends Controller {
         
         public function deleteFile(){
             $response_data = [
-                'status' => 'info',
+                'result' => 'info',
                 'info'   => 'Файл отстутствует'
             ];
             
@@ -452,6 +453,34 @@ class ControllerAccountAccount extends Controller {
             }
             
             echo json_encode($response_data);
+        }
+        
+        public function saveProfileData(){
+            $response = [];
+            
+            $this->load->language('account/account');
+            $this->load->model('account/customer');
+            
+            $profile_data = [
+                'customer_id' => $this->customer->isLogged(),
+                'city'        => isset($this->request->post['city']) ? $this->request->post['city'] : '',
+                'study_place' => isset($this->request->post['study_place']) ? $this->request->post['study_place'] : '',
+                'telephone'   => isset($this->request->post['telephone']) ? $this->request->post['telephone'] : ''
+            ];
+            
+            if($this->model_account_customer->saveProfileData($profile_data)){
+                $response = [
+                    'result' => 'success',
+                    'info'   => 'Профиль сохранен успешно'
+                ];
+            } else {
+                $response = [
+                    'result' => 'fail',
+                    'info'   => 'Профиль не сохранен!!!'
+                ];
+            };
+            
+            echo json_encode($response);
         }
         
         public function saveCustomerLevelData(){

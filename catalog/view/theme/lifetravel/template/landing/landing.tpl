@@ -200,6 +200,14 @@
                         <span class="jury-description">Ведущий менеджер по работе с партнерами АНО " Агентство по международным проектам в области культуры, образования и спорта"</span>
                     </div>
                 </li>
+                <li>
+                    <img class="jury-photo" src="/catalog/view/theme/lifetravel/image/theme_images/jury/karina_gurnitskaya.jpg" alt="Карина Гурницкая" title="Карина Гурницкая" />
+                    <div class="jury-info-wrapper">
+                        <span class="jury-position">Координатор программы «Путевка в жизнь»</span>
+                        <span class="jury-name">Карина Гурницкая</span>
+                        <span class="jury-description"></span>
+                    </div>
+                </li>
             </ul>
             <a href="" class="detailed-link">Подробнее...</a>
         </div>

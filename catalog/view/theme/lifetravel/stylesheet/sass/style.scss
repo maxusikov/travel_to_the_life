@@ -910,7 +910,6 @@ footer {
     
     .panel {
         flex: 1;
-        display: flex;
         flex-direction: row;
         padding: 0px 0px 0px 0px;
         display: none;
@@ -967,10 +966,14 @@ footer {
         }
         
         &#projects {
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: stretch;
             justify-content: flex-start;
+            
+            &.active {
+                display: flex;
+            }
             
             .level-tabs {
                 display: flex;

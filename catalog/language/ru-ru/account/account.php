@@ -26,7 +26,7 @@ $_['text_user_navbar']      = 'Меню пользователя';
 $_['text_manual_materials'] = 'Меню пользователя';
 
 $_['text_my_profile']      = 'Мой профиль';
-$_['text_my_projects']     = 'Мои проекты';
+$_['text_my_projects']     = 'Мои этапы';
 $_['text_settings']        = 'Настройки';
 $_['text_photo']           = 'Сменить фото';
 $_['text_change_password'] = 'Сменить пароль';
