@@ -1201,13 +1201,14 @@ form {
             }
         }
         
-        input {
+        input, input:not(.browser-default) {
             width: 200px;
             margin: 0px 0px 0px 20px;
-            padding: 2px 5px;
+            padding: 5px 10px;
             border-radius: 8px;
             border: 1px solid #d6ae75;
             outline: none;
+            height: auto;
         }
     }
     
@@ -1264,6 +1265,7 @@ form {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    background-color: rgba(255, 255, 255, 0.75);
     display: flex;
     opacity: 0;
     height: 0px;
@@ -1349,5 +1351,36 @@ form {
                 }
             }
         }
+    }
+}
+
+#preloader {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+    display: none;
+    
+    &.active {
+        display: flex;
+    }
+    
+    .preloader-wrapper {
+        width: 50px;
+        height: 50px;
+    } 
+}
+
+/* Maetrialize fixes */
+@media only screen and (min-width: 993px){
+    .container {
+        width: 100%;
     }
 }

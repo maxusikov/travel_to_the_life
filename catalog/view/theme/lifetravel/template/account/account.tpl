@@ -259,6 +259,49 @@
         <div class="info-content"></div>
     </div>
 </div>
+<div id="preloader">
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+</div>
 <?php echo $footer; ?> 
 
 <script type="text/javascript">
@@ -291,10 +334,10 @@
 
 <script type="text/javascript">
     $(document).ajaxStart(function(){
-        
+        $('#preloader').addClass('active');
     });
     $(document).ajaxStop(function(){
-        
+        $('#preloader').removeClass('active');
     });
     
     function saveLevelData(){
@@ -400,8 +443,8 @@
     }
 </script>
 
-<script type="text/javscript">
+<script type="text/javascript">
     $(document).ready(function(){
-        document.scrollTop(0);
+        $(document).scrollTop(0);
     });
 </script>

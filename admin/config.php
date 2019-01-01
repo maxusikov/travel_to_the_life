@@ -26,6 +26,6 @@ define('DB_DRIVER', 'mysqli');
 define('DB_HOSTNAME', 'localhost');
 define('DB_USERNAME', 'lifetravel');
 define('DB_PASSWORD', 'lifetravel');
-define('DB_DATABASE', 'travel_to_the_life');
+define('DB_DATABASE', 'host1728731');
 define('DB_PORT', '3306');
 define('DB_PREFIX', 'oc_');

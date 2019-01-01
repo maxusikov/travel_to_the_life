@@ -27,10 +27,13 @@
 <?php } ?>
 <meta property="og:site_name" content="<?php echo $name; ?>" />
 <script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="catalog/view/javascript/materialize-v1.0.0/materialize/js/materialize.min.js" type="text/javascript"></script>
 <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
 <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="catalog/view/javascript/materialize-v1.0.0/materialize/css/materialize.min.css" rel="stylesheet">
+
 <link href="catalog/view/theme/lifetravel/stylesheet/stylesheet.css" rel="stylesheet">
 <link href="catalog/view/theme/lifetravel/stylesheet/style.css" rel="stylesheet">
 <?php foreach ($styles as $style) { ?>
