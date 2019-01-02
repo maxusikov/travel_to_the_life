@@ -195,6 +195,8 @@ class ControllerSettingSetting extends Controller {
 		$data['entry_sms_copy'] = $this->language->get('entry_sms_copy');
 		$data['entry_status'] = $this->language->get('entry_status');
 
+                $data['entry_registration_end_date'] = $this->language->get('entry_registration_end_date');
+                
 		$data['help_geocode'] = $this->language->get('help_geocode');
 		$data['help_open'] = $this->language->get('help_open');
 		$data['help_comment'] = $this->language->get('help_comment');
@@ -607,6 +609,12 @@ class ControllerSettingSetting extends Controller {
 			$data['config_location'] = array();
 		}
 
+                if (isset($this->request->post['config_registration_end_date'])) {
+			$data['config_registration_end_date'] = $this->request->post['config_registration_end_date'];
+		} else {
+			$data['config_registration_end_date'] = $this->config->get('config_registration_end_date');
+		}
+                
 		if (isset($this->request->post['config_country_id'])) {
 			$data['config_country_id'] = $this->request->post['config_country_id'];
 		} else {

@@ -16,15 +16,26 @@
            <h1 class="heading-2">«ПУТЕВКА В ЖИЗНЬ»<br />ВАШ СТАРТ В КИНО</h1>
            <h3 class="heading-dates">ноябрь 2018 - июнь 2020</h3>
            <a href="<?php echo $registration; ?>" class="registration-link">Регистрация</a>
-           <!-- span class="timer-heading">До окончания регистрации осталось</span>
-           <span class="timer">1 дней 05 часов 18 минут 20 секунд</span -->
+           <?php if(isset($registration_end_date)){ ?>
+           <span class="registration-end-date">до <?php echo $registration_end_date; ?></span>
+           <?php } ?>
         </div>
     </div>
 
     <div id="program-description" class="screen-container screen-2">
         <div class="container-row">
-            <h2>«Путевка в жизнь» -<br />программа для подростков, <br />обладающих желанием и способностями<br />к обретению творческих специальностей <br />в сфере киноискусства.</h2>
-            <a class="detailed-link" onclick="javascript:$(this).closest('.container-row').find('.detailed-text').toggleClass('active');">Подробнее...</a>
+            <div class="top-area">
+                <div class="left-side">
+                    <h2 class="heading">«Путевка в жизнь» -<br />программа для подростков, <br />обладающих желанием и способностями<br />к обретению творческих специальностей <br />в сфере киноискусства.</h2>
+                    <a class="detailed-link" onclick="javascript:$(this).closest('.container-row').find('.detailed-text').toggleClass('active');">Подробнее...</a>
+                </div>
+                <div class="right-side">
+                    <div class="video">
+                        <iframe width="789" height="444" src="https://www.youtube.com/embed/WqTbsH4tFkE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <a href="<?php echo $registration; ?>" class="registration-link">Регистрация</a>
+                </div>
+            </div>
             <div class="detailed-text">
                 Программа «Путёвка в жизнь» проводится в рамках Санкт-Петербургского международного кинофестиваля «Мировой» и поможет талантливым детям-подросткам 14-18 лет из всех регионов РФ определиться в вопросе выбора профессии и реализации себя в сфере кинопроизводства. 
 Первый этап программы «Путёвка в жизнь» стал победителем конкурса Фонда президентских грантов и проводится во Владимирской области с 21.11.2018 по 31.03.2018.
@@ -52,12 +63,12 @@
                  с 01.01.2019 00:01 появляется красным надпись: «Регистрация завершена»</span -->
                             </li>
                             <li class="item slide level level-2">
-                                <span>Напишите эссе (сценарий) и ответьте развернуто на несколько вопросов в Вашем Личном кабинете =></span>
-                                <span>Получите оценку Экспертного Жюри и приглашение для участия во Втором этапе программы «Путевка в жизнь»</span>
+                                <span class="text-line-1">Напишите эссе (сценарий) и ответьте развернуто на несколько вопросов в <a href="<?php echo $personal_account; ?>" class="personal-account-link">Вашем Личном кабинете</a></span>
+                                <span class="text-line-2">Получите оценку <a href="#expert-jury" class="expert-jury-link">Экспертного Жюри</a> и приглашение для участия во Втором этапе программы «Путевка в жизнь»</span>
                                 <a class="detailed-link" onclick="javascript:$(this).closest('.level').find('.detailed-text').toggleClass('active');">Подробнее...</a>
                                 <span class="detailed-text">
-                                    До 09.01.2019 (дату можно менять) включительно зарегистрировавшиеся Участники Первого этапа программы «Путевка в жизнь» выполняют творческое задание – написание эссе-сценария короткометражного документального фильма о Родном Крае (Владимирская область, один из городов области, любимое место, интересный случай или история, связанные с Владимирской областью и т.п.). Участникам нужно написать, каким они видят фильм и как хотели бы его снять, какие сюжеты, места или люди войдут в этот фильм, какую музыку предполагают использовать в фильме и т.д.  
-    Участники отправляют готовый сценарий через Личный кабинет (гиперссылка) и ожидают оценку Жюри (гиперссылка).
+                                    До 20.01.2019 включительно зарегистрировавшиеся Участники Первого этапа программы «Путевка в жизнь» выполняют творческое задание – написание эссе-сценария короткометражного документального фильма о Родном Крае (Владимирская область, один из городов области, любимое место, интересный случай или история, связанные с Владимирской областью и т.п.). Участникам нужно написать, каким они видят фильм и как хотели бы его снять, какие сюжеты, места или люди войдут в этот фильм, какую музыку предполагают использовать в фильме и т.д.  
+                                    Участники отправляют готовый сценарий через <a href="<?php echo $personal_account; ?>" class="personal-account-link">Личный кабинет</a> и ожидают оценку <a href="#expert-jury" class="expert-jury-link">Жюри</a>.
     После проверки работ выставленные Оценки отображаются в Личном кабинете Участников.
     В личном кабинете Участников, которые прошли во Второй этап, появится надпись: «Победитель Этапа 1» и откроется Доступ к участию в «Этап 2».
     По итогам конкурса 500 лучших Участников будут приглашены на Второй этап программы
@@ -74,8 +85,8 @@
                                     Сессия пройдет в большом зале ГТК «Суздаль». Участники послушают профессоров ВГИКа и зададут интересующие вопросы лекторам. В Программу этого дня войдут мастер-классы, обучающие фильмы, интервью и подготовленные учебные материалы. 
                                     Завершит образовательную сессию тестирование на профориентацию в сфере кино. Результаты тестов будут собраны и отправлены для обработки и оценки специалистам. Все участники получат рекомендации, в какой специальности они наилучшим образом могут реализовать свои способности. Участники получат комплекты с информационными и учебными материалами, которые помогут узнать, как и где получить выбранное образование и подготовиться к поступлению. 
                                     Все участники Второго этапа получат сертификаты о прохождении обучающей сессии и подарки. Молодые люди, набравшие наибольшее количество баллов по результатам двух этапов, получат право на участие в Третьем этапе.
-                                    Дата проведения обучающей сессии: 20.01 2019 
-                                    Место проведения: ГТК «Суздаль» (г. Суздаль, Владимирская область)
+                                    <br />Дата проведения обучающей сессии: 30.01 2019
+                                    <br />Место проведения: ГТК «Суздаль» (г. Суздаль, Владимирская область)
                                 </span>
                             </li>
                             <li class="item slide level level-4">
@@ -98,8 +109,8 @@
                                 <h3 class="slide-heading">Финальный этап программы</h3>
                                 <span>Станьте победителем Программы в своем регионе и примите участие в Санкт-Петербургском международном кинофестивале «Мировой»</span>
                                 <a class="detailed-link" onclick="javascript:$(this).closest('.level').find('.detailed-text').toggleClass('active');">Подробнее...</a>
-                                <span class="detailed-text">Участники, прошедший в финальный Четвертый этап Программы, будут приглашены на Санкт-Петербургский международный кинофестиваль «Мировой», где пройдут 8-дневный обучающий курс-интенсив. 
-                                    Также участники образовательного интенсива будут участвовать во всех мероприятиях фестиваля:
+                                <span class="detailed-text">Участники, прошедший в финальный Четвертый этап Программы, будут приглашены на Санкт-Петербургский международный кинофестиваль «Мировой», где пройдут 8-дневный обучающий курс-интенсив и                                      
+                                    будут участвовать во всех мероприятиях фестиваля:
                                     <ul class="level-steps">
                                         <li>просмотре фильмов внеконкурсной программы;</li>
                                         <li>открытых уроках и мастер-классах известных кинематографистов;</li>
@@ -220,7 +231,15 @@
                 <li class="session-point">
                     <span class="session-date">Дата проведения обучающей сессии: 20.01 2019 </span>
                     <span class="session-location">Место проведения: ГТК «Суздаль» ( Владимирская область, город Суздаль, улица Коровники 45)</span>
-                    <span class="session-program">Программа сессии: <a href="" class="detailed-link">Подробнее...</a></span>
+                    <!-- span class="session-program">Программа сессии: <a href="" class="detailed-link">Подробнее...</a></span -->
+                    <div class="locations">
+                        <div class="map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2206.1671691760266!2d40.42553381603327!3d56.43041784699306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x414c8ca95bde6445%3A0x661ba621eca3abe8!2sGtk+Suzdal!5e0!3m2!1sen!2sua!4v1546399160577" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                        <div class="photo">
+                            <img src="/catalog/view/theme/lifetravel/image/theme_images/address_map_1.jpg" alt="ГТК «Суздаль»" title="ГТК «Суздаль»" />
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -231,11 +250,15 @@
             <h3 class="screen-heading">Организатор и инициатор программы 
                 <a class="" href="https://www.ipces-production.com/">Автономная некоммерческая организация «Агентство по международным проектам в области культуры, образования и спорта» (IPCES PRODUCTION)</a>
             </h3>
-            <span class="">Реализует проекты на территории РФ и за рубежом с 2008 года при поддержке МИД РФ.</span>
-
+            <span class="sub-heading">Реализует проекты на территории РФ и за рубежом с 2008 года.</span>
+            <span class="sub-heading">Программа "Путевка в жизнь" реализуется при финансовой поддержке:</span>
             <div class="logos">
-                <img class="logo logo-foundation" src="/catalog/view/theme/lifetravel/image/theme_images/logo/grant_foundation.png" alt="Фонд президентских грантов" title="Фонд президентских грантов" />
-                <img class="logo ipces-logo" src="/catalog/view/theme/lifetravel/image/theme_images/logo/_ipces_tr_BIG.png" title="IPCES" alt="IPCES" />
+                <div class="logo logo-foundation">
+                    <img class="" src="/catalog/view/theme/lifetravel/image/theme_images/logo/grant_foundation.png" alt="Фонд президентских грантов" title="Фонд президентских грантов" />
+                </div>
+                <div class="logo ipces-logo">
+                    <img class="" src="/catalog/view/theme/lifetravel/image/theme_images/logo/_ipces_tr_BIG.png" title="IPCES" alt="IPCES" />
+                </div>
             </div>
             <span class="assistance-heading">При поддержке:</span>
             <div class="logo-carousel-wrapper">
@@ -248,6 +271,9 @@
                     </div>
                     <div class="carousel-item">
                         <img class="carousel-item-image" src="/catalog/view/theme/lifetravel/image/theme_images/logo/lenfilm_logo.png" alt="Ленфильм" title="Ленфильм" />
+                    </div>
+                    <div class="carousel-item">
+                        <img class="carousel-item-image" src="/catalog/view/theme/lifetravel/image/theme_images/logo/gosduma_logo.jpg" alt="Государственная дума РФ" title="Государственная дума РФ" />
                     </div>
                     <div class="carousel-item">
                         <img class="carousel-item-image" src="/catalog/view/theme/lifetravel/image/theme_images/logo/nevafilm_logo.png" alt="Невафильм" title="Невафильм" />

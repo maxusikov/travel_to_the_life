@@ -18,10 +18,10 @@ html {
   scroll-behavior: smooth; }
 
 body {
-  font-family: 'AvertaDemoPE';
+  font-family: Calibri, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #795348; }
+  color: #543329; }
 
 header {
   display: none; }
@@ -127,7 +127,10 @@ footer {
           width: 100%;
           height: 100%; }
         .carousel-slideshow .visible-area ul.slides-container li.item a {
-          display: block; }
+          display: block;
+          cursor: pointer; }
+          .carousel-slideshow .visible-area ul.slides-container li.item a.registration-link {
+            text-align: center; }
           .carousel-slideshow .visible-area ul.slides-container li.item a img {
             display: block;
             width: 100%;
@@ -160,8 +163,10 @@ footer {
       width: 100%;
       transform: translateY(-50%);
       display: flex;
-      justify-content: space-between; }
+      justify-content: space-between;
+      pointer-events: none; }
       .carousel-slideshow .controls .direction-arrows .arrow {
+        pointer-events: auto;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -188,6 +193,33 @@ footer {
           transform: rotateZ(135deg);
           margin: 0px 5px 0px 0px; }
 
+.registration-link {
+  width: 450px;
+  text-transform: uppercase;
+  color: #02006d;
+  font-size: 50px;
+  line-height: 50px;
+  font-weight: 400;
+  cursor: pointer;
+  margin: 40px auto 10px auto;
+  border-radius: 10px;
+  padding: 20px 30px 20px 30px;
+  background-color: rgba(255, 255, 255, 0.4);
+  text-shadow: 0px 0px 3px rgba(255, 255, 255, 0);
+  transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out; }
+  .registration-link:hover {
+    background-color: rgba(255, 255, 255, 0.75);
+    text-shadow: 0px 0px 2px rgba(2, 0, 109, 0.75);
+    transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out; }
+
+.registration-end-date {
+  border-radius: 10px;
+  margin: 0px auto 0px auto;
+  width: 350px;
+  padding: 10px 20px 10px 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  text-shadow: 0px 0px 3px rgba(255, 255, 255, 0); }
+
 .landing-page {
   position: relative; }
   .landing-page .navbar {
@@ -198,13 +230,15 @@ footer {
     z-index: 1000;
     border: none;
     padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px; }
+    margin: 0px 0px 0px 0px;
+    background-color: rgba(52, 63, 92, 0.8); }
     .landing-page .navbar ul {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: stretch;
-      background-color: rgba(52, 63, 92, 0.8); }
+      margin: 0px auto 0px auto;
+      width: 1170px; }
       .landing-page .navbar ul li {
         list-style-type: none;
         height: 70px;
@@ -273,26 +307,31 @@ footer {
         height: 0px;
         min-height: 0px;
         opacity: 0;
+        font-size: 20px;
         transition: min-height 0.3s 0.3s ease-out, opacity 0.3s ease-out; }
         .landing-page .screen-container .container-row .detailed-text.active {
+          overflow-y: scroll;
           min-height: 200px;
           opacity: 1;
           transition: min-height 0.3s ease-out, opacity 0.3s 0.3s ease-out; }
     .landing-page .screen-container#headline .container-row {
       text-align: center;
       justify-content: center;
-      margin: 50px auto 150px auto; }
+      margin: 30px auto 150px auto; }
       .landing-page .screen-container#headline .container-row .logos {
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-between; }
+        justify-content: flex-start; }
         .landing-page .screen-container#headline .container-row .logos .logo-wrapper {
-          width: 350px;
-          height: 150px;
+          width: 270px;
+          height: 100px;
           position: relative;
           background-color: #ffffff;
-          border-radius: 10px; }
+          border-radius: 10px;
+          margin: 0px 0px 0px 30px; }
+          .landing-page .screen-container#headline .container-row .logos .logo-wrapper:first-child {
+            margin: 0px 0px 0px 0px; }
           .landing-page .screen-container#headline .container-row .logos .logo-wrapper .logo {
             position: absolute;
             top: 50%;
@@ -300,40 +339,55 @@ footer {
             transform: translate(-50%, -50%);
             width: 90%; }
       .landing-page .screen-container#headline .container-row .heading {
-        margin: 100px 0px 0px 0px;
+        margin: 60px 0px 0px 0px;
         font-weight: 600; }
       .landing-page .screen-container#headline .container-row .heading-2 {
         margin: 20px 0px 0px 0px;
         font-weight: 600; }
       .landing-page .screen-container#headline .container-row .heading-dates {
         margin: 20px 0px 0px 0px; }
-      .landing-page .screen-container#headline .container-row .registration-link {
-        width: 450px;
-        text-transform: uppercase;
-        color: #02006d;
-        font-size: 50px;
-        line-height: 50px;
-        font-weight: 400;
-        cursor: pointer;
-        margin: 70px auto 70px auto;
-        border-radius: 10px;
-        padding: 20px 30px 20px 30px;
-        background-color: rgba(255, 255, 255, 0.4);
-        text-shadow: 0px 0px 3px rgba(255, 255, 255, 0);
-        transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out; }
-        .landing-page .screen-container#headline .container-row .registration-link:hover {
-          background-color: rgba(255, 255, 255, 0.75);
-          text-shadow: 0px 0px 2px rgba(2, 0, 109, 0.75);
-          transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out; }
     .landing-page .screen-container#program-description {
       background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2)); }
       .landing-page .screen-container#program-description .container-row {
-        margin: 150px auto 150px auto; }
+        margin: 10px auto 150px auto; }
+        .landing-page .screen-container#program-description .container-row .top-area {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: space-between; }
+          .landing-page .screen-container#program-description .container-row .top-area h2.heading {
+            font-size: 35px;
+            text-shadow: 1px 1px 2px #ffffff, 0 0 1em #02006d, 0 0 0.2em #ffffff;
+            margin: 100px 0px 0px 0px; }
+          .landing-page .screen-container#program-description .container-row .top-area .right-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; }
+            .landing-page .screen-container#program-description .container-row .top-area .right-side .video {
+              width: 100%;
+              background-color: rgba(255, 255, 255, 0.8);
+              overflow: hidden;
+              border-radius: 10px;
+              position: relative; }
+              .landing-page .screen-container#program-description .container-row .top-area .right-side .video iframe {
+                width: 500px;
+                height: 300px;
+                border-radius: 10px;
+                margin: 5px 5px 5px 5px;
+                overflow: hidden;
+                top: 50%;
+                left: 50%;
+                min-width: 100%;
+                min-height: 100%; }
+            .landing-page .screen-container#program-description .container-row .top-area .right-side .registration-link {
+              text-align: center; }
         .landing-page .screen-container#program-description .container-row .free-price-text {
           text-align: center;
-          font-size: 20px;
-          line-height: 24px;
-          margin: 80px 0px 0px 0px; }
+          font-size: 40px;
+          line-height: 36px;
+          margin: 80px 0px 0px 0px;
+          text-shadow: 0px 0px 8px white; }
     .landing-page .screen-container#levels .container-row .slider .carousel-slideshow {
       height: 400px; }
       .landing-page .screen-container#levels .container-row .slider .carousel-slideshow .visible-area {
@@ -344,9 +398,19 @@ footer {
           align-items: flex-start;
           justify-content: flex-start;
           padding: 50px; }
+          .landing-page .screen-container#levels .container-row .slider .carousel-slideshow .visible-area .slide a.personal-account-link {
+            display: inline-block;
+            color: #02006d; }
+          .landing-page .screen-container#levels .container-row .slider .carousel-slideshow .visible-area .slide a.expert-jury-link {
+            display: inline-block;
+            color: #02006d; }
     .landing-page .screen-container#expert-jury .container-row {
       margin-top: 0px;
       margin-bottom: 0px; }
+      .landing-page .screen-container#expert-jury .container-row .screen-heading {
+        text-shadow: 1px 1px 2px #ffffff, 0 0 1em #02006d, 0 0 0.2em #ffffff;
+        font-size: 28px;
+        text-transform: uppercase; }
       .landing-page .screen-container#expert-jury .container-row ul.jury-list {
         display: flex;
         flex-direction: column;
@@ -401,27 +465,57 @@ footer {
       .landing-page .screen-container#expert-jury .container-row .detailed-link {
         padding: 0px 150px 0px 0px;
         margin: 0px 0px 30px 0px; }
-    .landing-page .screen-container#teaching-session .container-row .session-location-points {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: flex-start; }
-      .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point {
+    .landing-page .screen-container#teaching-session {
+      background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.65)); }
+      .landing-page .screen-container#teaching-session .container-row .session-location-points {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         justify-content: flex-start; }
-        .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .session-program {
+        .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point {
           display: flex;
-          flex-direction: row;
-          align-items: stretch;
+          flex-direction: column;
+          align-items: flex-start;
           justify-content: flex-start; }
-          .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .session-program .detailed-link {
-            margin: 0px 0px 0px 5px;
-            height: auto;
-            font-size: inherit; }
+          .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .session-date {
+            font-size: 20px; }
+          .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .session-location {
+            font-size: 20px;
+            margin: 10px 0px 0px 0px; }
+          .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .locations {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: space-around;
+            margin: 20px 0px 0px 0px;
+            width: 100%; }
+            .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .locations .map {
+              width: 50%; }
+            .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .locations .photo {
+              width: 50%;
+              position: relative;
+              overflow: hidden; }
+              .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .locations .photo img {
+                position: absolute;
+                transform: translate(-50%, -50%);
+                left: 50%;
+                top: 50%;
+                min-width: 100%;
+                min-height: 100%; }
+          .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .session-program {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: flex-start; }
+            .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .session-program .detailed-link {
+              margin: 0px 0px 0px 5px;
+              height: auto;
+              font-size: inherit; }
     .landing-page .screen-container#organizer {
       background-color: rgba(255, 255, 255, 0.75); }
+      .landing-page .screen-container#organizer .container-row .sub-heading {
+        margin: 0px 0px 10px 0px;
+        font-size: 20px; }
       .landing-page .screen-container#organizer .container-row .logos {
         display: flex;
         flex-direction: row;
@@ -433,9 +527,30 @@ footer {
           align-items: flex-start;
           justify-content: center;
           max-width: 50%;
-          width: 300px; }
+          width: 300px;
+          height: 100px;
+          border-radius: 10px;
+          border: 1px solid rgba(0, 0, 0, 0.15);
+          padding: 5px 5px 5px 5px;
+          margin: 0px 30px 0px 0px;
+          overflow: hidden;
+          background-color: #ffffff;
+          position: relative; }
+          .landing-page .screen-container#organizer .container-row .logos .logo img {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            max-width: 100%;
+            max-height: 100%; }
           .landing-page .screen-container#organizer .container-row .logos .logo.logo-foundation {
             margin: 0px 0px 0px 0px; }
+            .landing-page .screen-container#organizer .container-row .logos .logo.logo-foundation img {
+              max-width: 80%;
+              max-height: 85%; }
+          .landing-page .screen-container#organizer .container-row .logos .logo.ipces-logo img {
+            max-width: 95%;
+            max-height: 125%; }
       .landing-page .screen-container#organizer .container-row .assistance-heading {
         text-align: center;
         font-size: 18px;
@@ -520,7 +635,7 @@ footer {
     border-radius: 10px;
     border: 10px solid rgba(255, 255, 255, 0.5);
     padding: 0px 0px 0px 0px;
-    background-color: rgba(255, 255, 255, 0.75); }
+    background-color: rgba(255, 255, 255, 0.9); }
     .account-register #content .registration-form-wrapper form {
       display: flex;
       flex-direction: column;
@@ -602,6 +717,7 @@ footer {
   flex: 1;
   flex-direction: row;
   padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
   display: none;
   opacity: 0;
   height: 0px;

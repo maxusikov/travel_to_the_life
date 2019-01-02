@@ -8,7 +8,7 @@
   <?php if ($success) { ?>
   <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?></div>
   <?php } ?>
-  <div class="row"><?php echo $column_left; ?>
+  <div class="container-row"><?php echo $column_left; ?>
     <?php if ($column_left && $column_right) { ?>
     <?php $class = 'col-sm-6'; ?>
     <?php } elseif ($column_left || $column_right) { ?>
@@ -301,6 +301,9 @@
         </div>
       </div>
     </div>
+</div>
+<div id="background-container">
+    <img class="background background-0 active" src="/catalog/view/theme/lifetravel/image/theme_images/background/1459078271127742859.jpg" />
 </div>
 <?php echo $footer; ?> 
 

@@ -217,6 +217,12 @@
             </div>
             <div class="tab-pane" id="tab-local">
               <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-registration-end-date"><?php echo $entry_registration_end_date; ?></label>
+                <div class="col-sm-10">
+                    <input type="date" name="config_registration_end_date" value="<?php echo $config_registration_end_date; ?>" />
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-country"><?php echo $entry_country; ?></label>
                 <div class="col-sm-10">
                   <select name="config_country_id" id="input-country" class="form-control">

@@ -15,6 +15,7 @@ $primary-color: #d6ae75;
 $primary-text-color: #795348;
 $primary-text-color-darker: #543329;
 $secondary-text-color: #02006d;
+$text-shadow-1: 1px 1px 2px #ffffff, 0 0 1em #02006d, 0 0 0.2em #ffffff;
 
 *, a, ol, ul, li, span, p, div, h1, h2, h3, h4, h5, h6 {
     margin: 0px 0px 0px 0px;
@@ -31,10 +32,10 @@ html {
 }
 
 body {
-    font-family: 'AvertaDemoPE';
+    font-family: Calibri, sans-serif;
     font-size: 16px;
     font-weight: 400;
-    color: $primary-text-color;
+    color: $primary-text-color-darker;
 }
 
 header {
@@ -184,6 +185,11 @@ footer {
                 
                 a {
                     display: block;
+                    cursor: pointer;
+                    
+                    &.registration-link {
+                        text-align: center;
+                    }
                     
                     img {
                         display: block;
@@ -234,8 +240,10 @@ footer {
             transform: translateY(-50%);
             display: flex;
             justify-content: space-between;
+            pointer-events: none;
             
             .arrow {
+                pointer-events: auto;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -278,6 +286,37 @@ footer {
     }
 }
 
+.registration-link {
+    width: 450px;
+    text-transform: uppercase;
+    color: $secondary-text-color;
+    font-size: 50px;
+    line-height: 50px;
+    font-weight: 400;
+    cursor: pointer;
+    margin: 40px auto 10px auto;
+    border-radius: 10px;
+    padding: 20px 30px 20px 30px;
+    background-color: rgba(255, 255, 255, 0.4);
+    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0);
+    transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.75);
+        text-shadow: 0px 0px 2px rgba(2, 0, 109, 0.75);
+        transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out;
+    }
+}
+
+.registration-end-date {
+    border-radius: 10px;
+    margin: 0px auto 0px auto;
+    width: 350px;
+    padding: 10px 20px 10px 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0);
+}
+
 .landing-page {
     position: relative;
     
@@ -290,13 +329,15 @@ footer {
         border: none;
         padding: 0px 0px 0px 0px;
         margin: 0px 0px 0px 0px;
+        background-color: rgba(52, 63, 92, 0.8);
         
         ul {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: stretch;
-            background-color: rgba(52, 63, 92, 0.8);
+            margin: 0px auto 0px auto;
+            width: 1170px;
             
             li {
                 list-style-type: none;
@@ -388,9 +429,11 @@ footer {
                 height: 0px;
                 min-height: 0px;
                 opacity: 0;
+                font-size: 20px;
                 transition: min-height 0.3s 0.3s ease-out, opacity 0.3s ease-out;
                 
                 &.active {
+                    overflow-y: scroll;
                     min-height: 200px;
                     opacity: 1;
                     transition: min-height 0.3s ease-out, opacity 0.3s 0.3s ease-out;
@@ -402,20 +445,25 @@ footer {
             .container-row {
                 text-align: center;
                 justify-content: center;
-                margin: 50px auto 150px auto;
+                margin: 30px auto 150px auto;
                 
                 .logos {
                     display: flex;
                     flex-direction: row;
                     align-items: center;
-                    justify-content: space-between;
+                    justify-content: flex-start;
                     
                     .logo-wrapper {
-                        width: 350px;
-                        height: 150px;
+                        width: 270px;
+                        height: 100px;
                         position: relative;
                         background-color: #ffffff;
                         border-radius: 10px;
+                        margin: 0px 0px 0px 30px;
+                        
+                        &:first-child {
+                            margin: 0px 0px 0px 0px;
+                        }
                         
                         .logo {
                             position: absolute;
@@ -428,14 +476,14 @@ footer {
 
                             }
                             &.ipces {
-
+                                
                             }
                         }
                     }
                 }
                 
                 .heading {
-                    margin: 100px 0px 0px 0px;
+                    margin: 60px 0px 0px 0px;
                     font-weight: 600;
                 }
                 
@@ -447,28 +495,6 @@ footer {
                 .heading-dates {
                     margin: 20px 0px 0px 0px;
                 }
-                
-                .registration-link {
-                    width: 450px;
-                    text-transform: uppercase;
-                    color: $secondary-text-color;
-                    font-size: 50px;
-                    line-height: 50px;
-                    font-weight: 400;
-                    cursor: pointer;
-                    margin: 70px auto 70px auto;
-                    border-radius: 10px;
-                    padding: 20px 30px 20px 30px;
-                    background-color: rgba(255, 255, 255, 0.4);
-                    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0);
-                    transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out;
-                    
-                    &:hover {
-                        background-color: rgba(255, 255, 255, 0.75);
-                        text-shadow: 0px 0px 2px rgba(2, 0, 109, 0.75);
-                        transition: background-color 0.15s ease-out, text-shadow 0.15s ease-out;
-                    }
-                }
             }
         }
         
@@ -476,13 +502,58 @@ footer {
             background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
             
             .container-row {
-                margin: 150px auto 150px auto;
+                margin: 10px auto 150px auto;
+                
+                .top-area {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    justify-content: space-between;
+                    
+                    h2.heading {
+                        font-size: 35px;
+                        text-shadow: $text-shadow-1;
+                        margin: 100px 0px 0px 0px;
+                    }
+                    
+                    .right-side {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: flex-start;
+                        
+                        .video {
+                            width: 100%;
+                            background-color: rgba(255, 255, 255, 0.8);
+                            overflow: hidden;
+                            border-radius: 10px;
+                            position: relative;
+                            
+                            iframe {
+                                width: 500px;
+                                height: 300px;
+                                border-radius: 10px;
+                                margin: 5px 5px 5px 5px;
+                                overflow: hidden;                                
+                                top: 50%;
+                                left: 50%;
+                                min-width: 100%;
+                                min-height: 100%;
+                            }
+                        }
+                        
+                        .registration-link {
+                            text-align: center;
+                        }
+                    }
+                } 
                 
                 .free-price-text {
                     text-align: center;
-                    font-size: 20px;
-                    line-height: 24px;
+                    font-size: 40px;
+                    line-height: 36px;
                     margin: 80px 0px 0px 0px;
+                    text-shadow: 0px 0px 8px rgba(255, 255, 255, 1);
                 }
             }
         }
@@ -502,6 +573,26 @@ footer {
                                 align-items: flex-start;
                                 justify-content: flex-start;
                                 padding: 50px;
+                                
+                                a {
+                                    &.personal-account-link {
+                                        display: inline-block;
+                                        color: $secondary-text-color;
+                                    }
+                                    
+                                    &.expert-jury-link {
+                                        display: inline-block;
+                                        color: $secondary-text-color;
+                                    }
+                                }
+                                
+                                .text-line-1 {
+                                    
+                                }
+                                
+                                .text-line-2 {
+                                    
+                                }
                             }
                         }
                     }
@@ -513,6 +604,12 @@ footer {
             .container-row {
                 margin-top: 0px;
                 margin-bottom: 0px;
+                
+                .screen-heading {
+                    text-shadow: $text-shadow-1;
+                    font-size: 28px;
+                    text-transform: uppercase;
+                }
                 
                 ul.jury-list {
                     display: flex;
@@ -593,6 +690,8 @@ footer {
         }
         
         &#teaching-session {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.65));
+            
             .container-row {
                 .screen-heading {
                     
@@ -611,11 +710,42 @@ footer {
                         justify-content: flex-start;
                         
                         .session-date {
-                            
+                            font-size: 20px;
                         }
+                        
                         .session-location {
-                            
+                            font-size: 20px;
+                            margin: 10px 0px 0px 0px;
                         }
+                        
+                        .locations {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: stretch;
+                            justify-content: space-around;
+                            margin: 20px 0px 0px 0px;
+                            width: 100%;
+                            
+                            .map {
+                                width: 50%;
+                            }
+                            
+                            .photo {
+                                width: 50%;
+                                position: relative;
+                                overflow: hidden;
+                                
+                                img {
+                                    position: absolute;
+                                    transform: translate(-50%, -50%);
+                                    left: 50%;
+                                    top: 50%;
+                                    min-width: 100%;
+                                    min-height: 100%;
+                                }
+                            }
+                        }
+                        
                         .session-program {
                             display: flex;
                             flex-direction: row;
@@ -637,7 +767,11 @@ footer {
             background-color: rgba(255, 255, 255, 0.75);
             
             .container-row {
-                
+                .screen-heading {}
+                .sub-heading {
+                    margin: 0px 0px 10px 0px;
+                    font-size: 20px;
+                }
                 .logos {
                     display: flex;
                     flex-direction: row;
@@ -651,9 +785,38 @@ footer {
                         justify-content: center;
                         max-width: 50%;
                         width: 300px;
+                        height: 100px;
+                        border-radius: 10px;
+                        border: 1px solid rgba(0, 0, 0, 0.15);
+                        padding: 5px 5px 5px 5px;
+                        margin: 0px 30px 0px 0px;
+                        overflow: hidden;
+                        background-color: #ffffff;;
+                        position: relative;
+                        
+                        img {
+                            position: absolute;
+                            transform: translate(-50%, -50%);
+                            top: 50%;
+                            left: 50%;
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
                         
                         &.logo-foundation {
                             margin: 0px 0px 0px 0px;
+                            
+                            img {
+                                max-width: 80%;
+                                max-height: 85%;
+                            }
+                        }
+                        
+                        &.ipces-logo {
+                            img {
+                                max-width: 95%;
+                                max-height: 125%;
+                            }
                         }
                     }
                 }
@@ -780,7 +943,7 @@ footer {
             border-radius: 10px;
             border: 10px solid rgba(255, 255, 255, 0.5);
             padding: 0px 0px 0px 0px;
-            background-color: rgba(255, 255, 255, 0.75);
+            background-color: rgba(255, 255, 255, 0.9);
             
             form {
                 display: flex;
@@ -912,6 +1075,7 @@ footer {
         flex: 1;
         flex-direction: row;
         padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
         display: none;
         opacity: 0;
         height: 0px;
