@@ -16,6 +16,9 @@
       <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
     <?php } ?>
+    
+    <h1 class="dashboard-heading">Проект РОСКИНО</h1>
+    
     <?php foreach ($rows as $row) { ?>
     <div class="row">
       <?php foreach ($row as $dashboard_1) { ?>

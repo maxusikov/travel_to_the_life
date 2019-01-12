@@ -35,7 +35,8 @@ class ModelAccountCustomer extends Model {
 
 		$message .= $this->url->link('account/login', '', true) . "\n\n";
 		$message .= $this->language->get('text_services') . "\n\n";
-		$message .= $this->language->get('text_thanks') . "\n";
+		$message .= $this->language->get('text_thanks') . "\n\n";
+                $message .= $this->language->get('text_thanks_2') . "\n";
 		$message .= html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
 		$mail = new Mail();

@@ -22,8 +22,8 @@ $_['text_recurring']     = 'Регулярные платежи';
 $_['text_transactions']  = 'Переводы';
 
 
-$_['text_user_navbar']      = 'Меню пользователя';
-$_['text_manual_materials'] = 'Меню пользователя';
+$_['text_user_navbar']      = 'Личный кабинет';
+$_['text_manual_materials'] = 'Справочные материалы';
 
 $_['text_my_profile']      = 'Мой профиль';
 $_['text_my_projects']     = 'Мои этапы';

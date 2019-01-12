@@ -158,10 +158,8 @@
                                 <div class="label-wrapper">
                                     <label for="speciality_perspective">Почему считаете для себя перспективным получение образования в выбранной и указанной Вами специальности?</label>
                                 </div>
-                                <textarea id="speciality_perspective" name="speciality_perspective"><?php echo $customer_level_1_speciality_perspective; ?></textarea>
+                                <input id="speciality_perspective" type="text" name="speciality_perspective" value="<?php echo $customer_level_1_speciality_perspective; ?>" />
                             </div>
-                            
-                            
                             
                             <!-- div id="uploaded-files" class="uploaded_files">
                                 <div class="input-group textarea-group">
@@ -199,16 +197,17 @@
                             
                             <div class="input-group textarea-group">
                                 <div class="label-wrapper">
-                                    <label for="customer-esse">Напишите эссе (сценарий) короткометражного документального фильма о Родном Крае (Владимирская область).</label>
+                                    <label for="customer-esse">Если бы Вы снимали короткометражный документальный фильм о Владимирской области, какие сюжеты, места, музыку или людей Вы бы включили в этот фильм? Напишите Ваше видение этого фильма:</label>
                                 </div>
                                 <textarea id="customer-esse" name="customer_esse"><?php echo $customer_level_1_esse; ?></textarea>
                             </div>
-                            <div class="input-group textarea-group">
+                            
+                            <!-- div class="input-group textarea-group">
                                 <div class="label-wrapper">
                                     <label for="film-information">Как бы Вы его сняли и как Вы его видите. Какие сюжеты, места или люди войдут в этот фильм. Какую музыку Вы будете использовать в фильме и т.д.)</label>
                                 </div>
                                 <textarea id="film-information" name="film_information"><?php echo $customer_level_1_film_information; ?></textarea>
-                            </div>
+                            </div -->
                             
                             <div class="parent-area">
                                 <span class="parent-area-heading">Информация о родителе/законном представителе (для несовершеннолетних)</span>

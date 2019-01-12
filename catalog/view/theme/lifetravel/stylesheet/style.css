@@ -9,7 +9,7 @@
 *, a, ol, ul, li, span, p, div, h1, h2, h3, h4, h5, h6 {
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
-  color: #795348; }
+  color: #503730; }
 
 ul li {
   list-style-type: none; }
@@ -19,7 +19,7 @@ html {
 
 body {
   font-family: Calibri, sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
   color: #543329; }
 
@@ -91,7 +91,7 @@ footer {
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      color: #795348;
+      color: #503730;
       padding: 5px 10px 5px 10px;
       text-transform: uppercase;
       cursor: pointer;
@@ -283,13 +283,14 @@ footer {
       justify-content: flex-start;
       position: relative; }
       .landing-page .screen-container .container-row .screen-heading {
+        font-size: 30px;
         margin: 30px 0px 30px 0px;
         text-align: center;
         color: #543329; }
       .landing-page .screen-container .container-row a {
         cursor: pointer; }
       .landing-page .screen-container .container-row .detailed-link {
-        font-size: 16px;
+        font-size: 18px;
         color: #02006d;
         text-decoration: none;
         cursor: pointer;
@@ -357,7 +358,7 @@ footer {
           justify-content: space-between; }
           .landing-page .screen-container#program-description .container-row .top-area h2.heading {
             font-size: 35px;
-            text-shadow: 1px 1px 2px #ffffff, 0 0 1em #02006d, 0 0 0.2em #ffffff;
+            text-shadow: none;
             margin: 100px 0px 0px 0px; }
           .landing-page .screen-container#program-description .container-row .top-area .right-side {
             display: flex;
@@ -386,8 +387,7 @@ footer {
           text-align: center;
           font-size: 40px;
           line-height: 36px;
-          margin: 80px 0px 0px 0px;
-          text-shadow: 0px 0px 8px white; }
+          margin: 80px 0px 0px 0px; }
     .landing-page .screen-container#levels .container-row .slider .carousel-slideshow {
       height: 400px; }
       .landing-page .screen-container#levels .container-row .slider .carousel-slideshow .visible-area {
@@ -408,7 +408,7 @@ footer {
       margin-top: 0px;
       margin-bottom: 0px; }
       .landing-page .screen-container#expert-jury .container-row .screen-heading {
-        text-shadow: 1px 1px 2px #ffffff, 0 0 1em #02006d, 0 0 0.2em #ffffff;
+        text-shadow: none;
         font-size: 28px;
         text-transform: uppercase; }
       .landing-page .screen-container#expert-jury .container-row ul.jury-list {
@@ -441,18 +441,18 @@ footer {
             align-items: stretch;
             justify-content: flex-start; }
             .landing-page .screen-container#expert-jury .container-row ul.jury-list li .jury-info-wrapper .jury-position {
-              font-size: 24px;
+              font-size: 26px;
               line-height: 30px;
               margin: 0px 0px 0px 0px;
               color: #543329; }
             .landing-page .screen-container#expert-jury .container-row ul.jury-list li .jury-info-wrapper .jury-name {
-              font-size: 22px;
+              font-size: 24px;
               font-weight: 600;
               line-height: 26px;
               margin: 20px 0px 0px 0px;
               color: #02006d; }
             .landing-page .screen-container#expert-jury .container-row ul.jury-list li .jury-info-wrapper .jury-description {
-              font-size: 16px;
+              font-size: 20px;
               font-weight: 200;
               line-height: 26px;
               margin: 20px 0px 0px 0px; }
@@ -478,9 +478,9 @@ footer {
           align-items: flex-start;
           justify-content: flex-start; }
           .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .session-date {
-            font-size: 20px; }
+            font-size: 22px; }
           .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .session-location {
-            font-size: 20px;
+            font-size: 22px;
             margin: 10px 0px 0px 0px; }
           .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .locations {
             display: flex;
@@ -491,6 +491,9 @@ footer {
             width: 100%; }
             .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .locations .map {
               width: 50%; }
+              .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .locations .map iframe {
+                width: 100%;
+                height: 100%; }
             .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .locations .photo {
               width: 50%;
               position: relative;
@@ -499,9 +502,10 @@ footer {
                 position: absolute;
                 transform: translate(-50%, -50%);
                 left: 50%;
-                top: 50%;
+                top: 20%;
                 min-width: 100%;
-                min-height: 100%; }
+                min-height: 100%;
+                height: 400px; }
           .landing-page .screen-container#teaching-session .container-row .session-location-points .session-point .session-program {
             display: flex;
             flex-direction: row;
@@ -515,7 +519,7 @@ footer {
       background-color: rgba(255, 255, 255, 0.75); }
       .landing-page .screen-container#organizer .container-row .sub-heading {
         margin: 0px 0px 10px 0px;
-        font-size: 20px; }
+        font-size: 22px; }
       .landing-page .screen-container#organizer .container-row .logos {
         display: flex;
         flex-direction: row;
@@ -553,8 +557,8 @@ footer {
             max-height: 125%; }
       .landing-page .screen-container#organizer .container-row .assistance-heading {
         text-align: center;
-        font-size: 18px;
-        margin: 0px 0px 20px 0px; }
+        font-size: 22px;
+        margin: 20px 0px 20px 0px; }
       .landing-page .screen-container#organizer .container-row .logo-carousel-wrapper {
         position: relative;
         background-color: white;
@@ -668,10 +672,20 @@ footer {
           border-radius: 8px;
           border: 1px solid #d6ae75;
           outline: none; }
+          .account-register #content .registration-form-wrapper form .input-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            pointer-events: auto;
+            opacity: 1;
+            position: relative;
+            margin: 0px 10px 0px 0px; }
       .account-register #content .registration-form-wrapper form .teacher-information-text {
         text-align: center;
         margin: 25px 0px 10px 0px;
-        font-size: 14px; }
+        font-size: 1.2em; }
+      .account-register #content .registration-form-wrapper form .readed-conditions-text {
+        text-align: center;
+        cursor: pointer; }
       .account-register #content .registration-form-wrapper form .submit-area {
         justify-content: center; }
 
@@ -739,7 +753,7 @@ footer {
       justify-content: flex-start; }
       .account-account .panel#profile .form-wrapper form .input-wrapper {
         flex: 1;
-        padding: 0px 20px 0px 20px; }
+        padding: 10px 20px 10px 20px; }
         .account-account .panel#profile .form-wrapper form .input-wrapper:nth-child(2n) {
           background-color: rgba(0, 0, 0, 0.05); }
         .account-account .panel#profile .form-wrapper form .input-wrapper .label-wrapper {
@@ -814,7 +828,6 @@ footer {
               .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .textarea-group:first-child {
                 margin: 0px 0px 0px 0px; }
               .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .textarea-group .label-wrapper label {
-                font-size: 16px;
                 margin: 0px 0px 10px 0px; }
               .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .textarea-group textarea {
                 border-color: #d6ae75;
@@ -824,6 +837,14 @@ footer {
                 border-radius: 0px 10px 10px 0px;
                 margin: 0px 0px 0px 0px;
                 resize: none; }
+              .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .textarea-group input[type="text"] {
+                font-size: 1em;
+                width: auto;
+                border-color: #d6ae75;
+                padding: 5px 10px 5px 10px;
+                border: 1px solid;
+                border-radius: 0px 10px 10px 0px;
+                margin: 0px 0px 0px 0px; }
             .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .parent-area {
               margin: 30px 0px 30px 0px;
               display: flex;
@@ -832,10 +853,17 @@ footer {
                 margin: 10px 0px 0px 0px; }
                 .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .parent-area .input-group:first-child {
                   margin: 0px 0px 0px 0px; }
+                .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .parent-area .input-group input {
+                  font-size: 1em;
+                  width: 300px;
+                  border-radius: 10px 0px 0px 10px; }
                 .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .parent-area .input-group .label-wrapper {
                   flex: 1; }
+                  .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .parent-area .input-group .label-wrapper label {
+                    font-size: 1em;
+                    padding: 0px 0px 0px 30px; }
             .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form .input-wrapper {
-              dislpay: flex;
+              display: flex;
               flex-direction: row;
               align-items: center;
               justify-content: flex-end; }
@@ -884,7 +912,8 @@ footer {
   padding: 3px 8px;
   color: #ffffff;
   background-color: #d6ae75;
-  font-size: 14px;
+  font-size: 0.8em;
+  font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
@@ -900,10 +929,14 @@ form .input-group, form .input-wrapper {
   align-items: center;
   justify-content: flex-start; }
   form .input-group .label-wrapper label, form .input-wrapper .label-wrapper label {
-    margin: 0px 0px 0px 0px; }
+    margin: 0px 0px 0px 0px;
+    font-size: 1em;
+    color: #503730; }
     form .input-group .label-wrapper label .required-mark, form .input-wrapper .label-wrapper label .required-mark {
       color: red; }
   form .input-group input, form .input-group input:not(.browser-default), form .input-wrapper input, form .input-wrapper input:not(.browser-default) {
+    font-size: 1em;
+    line-height: 1em;
     width: 200px;
     margin: 0px 0px 0px 20px;
     padding: 5px 10px;
@@ -912,7 +945,7 @@ form .input-group, form .input-wrapper {
     outline: none;
     height: auto; }
 form .input-wrapper {
-  margin: 10px 0px 0px 0px; }
+  margin: 0px 0px 0px 0px; }
   form .input-wrapper:first-child {
     margin: 0px 0px 0px 0px; }
 

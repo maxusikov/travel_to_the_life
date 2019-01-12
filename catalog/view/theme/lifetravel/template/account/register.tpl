@@ -162,13 +162,13 @@
             </div>
 
             <div class="input-group">
+                <input id="agree" type="checkbox" name="agree" <?php echo ($agree) ? 'checked' : ''; ?> />
                 <div class="label-wrapper">
-                    <label class="readed-conditions-text" for="agree">Я прочитал(а) условия регистрации и согласен с ними</label>
+                    <label class="readed-conditions-text" for="agree">Отправляя персональные данные из данной формы, я даю согласие на обработку персональных данных </label>
                     <?php if(isset($error_agree)) { ?>
                     <span class="error"><?php echo $error_agree; ?></span>
                     <?php } ?>
                 </div>
-                <input id="agree" type="checkbox" name="agree" <?php echo ($agree) ? 'checked' : ''; ?> />
             </div>
             <div class="input-group submit-area">
                 <a class="submit button" onclick="javascript:$(this).closest('form').submit();">Отправить</a>

@@ -135,9 +135,9 @@ class ControllerAccountAccount extends Controller {
                 
                 $customer_representer_data = $this->model_account_customer->getCustomerRepresenter($c_id);
                 $data['customer_representer'] = [
-                    'name'  => $customer_representer_data['representer_name'],
-                    'phone' => $customer_representer_data['representer_phone'],
-                    'email' => $customer_representer_data['representer_email']
+                    'name'  => isset($customer_representer_data['representer_name']) ? $customer_representer_data['representer_name'] : '',
+                    'phone' => isset($customer_representer_data['representer_phone']) ? $customer_representer_data['representer_phone'] : '',
+                    'email' => isset($customer_representer_data['representer_email']) ? $customer_representer_data['representer_email'] : ''
                 ];
                 
                 $customer_uploaded_files = $this->model_account_customer->getCustomerFilesByCustomerId($c_id, "level1__files");
