@@ -1064,6 +1064,34 @@ form .input-wrapper {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-registration-date {
+      min-width: 70px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-fio {
+      min-width: 140px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-email {
+      min-width: 140px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-telephone {
+      min-width: 100px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-birthdate {
+      min-width: 70px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-cinema-speciality {
+      min-width: 140px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-school {
+      min-width: 100px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-question-4-score {
+      min-width: 40px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-question-5-score {
+      min-width: 40px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-question-6-score {
+      min-width: 40px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-total-score {
+      min-width: 40px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-level-2-allowance {
+      min-width: 40px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-checking-curator {
+      min-width: 140px; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-action {
+      min-width: 100px; }
     .account-curator .container .content-container #content .form-wrapper form .contestant-list-heading {
       display: flex;
       flex-direction: row;
@@ -1075,7 +1103,9 @@ form .input-wrapper {
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        text-align: center; }
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600; }
     .account-curator .container .content-container #content .form-wrapper form .contestant-list-item {
       display: flex;
       flex-direction: row;
@@ -1090,7 +1120,8 @@ form .input-wrapper {
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        text-align: center; }
+        text-align: center;
+        font-size: 14px; }
 
 .account-curator-getContestantForm .container .content-container #content .form-wrapper, .account-curator-save .container .content-container #content .form-wrapper {
   background-color: rgba(255, 255, 255, 0.75);

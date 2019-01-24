@@ -1600,6 +1600,54 @@ form {
                         align-items: stretch;
                         justify-content: flex-start;
                         
+                        .contestant-registration-date {
+                            min-width: 70px;
+                        }
+                        
+                        .contestant-fio {
+                            min-width: 140px;
+                        }
+                        
+                        .contestant-email {
+                            min-width: 140px;
+                        }
+                        
+                        .contestant-telephone {
+                            min-width: 100px;
+                        }
+                        
+                        .contestant-birthdate {
+                            min-width: 70px;
+                        }
+                        .contestant-cinema-speciality {
+                            min-width: 140px;
+                        }
+                        .contestant-school {
+                            min-width: 100px;
+                        }
+                        .contestant-question-4-score {
+                            min-width: 40px;
+                        }
+                        .contestant-question-5-score {
+                            min-width: 40px;
+                        }
+                        .contestant-question-6-score {
+                            min-width: 40px;
+                        }
+                        .contestant-total-score {
+                            min-width: 40px;
+                        }
+                        .contestant-level-2-allowance {
+                            min-width: 40px;
+                        }
+                        .contestant-checking-curator {
+                            min-width: 140px;
+                        }
+                        .contestant-action {
+                            min-width: 100px;
+                        }
+                        
+                        
                         .contestant-list-heading {
                             display: flex;
                             flex-direction: row;
@@ -1613,6 +1661,8 @@ form {
                                 align-items: center;
                                 justify-content: center;
                                 text-align: center;
+                                font-size: 14px;
+                                font-weight: 600;
                             }
                         }
                         
@@ -1634,6 +1684,7 @@ form {
                                 align-items: center;
                                 justify-content: center;
                                 text-align: center;
+                                font-size: 14px;
                             }
                         }
                     }

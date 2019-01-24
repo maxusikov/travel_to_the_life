@@ -10,24 +10,24 @@
         <div class="form-wrapper">
             <form method="POST" enctype="multipart/form-data">
                 <div class="contestant-list-heading">
-                    <span class="contestant-list-heading-item contestant-registration-date">Дата<br />регистрации</span>
+                    <span class="contestant-list-heading-item contestant-registration-date">Дата регистрации</span>
                     <span class="contestant-list-heading-item contestant-fio">Ф.И.О.</span>
                     <span class="contestant-list-heading-item contestant-email">E-mail</span>
                     <span class="contestant-list-heading-item contestant-telephone">Телефон</span>
                     <span class="contestant-list-heading-item contestant-birthdate">Дата рождения</span>
-                    <span class="contestant-list-heading-item contestant-cinema-speciality">Специальность<br />кинообразования</span>
+                    <span class="contestant-list-heading-item contestant-cinema-speciality">Специальность кинообразования</span>
                     <span class="contestant-list-heading-item contestant-school">№ школы</span>
-                    <span class="contestant-list-heading-item contestant-question-4-score">Бал вопроса<br />№4</span>
-                    <span class="contestant-list-heading-item contestant-question-5-score">Бал вопроса<br />№5</span>
-                    <span class="contestant-list-heading-item contestant-question-6-score">Бал вопроса<br />№6</span>
-                    <span class="contestant-list-heading-item contestant-total-score">Сумма<br />баллов</span>
-                    <span class="contestant-list-heading-item contestant-level-2-allowance">Допущен на<br />Этап II</span>
+                    <span class="contestant-list-heading-item contestant-question-4-score">Бал вопроса №4</span>
+                    <span class="contestant-list-heading-item contestant-question-5-score">Бал вопроса №5</span>
+                    <span class="contestant-list-heading-item contestant-question-6-score">Бал вопроса №6</span>
+                    <span class="contestant-list-heading-item contestant-total-score">Сумма баллов</span>
+                    <span class="contestant-list-heading-item contestant-level-2-allowance">Допущен на Этап II</span>
                     <span class="contestant-list-heading-item contestant-checking-curator">Проверил</span>
                     <span class="contestant-list-heading-item contestant-action">Действия</span>
                 </div>
                 <?php foreach($contestants as $contestant){ ?>
                 <div class="contestant-list-item">
-                    <span class="contestant-list-item-item contestant-registration-date"><?php echo $contestant['contestant_id']; ?></span>
+                    <span class="contestant-list-item-item contestant-registration-date"><?php echo $contestant['registration_date']; ?></span>
                     <span class="contestant-list-item-item contestant-fio"><?php echo $contestant['fio']; ?></span>
                     <span class="contestant-list-item-item contestant-email"><?php echo $contestant['email']; ?></span>
                     <span class="contestant-list-item-item contestant-telephone"><?php echo $contestant['telephone']; ?></span>

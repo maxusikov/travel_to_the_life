@@ -311,12 +311,12 @@ class ControllerAccountCurator extends Controller {
             $contestant_question_level_1_data = $this->model_account_customer->getCustomerLevel1Data($contestant_id);
             
             $question['level_1'] = [
-                'favorite_film'            => $contestant_data['favorite_film'],
-                'film_influation'          => $contestant_data['favorite_film_influence'],
-                'speciality'               => $contestant_data['profession'],
-                'speciality_opportunities' => $contestant_data['profession_opportunities'],
-                'perspective_reasons'      => $contestant_question_level_1_data['speciality_perspective'],
-                'esse'                     => $contestant_question_level_1_data['esse']
+                'favorite_film'            => isset($contestant_data['favorite_film']) ? $contestant_data['favorite_film'] : '',
+                'film_influation'          => isset($contestant_data['favorite_film_influence']) ? $contestant_data['favorite_film_influence'] : '',
+                'speciality'               => isset($contestant_data['profession']) ? $contestant_data['profession'] : '',
+                'speciality_opportunities' => isset($contestant_data['profession_opportunities']) ? $contestant_data['profession_opportunities'] : '',
+                'perspective_reasons'      => isset($contestant_question_level_1_data['speciality_perspective']) ? $contestant_question_level_1_data['speciality_perspective'] : '',
+                'esse'                     => isset($contestant_question_level_1_data['esse']) ? $contestant_question_level_1_data['esse'] : ''
             ];
             
             $level_score_mapping = [
@@ -340,16 +340,16 @@ class ControllerAccountCurator extends Controller {
             
             $data['contestant_data'] = [
                 'contestant_id' => $contestant_id,
-                'fio'           => $contestant_data['full_name'],
-                'telephone'     => $contestant_data['telephone'],
-                'email'         => $contestant_data['email'],
-                'city'          => $contestant_data['city'],
-                'study_place'   => $contestant_data['study_place'],
+                'fio'           => isset($contestant_data['full_name']) ? $contestant_data['full_name'] : '',
+                'telephone'     => isset($contestant_data['telephone']) ? $contestant_data['telephone'] : '',
+                'email'         => isset($contestant_data['email']) ? $contestant_data['email'] : '',
+                'city'          => isset($contestant_data['city']) ? $contestant_data['city'] : '',
+                'study_place'   => isset($contestant_data['study_place']) ? $contestant_data['study_place'] : '',
                 
                 'teacher'       => $contestant_data['teacher'] = [
-                    'fio'           => $contestant_data['teacher_name'],
-                    'telephone'     => $contestant_data['teacher_phone'],
-                    'email'         => $contestant_data['teacher_email']
+                    'fio'           => isset($contestant_data['teacher_name']) ? $contestant_data['teacher_name'] : '',
+                    'telephone'     => isset($contestant_data['teacher_phone']) ? $contestant_data['teacher_phone'] : '',
+                    'email'         => isset($contestant_data['teacher_email']) ? $contestant_data['teacher_email'] : ''
                 ],
                 'question'      => $question,
                 'score'         => $customer_score,
