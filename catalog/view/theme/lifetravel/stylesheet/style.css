@@ -1054,7 +1054,224 @@ form .input-wrapper {
     width: 50px;
     height: 50px; }
 
-/* Maetrialize fixes */
+/* Curator-area */
+.account-curator .container .content-container #content .form-wrapper {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px 10px 10px 10px;
+  padding: 10px 20px 10px 20px; }
+  .account-curator .container .content-container #content .form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-list-heading {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: stretch; }
+      .account-curator .container .content-container #content .form-wrapper form .contestant-list-heading .contestant-list-heading-item {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: center; }
+    .account-curator .container .content-container #content .form-wrapper form .contestant-list-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: stretch;
+      height: 50px; }
+      .account-curator .container .content-container #content .form-wrapper form .contestant-list-item:nth-child(2n) {
+        background-color: rgba(255, 255, 255, 0.25); }
+      .account-curator .container .content-container #content .form-wrapper form .contestant-list-item .contestant-list-item-item {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: center; }
+
+.account-curator-getContestantForm .container .content-container #content .form-wrapper, .account-curator-save .container .content-container #content .form-wrapper {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px 10px 10px 10px;
+  border: 5px solid #503730;
+  overflow: hidden;
+  margin: 10px 0px 10px 0px; }
+  .account-curator-getContestantForm .container .content-container #content .form-wrapper form, .account-curator-save .container .content-container #content .form-wrapper form {
+    margin: 10px 20px 10px 20px; }
+    .account-curator-getContestantForm .container .content-container #content .form-wrapper form .input-wrapper .label-wrapper label, .account-curator-save .container .content-container #content .form-wrapper form .input-wrapper .label-wrapper label {
+      font-size: 15px; }
+    .account-curator-getContestantForm .container .content-container #content .form-wrapper form .checker-fio, .account-curator-save .container .content-container #content .form-wrapper form .checker-fio {
+      border-radius: 10px 10px 10px 10px;
+      background-color: rgba(255, 255, 255, 0.3);
+      padding: 5px 10px 5px 10px;
+      margin: 5px 0px 5px 0px; }
+      .account-curator-getContestantForm .container .content-container #content .form-wrapper form .checker-fio input, .account-curator-save .container .content-container #content .form-wrapper form .checker-fio input {
+        flex: 1; }
+    .account-curator-getContestantForm .container .content-container #content .form-wrapper form input, .account-curator-getContestantForm .container .content-container #content .form-wrapper form textarea, .account-curator-save .container .content-container #content .form-wrapper form input, .account-curator-save .container .content-container #content .form-wrapper form textarea {
+      background-color: rgba(255, 255, 255, 0.5); }
+    .account-curator-getContestantForm .container .content-container #content .form-wrapper form .subheading, .account-curator-save .container .content-container #content .form-wrapper form .subheading {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 0px 0px 15px 0px; }
+    .account-curator-getContestantForm .container .content-container #content .form-wrapper form .score-area, .account-curator-save .container .content-container #content .form-wrapper form .score-area {
+      margin: 0px 0px 0px 10px;
+      position: relative; }
+      .account-curator-getContestantForm .container .content-container #content .form-wrapper form .score-area label, .account-curator-save .container .content-container #content .form-wrapper form .score-area label {
+        color: #4788ff;
+        font-size: 14px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        white-space: nowrap; }
+      .account-curator-getContestantForm .container .content-container #content .form-wrapper form .score-area input, .account-curator-save .container .content-container #content .form-wrapper form .score-area input {
+        color: #4788ff;
+        border: 2px solid #4788ff;
+        border-radius: 10px 10px 10px 10px;
+        text-align: center;
+        width: 100px; }
+    .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-info, .account-curator-save .container .content-container #content .form-wrapper form .contestant-info {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: stretch;
+      margin: 40px 0px 0px 0px; }
+      .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-info .contestant-data, .account-curator-save .container .content-container #content .form-wrapper form .contestant-info .contestant-data {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: stretch;
+        margin: 0px 10px 0px 0px; }
+        .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-info .contestant-data .label-wrapper, .account-curator-save .container .content-container #content .form-wrapper form .contestant-info .contestant-data .label-wrapper {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start; }
+        .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-info .contestant-data .input-wrapper, .account-curator-save .container .content-container #content .form-wrapper form .contestant-info .contestant-data .input-wrapper {
+          display: flex;
+          flex-direction: row;
+          align-items: stretch;
+          justify-content: space-between;
+          border-radius: 10px 10px 10px 10px;
+          background-color: rgba(255, 255, 255, 0.7);
+          padding: 5px 10px 5px 10px;
+          margin: 5px 0px 5px 0px; }
+      .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-info .contestant-teacher-data, .account-curator-save .container .content-container #content .form-wrapper form .contestant-info .contestant-teacher-data {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: stretch; }
+        .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-info .contestant-teacher-data .label-wrapper, .account-curator-save .container .content-container #content .form-wrapper form .contestant-info .contestant-teacher-data .label-wrapper {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start; }
+        .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-info .contestant-teacher-data .input-wrapper, .account-curator-save .container .content-container #content .form-wrapper form .contestant-info .contestant-teacher-data .input-wrapper {
+          display: flex;
+          flex-direction: row;
+          align-items: stretch;
+          justify-content: space-between;
+          border-radius: 10px 10px 10px 10px;
+          background-color: rgba(255, 255, 255, 0.7);
+          padding: 5px 10px 5px 10px;
+          margin: 5px 0px 5px 0px; }
+    .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: stretch;
+      margin: 40px 0px 0px 0px; }
+      .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .leftside, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .leftside {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: stretch;
+        margin: 0px 10px 0px 0px; }
+        .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .leftside .input-wrapper, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .leftside .input-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: stretch;
+          border-radius: 10px 10px 10px 10px;
+          background-color: rgba(255, 255, 255, 0.7);
+          padding: 5px 10px 5px 10px;
+          margin: 5px 0px 5px 0px; }
+          .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .leftside .input-wrapper .inner-wrapper, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .leftside .input-wrapper .inner-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: stretch; }
+            .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .leftside .input-wrapper .inner-wrapper input[type="text"], .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .leftside .input-wrapper .inner-wrapper input[type="text"] {
+              flex: 1;
+              margin: 10px 0px 5px 0px; }
+              .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .leftside .input-wrapper .inner-wrapper input[type="text"].score-area, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .leftside .input-wrapper .inner-wrapper input[type="text"].score-area {
+                flex: 0;
+                margin-left: 10px; }
+      .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .rightside, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .rightside {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: stretch; }
+        .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: stretch;
+          border-radius: 10px 10px 10px 10px;
+          background-color: rgba(255, 255, 255, 0.7);
+          padding: 10px 10px 10px 10px;
+          margin: 5px 0px 5px 0px; }
+          .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper .label-wrapper, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper .label-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: stretch; }
+            .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper .label-wrapper .score-area, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper .label-wrapper .score-area {
+              flex: 0; }
+              .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper .label-wrapper .score-area label, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper .label-wrapper .score-area label {
+                transform: translate(0, -50%);
+                top: 50%;
+                left: 110%; }
+          .account-curator-getContestantForm .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper textarea, .account-curator-save .container .content-container #content .form-wrapper form .contestant-question-data .rightside .input-wrapper textarea {
+            flex: 1;
+            margin: 10px 0px 5px 0px;
+            resize: none; }
+    .account-curator-getContestantForm .container .content-container #content .form-wrapper form .bottom-area, .account-curator-save .container .content-container #content .form-wrapper form .bottom-area {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      height: 50px; }
+      .account-curator-getContestantForm .container .content-container #content .form-wrapper form .bottom-area .allowance-checkbox, .account-curator-save .container .content-container #content .form-wrapper form .bottom-area .allowance-checkbox {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: stretch;
+        margin: 0px 0px 0px 150px; }
+        .account-curator-getContestantForm .container .content-container #content .form-wrapper form .bottom-area .allowance-checkbox .label-wrapper label, .account-curator-save .container .content-container #content .form-wrapper form .bottom-area .allowance-checkbox .label-wrapper label {
+          cursor: pointer; }
+        .account-curator-getContestantForm .container .content-container #content .form-wrapper form .bottom-area .allowance-checkbox input[type="checkbox"], .account-curator-save .container .content-container #content .form-wrapper form .bottom-area .allowance-checkbox input[type="checkbox"] {
+          width: 30px;
+          height: 30px;
+          position: relative;
+          opacity: 1;
+          pointer-events: auto;
+          margin: 0px 10px 0px 0px; }
+      .account-curator-getContestantForm .container .content-container #content .form-wrapper form .bottom-area .buttons, .account-curator-save .container .content-container #content .form-wrapper form .bottom-area .buttons {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 0px 320px 0px 0px; }
+
+/* Materialize fixes */
 @media only screen and (min-width: 993px) {
   .container {
     width: 100%; } }

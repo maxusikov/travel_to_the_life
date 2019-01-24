@@ -44,15 +44,15 @@ class ControllerAccountLogin extends Controller {
 		if ($this->customer->isLogged()) {
 			$this->response->redirect($this->url->link('account/account', '', true));
 		}
-
+                
 		$this->load->language('account/login');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			// Unset guest
-			unset($this->session->data['guest']);
-
+			unset($this->session->data['guest']);                        
+                        
 			// Default Shipping Address
 			$this->load->model('account/address');
 
@@ -91,7 +91,11 @@ class ControllerAccountLogin extends Controller {
 			if (isset($this->request->post['redirect']) && $this->request->post['redirect'] != $this->url->link('account/logout', '', true) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) !== false)) {
 				$this->response->redirect(str_replace('&amp;', '&', $this->request->post['redirect']));
 			} else {
-				$this->response->redirect($this->url->link('account/account', '', true));
+                            if($this->customer->isCurator()){
+                                $this->response->redirect($this->url->link('account/curator', '', true));
+                            } else {
+                                $this->response->redirect($this->url->link('account/account', '', true));
+                            }
 			}
 		}
 
@@ -193,23 +197,32 @@ class ControllerAccountLogin extends Controller {
 			$this->error['warning'] = $this->language->get('error_attempts');
 		}
 
-		// Check if customer has been approved.
-		$customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
+                // Check if user is curator
+                $curator_info = $this->model_account_customer->getCuratorByEmail($this->request->post['email']);
+                
+                if($curator_info){
+                    if (!$this->customer->login($this->request->post['email'], $this->request->post['password'], false, true)) {
+                        $this->error['warning'] = $this->language->get('error_login');
+                    }
+                } else {
+                    // Check if customer has been approved.
+                    $customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
 
-		if ($customer_info && !$customer_info['approved']) {
-			$this->error['warning'] = $this->language->get('error_approved');
-		}
+                    if ($customer_info && !$customer_info['approved']) {
+                            $this->error['warning'] = $this->language->get('error_approved');
+                    }
 
-		if (!$this->error) {
-			if (!$this->customer->login($this->request->post['email'], $this->request->post['password'])) {
-				$this->error['warning'] = $this->language->get('error_login');
+                    if (!$this->error) {
+                            if (!$this->customer->login($this->request->post['email'], $this->request->post['password'])) {
+                                    $this->error['warning'] = $this->language->get('error_login');
 
-				$this->model_account_customer->addLoginAttempt($this->request->post['email']);
-			} else {
-				$this->model_account_customer->deleteLoginAttempts($this->request->post['email']);
-			}
-		}
-
+                                    $this->model_account_customer->addLoginAttempt($this->request->post['email']);
+                            } else {
+                                    $this->model_account_customer->deleteLoginAttempts($this->request->post['email']);
+                            }
+                    }
+                }
+                
 		return !$this->error;
 	}
 }

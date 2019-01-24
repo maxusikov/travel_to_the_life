@@ -328,6 +328,14 @@ class ControllerCommonColumnLeft extends Controller {
 			// Customer
 			$customer = array();
 			
+                        if ($this->user->hasPermission('access', 'customer/customer')) {
+				$customer[] = array(
+					'name'	   => $this->language->get('text_curator'),
+					'href'     => $this->url->link('customer/curator', 'token=' . $this->session->data['token'], true),
+					'children' => array()		
+				);	
+			}
+                        
 			if ($this->user->hasPermission('access', 'customer/customer')) {
 				$customer[] = array(
 					'name'	   => $this->language->get('text_customer'),

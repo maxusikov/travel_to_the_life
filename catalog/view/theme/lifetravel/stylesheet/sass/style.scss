@@ -1584,7 +1584,332 @@ form {
     } 
 }
 
-/* Maetrialize fixes */
+/* Curator-area */
+.account-curator {
+    .container {
+        .content-container {
+            #content {
+                .form-wrapper {
+                    background-color: rgba(255, 255, 255, 0.75);
+                    border-radius: 10px 10px 10px 10px;
+                    padding: 10px 20px 10px 20px;
+                    
+                    form {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: stretch;
+                        justify-content: flex-start;
+                        
+                        .contestant-list-heading {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: stretch;
+                            
+                            .contestant-list-heading-item {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: center;
+                                text-align: center;
+                            }
+                        }
+                        
+                        .contestant-list-item {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: stretch;
+                            height: 50px;
+                            
+                            &:nth-child(2n){
+                                background-color: rgba(255, 255, 255, 0.25);
+                            }
+                            
+                            .contestant-list-item-item {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: center;
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.account-curator-getContestantForm, .account-curator-save {
+    .container {
+        .content-container {
+            #content {
+                .form-wrapper {
+                    background-color: rgba(255, 255, 255, 0.75);
+                    border-radius: 10px 10px 10px 10px;
+                    border: 5px solid $primary-text-color;
+                    overflow: hidden;
+                    margin: 10px 0px 10px 0px;
+                    
+                    form {
+                        margin: 10px 20px 10px 20px;
+                        
+                        .input-wrapper {
+                            .label-wrapper {
+                                label {
+                                    font-size: 15px;
+                                }
+                            }
+                        }
+                        
+                        .checker-fio {
+                            border-radius: 10px 10px 10px 10px;
+                            background-color: rgba(255, 255, 255, 0.3);
+                            padding: 5px 10px 5px 10px;
+                            margin: 5px 0px 5px 0px;
+
+                            input {
+                                flex: 1;
+                            }
+                        }
+                        
+                        input, textarea {
+                            background-color: rgba(255, 255, 255, 0.5);
+                        }
+                        
+                        > .input-wrapper {}
+                    
+                        .subheading {
+                            font-size: 17px;
+                            font-weight: 600;
+                            margin: 0px 0px 15px 0px;
+                        }
+
+                        .score-area {
+                            margin: 0px 0px 0px 10px;
+                            position: relative;
+                            
+                            label {
+                                color: #4788ff;
+                                font-size: 14px;
+                                position: absolute;
+                                transform: translate(-50%, -50%);
+                                left: 50%;
+                                white-space: nowrap;
+                            }
+                            
+                            input {
+                                color: #4788ff;
+                                border: 2px solid #4788ff;
+                                border-radius: 10px 10px 10px 10px;
+                                text-align: center;
+                                width: 100px;
+                            }
+                        }
+                        
+                        .contestant-info {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: flex-start;
+                            justify-content: stretch;
+                            margin: 40px 0px 0px 0px;
+
+                            .contestant-data {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: stretch;
+                                justify-content: stretch;
+                                margin: 0px 10px 0px 0px;
+                                
+                                .label-wrapper {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: center;;
+                                    justify-content: flex-start;
+                                }
+                                
+                                .input-wrapper {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: stretch;
+                                    justify-content: space-between;
+                                    border-radius: 10px 10px 10px 10px;
+                                    background-color: rgba(255, 255, 255, 0.7);
+                                    padding: 5px 10px 5px 10px;
+                                    margin: 5px 0px 5px 0px;
+                                }
+                            }
+
+                            .contestant-teacher-data {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: stretch;
+                                justify-content: stretch;
+                                
+                                .label-wrapper {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: center;;
+                                    justify-content: flex-start;
+                                }
+                                
+                                .input-wrapper {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: stretch;
+                                    justify-content: space-between;
+                                    border-radius: 10px 10px 10px 10px;
+                                    background-color: rgba(255, 255, 255, 0.7);
+                                    padding: 5px 10px 5px 10px;
+                                    margin: 5px 0px 5px 0px;
+                                }
+                            }
+                        }
+
+                        .contestant-question-data {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: stretch;
+                            justify-content: stretch;
+                            margin: 40px 0px 0px 0px;
+
+                            .leftside {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: stretch;
+                                justify-content: stretch;
+                                margin: 0px 10px 0px 0px;
+                                
+                                .input-wrapper {
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: stretch;
+                                    justify-content: stretch;
+                                    border-radius: 10px 10px 10px 10px;
+                                    background-color: rgba(255, 255, 255, 0.7);
+                                    padding: 5px 10px 5px 10px;
+                                    margin: 5px 0px 5px 0px;
+
+                                    .inner-wrapper {
+                                        display: flex;
+                                        flex-direction: row;
+                                        align-items: stretch;
+                                        justify-content: stretch;
+
+                                        input[type="text"] {
+                                            flex: 1;
+                                            margin: 10px 0px 5px 0px;
+                                            
+                                            &.score-area {
+                                                flex: 0;
+                                                margin-left: 10px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .rightside {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: stretch;
+                                justify-content: stretch;
+                                
+                                .input-wrapper {
+                                    flex: 1;
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: stretch;
+                                    justify-content: stretch;
+                                    border-radius: 10px 10px 10px 10px;
+                                    background-color: rgba(255, 255, 255, 0.7);
+                                    padding: 10px 10px 10px 10px;
+                                    margin: 5px 0px 5px 0px;
+
+                                    .label-wrapper {
+                                        display: flex;
+                                        flex-direction: row;
+                                        align-items: center;
+                                        justify-content: stretch;
+                                        
+                                        .score-area {
+                                            flex: 0;
+                                            
+                                            label {
+                                                transform: translate(0, -50%);
+                                                top: 50%;
+                                                left: 110%;
+                                            }
+                                        }
+                                    }
+                                    
+                                    textarea {
+                                        flex: 1;
+                                        margin: 10px 0px 5px 0px;
+                                        resize: none;
+                                    }
+                                }
+                            }
+                        }
+
+                        .bottom-area {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: center;
+                            height: 50px;
+
+                            .allowance-checkbox {
+                                display: flex;
+                                flex-direction: row-reverse;
+                                align-items: center;
+                                justify-content: stretch;
+                                margin: 0px 0px 0px 150px;
+
+                                .label-wrapper {
+                                    label {
+                                        cursor: pointer;
+                                    }
+                                }
+
+                                input[type="checkbox"]{
+                                    width: 30px;
+                                    height: 30px;
+                                    position: relative;
+                                    opacity: 1;
+                                    pointer-events: auto;
+                                    margin: 0px 10px 0px 0px;
+                                }
+                            }
+
+                            .buttons {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: center;
+                                margin: 0px 320px 0px 0px;
+
+                                .submit-button {
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Materialize fixes */
 @media only screen and (min-width: 993px){
     .container {
         width: 100%;

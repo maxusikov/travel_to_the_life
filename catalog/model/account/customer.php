@@ -320,4 +320,63 @@ class ModelAccountCustomer extends Model {
             
             return $result->rows;
         }
+        
+        // Curator
+        public function getCuratorByEmail($curator_email){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "contestant_curator` WHERE email='" . (string)$curator_email . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        
+        public function getContestantList($filter_data){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer`";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        
+        // Contestant score
+        public function saveContestantScore($score_data, $level){
+            $sql  = "INSERT INTO `" . DB_PREFIX . "contestant_score_" . (string)$level . "` SET ";
+            $sql .= "contestant_id='" . (int)$score_data['contestant_id'] . "', ";
+            $sql .= "curator_id='" . (int)$score_data['curator_id'] . "', ";
+            $sql .= "checking='" . (string)$score_data['checking'] . "',";
+            $sql .= "level_2_allowance='" . (bool)$score_data['level_2_allowance'] . "'";
+            
+            foreach($score_data['score'] as $score_key => $score){
+                $sql .= ", " . (string)$score_key . "='" . (int)$score . "'";
+            }
+            
+            $sql .= " ON DUPLICATE KEY UPDATE curator_id='" . (int)$score_data['curator_id'] . "', ";
+            
+            $sql .= "checking='" . (string)$score_data['checking'] . "', ";
+            $sql .= "level_2_allowance='" . (bool)$score_data['level_2_allowance'] . "'";
+            
+            foreach($score_data['score'] as $score_key => $score){
+                $sql .= ", " . (string)$score_key . "='" . (int)$score . "'";
+            }
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function deleteContestantScore($contestant_id, $level){
+            $sql = "DELETE FROM `" . DB_PREFIX . "contestant_score_" . (string)$level . "` WHERE contestant_id='" . (int)$contestant_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function getContestantScoreById($contestant_id, $level){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "contestant_score_" . (string)$level . "` WHERE contestant_id='" . (int)$contestant_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
 }

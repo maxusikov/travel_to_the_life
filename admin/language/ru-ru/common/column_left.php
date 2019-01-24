@@ -12,6 +12,7 @@ $_['text_country']          				= 'Страны';
 $_['text_coupon']          					= 'Купоны';
 $_['text_currency']          				= 'Валюты';
 $_['text_customer']          				= 'Пользователи проекта';
+$_['text_curator']          				= 'Куратор';
 $_['text_customer_group']          			= 'Группы пользователей проекта';
 $_['text_custom_field']          			= 'Произвольные поля';
 $_['text_dashboard']          				= 'Панель управления';
