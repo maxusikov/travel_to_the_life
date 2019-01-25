@@ -4,16 +4,30 @@ class ControllerAccountCurator extends Controller {
 	    $this->getContestantList();
 	}
         
-        public function getContestantList($page_number=1, $contestants_per_page=10){
+        public function getContestantList(){
             $this->load->model('account/customer');
             
-            if(isset($this->request->get['page_number'])){
-                $page_number = $this->request->get['page_number'];
+            //
+            $filter_data = "filter_score_sum=DESC";
+            // 
+            
+            if(isset($this->request->get['page'])){
+                $page = (int)$this->request->get['page'];
+            } else {
+                $page = 1;
             }
             
-            if(isset($this->request->get['per_page'])){
-                $contestants_per_page = (int)$this->request->get['per_page'];
-            }
+            $page_limit = 10;
+            
+            $contestant_total = $this->model_account_customer->getTotalCustomers();
+            
+            $pagination = new Pagination();
+            $pagination->total = $contestant_total;
+            $pagination->page = $page;
+            $pagination->limit = $page_limit;
+            $pagination->url = $this->url->link('account/curator', $filter_data . '&page={page}', true);
+            
+            $data['pagination'] = $pagination->render();
             
             $level_score_mapping = [
                 'level_1' => [
@@ -24,6 +38,16 @@ class ControllerAccountCurator extends Controller {
             ];
             
             $filter_data = [];
+            
+            if(isset($this->request->get['page'])){
+                $filter_data['start'] = (int)$this->request->get['page'];
+            }
+            
+            $filter_data['limit'] = $page_limit;
+            
+            if(isset($this->request->get['filter_score_sum'])){
+                $filter_data['filter_score_sum'] = 'DESC';
+            }
             
             $customers = $this->model_account_customer->getContestantList($filter_data);
                         
@@ -331,6 +355,7 @@ class ControllerAccountCurator extends Controller {
             }
             
             $data['save_contestant_data'] = $this->url->link('account/curator/save', 'contestant_id=' . $contestant_id, true);
+            $data['back_to_list'] = $this->url->link('account/curator', true);
             
             $this->load->model('account/customer');
             

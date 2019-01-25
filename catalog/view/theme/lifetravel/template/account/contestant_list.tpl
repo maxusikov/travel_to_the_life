@@ -27,6 +27,7 @@
                 </div>
                 <?php foreach($contestants as $contestant){ ?>
                 <div class="contestant-list-item">
+                    <!--span class="contestant-list-item-item contestant-registration-date"><?php echo $contestant['contestant_id']; ?></span-->
                     <span class="contestant-list-item-item contestant-registration-date"><?php echo $contestant['registration_date']; ?></span>
                     <span class="contestant-list-item-item contestant-fio"><?php echo $contestant['fio']; ?></span>
                     <span class="contestant-list-item-item contestant-email"><?php echo $contestant['email']; ?></span>
@@ -44,6 +45,9 @@
                 </div>
                 <?php } ?>
             </form>
+        </div>
+        <div id="pagination">
+            <?php echo $pagination; ?>
         </div>
     </div>
 </div>

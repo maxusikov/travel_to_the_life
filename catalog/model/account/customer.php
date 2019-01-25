@@ -177,6 +177,53 @@ class ModelAccountCustomer extends Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE email = '" . $this->db->escape(utf8_strtolower($email)) . "'");
 	}
         
+        //
+        public function getTotalCustomers($data = array()) {
+		$sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "customer";
+
+		$implode = array();
+
+		if (!empty($data['filter_name'])) {
+			$implode[] = "CONCAT(firstname, ' ', lastname) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+		}
+
+		if (!empty($data['filter_email'])) {
+			$implode[] = "email LIKE '" . $this->db->escape($data['filter_email']) . "%'";
+		}
+
+		if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])) {
+			$implode[] = "newsletter = '" . (int)$data['filter_newsletter'] . "'";
+		}
+
+		if (!empty($data['filter_customer_group_id'])) {
+			$implode[] = "customer_group_id = '" . (int)$data['filter_customer_group_id'] . "'";
+		}
+
+		if (!empty($data['filter_ip'])) {
+			$implode[] = "customer_id IN (SELECT customer_id FROM " . DB_PREFIX . "customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
+		}
+
+		if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
+			$implode[] = "status = '" . (int)$data['filter_status'] . "'";
+		}
+
+		if (isset($data['filter_approved']) && !is_null($data['filter_approved'])) {
+			$implode[] = "approved = '" . (int)$data['filter_approved'] . "'";
+		}
+
+		if (!empty($data['filter_date_added'])) {
+			$implode[] = "DATE(date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
+		}
+
+		$query = $this->db->query($sql);
+
+		return $query->row['total'];
+	}
+        
         public function addCustomerDataById($data) {
             $sql  = "INSERT INTO `" . DB_PREFIX . "customer_data` SET ";
             $sql .= "customer_id='" . (int)$data['customer_id'] . "', ";
@@ -372,8 +419,28 @@ class ModelAccountCustomer extends Model {
             return $result->row;
         }
         
-        public function getContestantList($filter_data){
-            $sql = "SELECT * FROM `" . DB_PREFIX . "customer`";
+        public function getContestantList($data = []){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer` c LEFT JOIN `" . DB_PREFIX . "contestant_score_level_1` csl1 ON c.customer_id=csl1.contestant_id";
+            
+            if(!empty($data['filter_score_sum'])){
+                $sql .= " ORDER BY c.customer_id DESC, (csl1.question_4_score + csl1.question_5_score + csl1.question_6_score)";
+                
+                if($data['filter_score_sum'] == 'DESC'){
+                    $sql .= " DESC";
+                } else {
+                    $sql .= " ASC";
+                }
+            }
+            
+            if (!isset($data['start'])) {
+                $data['start'] = 0;
+            }
+
+            if (!isset($data['limit'])) {
+                $data['limit'] = 5;
+            }
+
+            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
             
             $result = $this->db->query($sql);
             

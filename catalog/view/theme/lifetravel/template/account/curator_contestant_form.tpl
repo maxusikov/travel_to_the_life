@@ -170,6 +170,7 @@
                   </div>
                   <div class="buttons">
                       <button class="submit-button button" type="submit">Сохранить</button>
+                      <a href="<?php echo $back_to_list; ?>" class="back button">Назад к списку</a>
                   </div>
               </div>
           </form>

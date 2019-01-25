@@ -46,8 +46,8 @@ class ControllerAccountOrder extends Controller {
 		$data['column_date_added'] = $this->language->get('column_date_added');
 
 		$data['button_view'] = $this->language->get('button_view');
-    $data['button_ocstore_payeer_onpay'] = $this->language->get('button_ocstore_payeer_onpay');
-    $data['button_ocstore_yk_onpay'] = $this->language->get('button_ocstore_yk_onpay');
+                $data['button_ocstore_payeer_onpay'] = $this->language->get('button_ocstore_payeer_onpay');
+                $data['button_ocstore_yk_onpay'] = $this->language->get('button_ocstore_yk_onpay');
 		$data['button_continue'] = $this->language->get('button_continue');
 
 		if (isset($this->request->get['page'])) {

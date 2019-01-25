@@ -1299,8 +1299,35 @@ form .input-wrapper {
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
+        justify-content: space-around;
         margin: 0px 320px 0px 0px; }
+
+#pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  height: 80px; }
+  #pagination ul.pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; }
+    #pagination ul.pagination li {
+      height: 50px;
+      height: 50px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin: 0px 3px;
+      background-color: transparent; }
+      #pagination ul.pagination li a {
+        border-radius: 10px; }
+      #pagination ul.pagination li span {
+        border-radius: 10px;
+        border: 3px solid rgba(255, 255, 255, 0.7);
+        background-color: #503730; }
 
 /* Materialize fixes */
 @media only screen and (min-width: 993px) {
