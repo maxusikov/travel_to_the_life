@@ -204,6 +204,48 @@ class ModelAccountCustomer extends Model {
             return $result;
         }
         
+        //
+        public function saveCustomerDataById($data) {
+            $sql  = "INSERT INTO `" . DB_PREFIX . "customer_data` SET ";
+            $sql .= "customer_id='" . (string)$data['customer_id'] . "', ";
+            $sql .= "email='" . (string)$data['email'] . "', ";
+            $sql .= "full_name='" . (string)$data['full_name'] . "', ";
+            $sql .= "birth_date='" . (string)$data['birth_date'] . "', ";
+            $sql .= "study_place='" . (string)$data['study_place'] . "', ";
+            $sql .= "city='" . (string)$data['city'] . "', ";
+            $sql .= "telephone='" . (string)$data['telephone'] . "', ";
+            
+            $sql .= "teacher_name='" . (string)$data['teacher_name'] . "', ";
+            $sql .= "teacher_phone='" . (string)$data['teacher_phone'] . "', ";
+            $sql .= "teacher_email='" . (string)$data['teacher_email'] . "', ";
+            $sql .= "favorite_film='" . (string)$data['favorite_film'] . "', ";
+            
+            $sql .= "favorite_film_influence='" . (string)$data['favorite_film_influence'] . "', ";
+            $sql .= "profession='" . (string)$data['profession'] . "', ";
+            $sql .= "profession_opportunities='" . (string)$data['profession_opportunities'] . "' ";
+            $sql .= "ON DUPLICATE KEY UPDATE ";
+            $sql .= "email='" . (string)$data['email'] . "', ";
+            $sql .= "full_name='" . (string)$data['full_name'] . "', ";
+            $sql .= "birth_date='" . (string)$data['birth_date'] . "', ";
+            $sql .= "study_place='" . (string)$data['study_place'] . "', ";
+            $sql .= "city='" . (string)$data['city'] . "', ";
+            $sql .= "telephone='" . (string)$data['telephone'] . "', ";
+            
+            $sql .= "teacher_name='" . (string)$data['teacher_name'] . "', ";
+            $sql .= "teacher_phone='" . (string)$data['teacher_phone'] . "', ";
+            $sql .= "teacher_email='" . (string)$data['teacher_email'] . "', ";
+            $sql .= "favorite_film='" . (string)$data['favorite_film'] . "', ";
+            
+            $sql .= "favorite_film_influence='" . (string)$data['favorite_film_influence'] . "', ";
+            $sql .= "profession='" . (string)$data['profession'] . "', ";
+            $sql .= "profession_opportunities='" . (string)$data['profession_opportunities'] . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        //
+        
         public function updateCustomerDataById($data) {
             $sql  = "UPDATE `" . DB_PREFIX . "customer_data` SET ";
             $sql .= "email='" . (string)$data['email'] . "', ";

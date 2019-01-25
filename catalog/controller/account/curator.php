@@ -15,8 +15,6 @@ class ControllerAccountCurator extends Controller {
                 $contestants_per_page = (int)$this->request->get['per_page'];
             }
             
-            
-            
             $level_score_mapping = [
                 'level_1' => [
                     'question_4_score',
@@ -292,6 +290,36 @@ class ControllerAccountCurator extends Controller {
                     
                     $this->model_account_customer->saveContestantScore($score_data, $level_key);
                 }
+                
+                // Contestant data
+                $contestant_data = [
+                    'customer_id' => $contestant_id,
+                    'full_name' => $fio,
+                    'email' => $email,
+                    'birth_date' => '',
+                    'study_place' => $study_place,
+                    'city' => $city,
+                    'telephone' => $telephone,
+                    'teacher_name' => $teacher['fio'],
+                    'teacher_phone' => $teacher['telephone'],
+                    'teacher_email' => $teacher['email'],
+                    'favorite_film' => $question['level_1']['favorite_film'],
+                    'favorite_film_influence' => $question['level_1']['film_influation'],
+                    'profession' => $question['level_1']['speciality'],
+                    'profession_opportunities' => $question['level_1']['speciality_opportunities']
+                ];
+                
+                $this->model_account_customer->saveCustomerDataById($contestant_data);
+                
+                // Contestant answers to questions
+                $customer_level_1_data = [
+                    'customer_id'             => $contestant_id,
+                    'speciality_perspective'  => $question['level_1']['perspective_reasons'],
+                    'esse'                    => $question['level_1']['esse'],
+                    'film_information'        => $question['level_1']['favorite_film']
+                ];
+                
+                $this->model_account_customer->saveCustomerLevel1Data($customer_level_1_data);
             }
             
             $this->getContestantForm();
