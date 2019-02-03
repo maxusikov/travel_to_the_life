@@ -26,8 +26,8 @@
                     <span class="contestant-list-heading-item contestant-action">Действия</span>
                 </div>
                 <?php foreach($contestants as $contestant){ ?>
-                <div class="contestant-list-item">
-                    <!--span class="contestant-list-item-item contestant-registration-date"><?php echo $contestant['contestant_id']; ?></span-->
+                <div id="contestant-<?php echo $contestant['contestant_id']; ?>" class="contestant-list-item">
+                    <span class="contestant-list-item-item contestant-registration-date"><?php echo $contestant['contestant_id']; ?></span>
                     <span class="contestant-list-item-item contestant-registration-date"><?php echo $contestant['registration_date']; ?></span>
                     <span class="contestant-list-item-item contestant-fio"><?php echo $contestant['fio']; ?></span>
                     <span class="contestant-list-item-item contestant-email"><?php echo $contestant['email']; ?></span>
@@ -39,7 +39,9 @@
                     <span class="contestant-list-item-item contestant-question-5-score"><?php echo $contestant['question_5_score']; ?></span>
                     <span class="contestant-list-item-item contestant-question-6-score"><?php echo $contestant['question_6_score']; ?></span>
                     <span class="contestant-list-item-item contestant-total-score"><?php echo $contestant['total_score_level_1']; ?></span>
-                    <span class="contestant-list-item-item contestant-level-2-allowance"><?php echo $contestant['level_2_allowance']; ?></span>
+                    <span class="contestant-list-item-item contestant-level-2-allowance">
+                        <?php echo ($contestant['level_2_allowance']) ? 'Да' : 'Нет'; ?>
+                    </span>
                     <span class="contestant-list-item-item contestant-checking-curator"><?php echo $contestant['checking']; ?></span>
                     <span class="contestant-list-item-item contestant-actions"><a href="<?php echo $contestant['edit']; ?>">Редактировать</a></span>
                 </div>
@@ -49,6 +51,14 @@
         <div id="pagination">
             <?php echo $pagination; ?>
         </div>
+        <!--form action="<?php echo $clearAllAllowance; ?>" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="clearAllAllowance" />
+            <a class="button" onclick="$(this).closest('form').submit();">Очистить все допуски</a>
+        </form-->
+        <!--form action="<?php echo $submit_notification_to_allowed; ?>" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="submitNotificationToAllowed" />
+            <a class="button" onclick="$(this).closest('form').submit();">Отправить извещения</a>
+        </form-->
     </div>
 </div>
 <div id="ajax-response-info">

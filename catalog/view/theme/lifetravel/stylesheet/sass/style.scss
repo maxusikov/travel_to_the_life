@@ -1222,6 +1222,13 @@ footer {
                         .esse-form {
                             flex: 1;
                             
+                            .score {
+                                h2{
+                                    color: green;
+                                    margin: 0px 0px 20px 0px;
+                                }
+                            }
+                            
                             form {
                                 display: flex;
                                 flex-direction: column;
@@ -1663,6 +1670,12 @@ form {
                                 text-align: center;
                                 font-size: 14px;
                                 font-weight: 600;
+                                
+                                &.contestant-question-4-score, 
+                                &.contestant-question-5-score, 
+                                &.contestant-question-6-score {
+                                    font-size: 10px;
+                                }
                             }
                         }
                         

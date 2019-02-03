@@ -8,7 +8,7 @@ class ControllerAccountCurator extends Controller {
             $this->load->model('account/customer');
             
             //
-            $filter_data = "filter_score_sum=DESC";
+            $string_filter_data = "filter_score_sum=DESC";
             // 
             
             if(isset($this->request->get['page'])){
@@ -25,7 +25,7 @@ class ControllerAccountCurator extends Controller {
             $pagination->total = $contestant_total;
             $pagination->page = $page;
             $pagination->limit = $page_limit;
-            $pagination->url = $this->url->link('account/curator', $filter_data . '&page={page}', true);
+            $pagination->url = $this->url->link('account/curator', $string_filter_data . '&page={page}', true);
             
             $data['pagination'] = $pagination->render();
             
@@ -53,12 +53,15 @@ class ControllerAccountCurator extends Controller {
                         
             $contestant = [];
             
-            $customer_score = [];
             
             foreach($customers as $customer){
+                $customer_score = [];
+                
                 $customer_data = $this->model_account_customer->getCustomerDataById($customer['customer_id']);
 
                 foreach($level_score_mapping as $level => $score_map){
+                    $customer_score[$level] = [];
+                    
                     $customer_score_data = $this->model_account_customer->getContestantScoreById($customer['customer_id'], $level);
                     
                     foreach($score_map as $score_name){
@@ -66,31 +69,122 @@ class ControllerAccountCurator extends Controller {
                     }
                 }
                 
-                $contestant[] = [
+                $contestant[$customer['customer_id']] = [
                     'contestant_id'     => $customer['customer_id'],
                     'registration_date' => $customer['date_added'],
                     'fio'               => isset($customer_data['full_name']) ? $customer_data['full_name'] : '',
                     'email'             => isset($customer_data['email']) ? $customer_data['email'] : $customer['email'],
                     'telephone'         => isset($customer_data['telephone']) ? $customer_data['telephone'] : '',
-                    'birthdate'         => isset($customer_data['birthdate']) ? $customer_data['birthdate'] : '',
-                    'speciality'        => isset($customer_data['speciality']) ? $customer_data['speciality'] : '',
+                    'birthdate'         => isset($customer_data['birth_date']) ? $customer_data['birth_date'] : '',
+                    'speciality'        => isset($customer_data['profession']) ? $customer_data['profession'] : '',
                     'school'            => isset($customer_data['study_place']) ? $customer_data['study_place'] : '',
                     'question_4_score'  => !empty($customer_score['question_4_score']) ? $customer_score['question_4_score'] : '',
                     'question_5_score'  => !empty($customer_score['question_5_score']) ? $customer_score['question_5_score'] : '',
                     'question_6_score'  => !empty($customer_score['question_6_score']) ? $customer_score['question_6_score'] : '',
                     'total_score_level_1' => $customer_score['question_4_score'] + $customer_score['question_5_score'] + $customer_score['question_6_score'],
-                    'level_2_allowance' => isset($customer_score_data['next_level_allowance']) ? $customer_score_data['next_level_allowance'] : false,
-                    'checking'          => isset($customer_score_data['curator']) ? $customer_score_data['curator'] : '',
-                    'edit'              => $this->url->link('account/curator/getContestantForm', 'contestant_id=' . $customer['customer_id'], true)
+                    'level_2_allowance' => !empty($customer_score_data['level_2_allowance']) ? true : false,
+                    'checking'          => isset($customer_score_data['checking']) ? $customer_score_data['checking'] : '',
+                    'edit'              => $this->url->link('account/curator/getContestantForm', 'contestant_id=' . $customer['customer_id'] . '&page=' . $page . '&' . $string_filter_data, true)
                 ];
-            }
+                
+                //
+                $resdata = $this->model_account_customer->getContestantScoreById($customer['customer_id'], 'level_1');
+                
+                if(empty($resdata)){
+                    //$this->model_account_customer->addAllNeccessaryData($customer['customer_id']);
+                }
+            }   
             
             $data['contestants'] = $contestant;
+            
+            // CLear all
+            $data['clearAllAllowance'] = $this->url->link('account/curator', true);
+            
+            if(isset($this->request->post['action'])){
+                if($this->request->post['action'] == 'clearAllAllowance'){
+                    //$this->model_account_customer->clearAllAllowance();
+                }
+            }
+            //
+            
+            // Send notification to allowed
+            $data['submit_notification_to_allowed'] = $this->url->link('account/curator', true);
+            
+            if(isset($this->request->post['action'])){
+                if($this->request->post['action'] == 'submitNotificationToAllowed'){
+                    // $this->sendNotificationToAllowed();
+                }
+            }
+            //
             
             $data['footer'] = $this->load->controller('common/footer');
             $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('account/contestant_list', $data));
+        }
+        
+        public function sendNotificationToAllowed(){
+            $this->load->model('account/customer');
+            
+            $allowed_list = $this->model_account_customer->getAllowedToNextLevelList("level_1", "level_2_allowance");
+            
+            foreach($allowed_list as $allowed_contestant){
+                $contestant = $this->model_account_customer->getCustomer((int)$allowed_contestant['contestant_id']);
+                
+                $email = trim((string)$contestant['email']);
+                
+                $this->sendEmailNotification($email);
+            }
+        }
+        
+        public function sendEmailNotification($email){
+            $attachment = 'catalog/view/theme/lifetravel/image/programma.jpg';
+            
+            $message  = 'Добрый день! 
+            По итогам оценки анкет на участие в программе «Путевка в жизнь» 
+            Вы прошли во второй этап проекта. 
+            Поздравляем Вас!
+
+            Задания по второму этапу будут выложены после обучающей сессии. 
+            Рады будем видеть Вас 31 января в Суздале  
+            на обучающей сессии  http://iffw.ru/#teaching-session.
+
+            По вопросам организации трансфера на обучающую сессию, обращайтесь к директору (завучу) Вашей школы или в местный департамент образования.
+            Регистрация участников обучающей сессии состоится в ГТК «Суздаль»
+            31.01.2019 с 09:00 до 10:00.
+            Программа сессии в прикрепленном файле.
+            Желаем Вам удачи!';
+
+            $mail_html  = '<h2>Добрый день!</h2>';
+            $mail_html .= '<p>По итогам оценки анкет на участие в программе "Путевка в жизнь"';
+            $mail_html .= 'Вы прошли во второй этап проекта.</p>';
+            $mail_html .= '<h3>Поздравляем Вас!</h3><br /><br />';
+            $mail_html .= '<p>Задания по второму этапу будут выложены после обучающей сессии.</p>';
+            $mail_html .= '<p>Рады будем видеть Вас 31 января в Суздале  
+            на обучающей сессии <a style="color: magenta;" href="http://iffw.ru/#teaching-session"></a>.</p><br /><br />';
+            $mail_html .= '<p>По вопросам организации трансфера на обучающую сессию, обращайтесь к директору (завучу) Вашей школы или в местный департамент образования.</p>';
+            $mail_html .= '<p>Регистрация участников обучающей сессии состоится в ГТК «Суздаль»</p>';
+            $mail_html .= '<p style="font-size: 20px;font-style:italic;font-weight:600;">31.01.2019 с 09:00 до 10:00.</p>';
+            $mail_html .= '<p>Программа сессии в прикрепленном файле.</p>';
+            $mail_html .= '<p>Желаем Вам удачи!</p>';
+            
+            $mail = new Mail();
+            $mail->protocol = $this->config->get('config_mail_protocol');
+            $mail->parameter = $this->config->get('config_mail_parameter');
+            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+            $mail->setTo($email);
+            $mail->setFrom($this->config->get('config_email'));
+            $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+            $mail->setSubject('Программа «Путевка в жизнь»');
+            $mail->setText('');
+            $mail->setHtml($mail_html);
+            $mail->addAttachment($attachment);
+            $mail->send();
         }
         
         public function save(){
@@ -284,7 +378,7 @@ class ControllerAccountCurator extends Controller {
                 
                 $data['score'] = $score;
                 
-                if(isset($this->request->post['level_2_allowance'])){
+                if(!empty($this->request->post['score']['level_1']['level_2_allowance'])){
                     $level_2_allowance = true;
                 } else {
                     $level_2_allowance = false;
@@ -292,7 +386,6 @@ class ControllerAccountCurator extends Controller {
                 
                 $data['level_2_allowance'] = $level_2_allowance;
                 
-                //
                 $this->load->model('account/customer');
             
                 $level_score_mapping = [
@@ -304,7 +397,7 @@ class ControllerAccountCurator extends Controller {
                 ];
                 
                 foreach($level_score_mapping as $level_key => $level_score){
-                    $score_data = [
+                    $score_data[$level_key] = [
                         'contestant_id' => $contestant_id,
                         'curator_id'    => $this->customer->isLogged(),
                         'checking'      => $checking_fio,
@@ -314,6 +407,8 @@ class ControllerAccountCurator extends Controller {
                     
                     $this->model_account_customer->saveContestantScore($score_data, $level_key);
                 }
+                
+                $data['score'] = $score_data;
                 
                 // Contestant data
                 $contestant_data = [
@@ -330,7 +425,7 @@ class ControllerAccountCurator extends Controller {
                     'favorite_film' => $question['level_1']['favorite_film'],
                     'favorite_film_influence' => $question['level_1']['film_influation'],
                     'profession' => $question['level_1']['speciality'],
-                    'profession_opportunities' => $question['level_1']['speciality_opportunities']
+                    'profession_opportunities' => $question['level_1']['speciality_opportunities']                    
                 ];
                 
                 $this->model_account_customer->saveCustomerDataById($contestant_data);
@@ -354,8 +449,24 @@ class ControllerAccountCurator extends Controller {
                 $contestant_id = (int)$this->request->get['contestant_id'];
             }
             
+            if(isset($this->request->get['page'])){
+                $page = (int)$this->request->get['page'];
+            } else {
+                $page = 0;
+            }
+            
+            $filter_data = [];
+            
+            if(isset($this->request->get['filter_score_sum'])){
+                $filter_data['filter_score_sum'] = (string)$this->request->get['filter_score_sum'];
+            } else {
+                $filter_data['filter_score_sum'] = 'DESC';
+            }
+            
+            $filter_string_data = 'filter_score_sum=DESC';
+            
             $data['save_contestant_data'] = $this->url->link('account/curator/save', 'contestant_id=' . $contestant_id, true);
-            $data['back_to_list'] = $this->url->link('account/curator', true);
+            $data['back_to_list'] = $this->url->link('account/curator', "#contestant-" . $contestant_id, true);
             
             $this->load->model('account/customer');
             
@@ -409,7 +520,8 @@ class ControllerAccountCurator extends Controller {
                 'checker_fio'       => [
                     'level_1'   => isset($customer_score_data['level_1']['checking']) ? $customer_score_data['level_1']['checking'] : ''
                 ],
-                'level_2_allowance' => isset($customer_score_data['level_1']['level_2_allowance']) ? $customer_score_data['level_1']['level_2_allowance'] : ''
+                //'level_2_allowance' => isset($customer_score_data['level_1']['level_2_allowance']) ? $customer_score_data['level_1']['level_2_allowance'] : ''
+                'level_2_allowance' => !empty($customer_score_data['level_1']['level_2_allowance']) ? true : false
             ];
             
             $data['footer'] = $this->load->controller('common/footer');

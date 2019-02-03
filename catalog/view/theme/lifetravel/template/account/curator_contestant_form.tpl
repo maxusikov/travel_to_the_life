@@ -163,9 +163,9 @@
                         <label for="level-2-allowance">Допущен на второй этап</label>
                     </div>
                     <?php if($contestant_data['level_2_allowance']){ ?>
-                    <input id="level-2-allowance" type="checkbox" name="level_2_allowance" checked />
+                    <input id="level-2-allowance" type="checkbox" name="score[level_1][level_2_allowance]" checked />
                     <?php } else { ?>
-                    <input id="level-2-allowance" type="checkbox" name="level_2_allowance" />
+                    <input id="level-2-allowance" type="checkbox" name="score[level_1][level_2_allowance]" />
                     <?php } ?>
                   </div>
                   <div class="buttons">

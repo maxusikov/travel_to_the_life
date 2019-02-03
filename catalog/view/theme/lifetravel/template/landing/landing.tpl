@@ -63,6 +63,7 @@
                             <li class="item slide level level-2">
                                 <span class="text-line-1">Ответьте развернуто на несколько вопросов в <a href="<?php echo $personal_account; ?>" class="personal-account-link">Вашем Личном кабинете</a></span>
                                 <span class="text-line-2">Получите оценку <a href="#expert-jury" class="expert-jury-link">Экспертного Жюри</a> и приглашение для участия во Втором этапе программы «Путевка в жизнь».</span>
+                                <a href="catalog/view/theme/lifetravel/image/program.xlsx">Программа семинара</a>
                                 <a class="detailed-link" onclick="javascript:$(this).closest('.level').find('.detailed-text').toggleClass('active');">Подробнее...</a>
                                 <span class="detailed-text">
                                     До <?php echo $registration_end_date; ?> включительно зарегистрировавшиеся Участники Первого этапа программы «Путевка в жизнь» выполняют творческое задание – письменно излагают свое видение  короткометражного документального фильма о Владимирскаяой области. Участникам нужно написать, каким они видят фильм и как хотели бы его снять, какие сюжеты, места или люди войдут в этот фильм, какую музыку предполагают использовать в фильме и т.д.  
@@ -229,7 +230,7 @@
                 <li class="session-point">
                     <span class="session-date">Дата проведения обучающей сессии: 31.01 2019 </span>
                     <span class="session-location">Место проведения: ГТК «Суздаль» ( Владимирская область, город Суздаль, улица Коровники 45)</span>
-                    <!-- span class="session-program">Программа сессии: <a href="" class="detailed-link">Подробнее...</a></span -->
+                    <a href="catalog/view/theme/lifetravel/image/program.xlsx">Программа семинара</a>
                     <div class="locations">
                         <div class="map">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2206.1671691760266!2d40.42553381603327!3d56.43041784699306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x414c8ca95bde6445%3A0x661ba621eca3abe8!2sGtk+Suzdal!5e0!3m2!1sen!2sua!4v1546399160577" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>

@@ -80,6 +80,8 @@ class ControllerAccountAccount extends Controller {
 			}
 		}
 		
+                $this->load->model('account/customer');
+                
                 if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
                     $customer_data = [
                             'customer_id'              => $this->request->post['customer_id'],
@@ -270,6 +272,12 @@ class ControllerAccountAccount extends Controller {
 		} else {
 			$data['teacher_data'] = '';
 		}
+                
+                $customer_score = $this->model_account_customer->getContestantScoreById($this->customer->isLogged(), 'level_1');
+                                
+                $data['score']['level_1'] = $customer_score;
+                
+                $data['save_level_1_data'] = $this->url->link('account/account/saveLevelData', true);
                 
 		$data['return'] = $this->url->link('account/return', '', true);
 		$data['transaction'] = $this->url->link('account/transaction', '', true);

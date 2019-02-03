@@ -814,6 +814,9 @@ footer {
         flex: 1; }
         .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form {
           flex: 1; }
+          .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form .score h2 {
+            color: green;
+            margin: 0px 0px 20px 0px; }
           .account-account .panel#projects .level-area .level-wrapper#level-1 .esse-form form {
             display: flex;
             flex-direction: column;
@@ -1106,6 +1109,8 @@ form .input-wrapper {
         text-align: center;
         font-size: 14px;
         font-weight: 600; }
+        .account-curator .container .content-container #content .form-wrapper form .contestant-list-heading .contestant-list-heading-item.contestant-question-4-score, .account-curator .container .content-container #content .form-wrapper form .contestant-list-heading .contestant-list-heading-item.contestant-question-5-score, .account-curator .container .content-container #content .form-wrapper form .contestant-list-heading .contestant-list-heading-item.contestant-question-6-score {
+          font-size: 10px; }
     .account-curator .container .content-container #content .form-wrapper form .contestant-list-item {
       display: flex;
       flex-direction: row;

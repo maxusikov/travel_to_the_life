@@ -22,9 +22,6 @@
         <ul class="list-unstyled">
             <li><a onclick="javascript:togglePanel('profile');" class="active"><?php echo $text_my_profile; ?></a></li>
             <li><a onclick="javascript:togglePanel('projects');"><?php echo $text_my_projects; ?></a></li>
-            <!-- li><a href="<?php echo $settings; ?>"><?php echo $text_settings; ?></a></li -->
-            <!-- li><a href="<?php echo $photo; ?>"><?php echo $text_photo; ?></a></li -->
-            <!-- li><a href="<?php echo $change_password; ?>"><?php echo $text_change_password; ?></a></li -->
         </ul>
 
         <ul class="list-unstyled">
@@ -105,13 +102,6 @@
                         <span id="profession_opportunities"><?php echo $customer_data['profession_opportunities']; ?></span>
                         <input type="hidden" name="profession_opportunities" value="<?php echo $customer_data['profession_opportunities']; ?>" />
                     </div>
-                    <!-- div class="input-wrapper">
-                        <div class="label-wrapper">
-                            <label for="teacher_data">Данные преподавателя</label>
-                        </div>
-                        <span id="teacher_data"><?php echo $customer_data['teacher_data']; ?></span>
-                        <input type="hidden" name="teacher_data" value="<?php echo $customer_data['teacher_data']; ?>" />
-                    </div -->
                     <div class="input-wrapper">
                         <div class="label-wrapper">
                             <label for="teacher_name">Ф.И.О. преподавателя</label>
@@ -151,7 +141,12 @@
             <div class="level-area">
                 <div id="level-1" class="level-wrapper active">
                     <div class="esse-form form-wrapper">
-                        <form id="data-form" method="POST" enctype="multipart/form-data">
+                        <div class="score">
+                            <?php if(!empty($score['level_1']['level_2_allowance'])) { ?>
+                            <h2>Допущен ко второму этапу</h2>
+                            <?php } ?>
+                        </div>
+                        <form id="data-form" action="<?php echo $save_level_1_data; ?>" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="level" value="1" />
                             <span class="form-heading">Заполните анкету и выполните творческое задание</span>
                             <div class="input-group textarea-group">
@@ -161,53 +156,12 @@
                                 <input id="speciality_perspective" type="text" name="speciality_perspective" value="<?php echo $customer_level_1_speciality_perspective; ?>" />
                             </div>
                             
-                            <!-- div id="uploaded-files" class="uploaded_files">
-                                <div class="input-group textarea-group">
-                                    <div class="label-wrapper">
-                                        <label for="portfolio-file">Здесь Вы можете прикрепить файл с Вашими работами или документами.</label>
-                                    </div>
-                                </div>
-                                <h3>Загруженные файлы:</h3>
-                                <ul class="files_list">
-                                  <?php if($uploaded_files){ ?>
-                                    <li class="headings">
-                                        <span class="filename">Имя файла</span>
-                                        <span class="actions">Действия</span>
-                                    </li>
-                                    <?php foreach ($uploaded_files as $file){ ?>
-                                    <li class="list-item">
-                                        <input class="file-id" type="hidden" name="file_id" value="<?php echo $file['file_id']; ?>" />
-                                        <span class="filename"><?php echo $file['filename']; ?></span>
-                                        <div class="actions">
-                                            <a onclick="button" onclick="javascript:removeUploadedFile($(this).closest('.list-item'));">Удалить файл</a>
-                                        </div>
-                                    </li>
-                                    <?php } ?>
-                                  <?php } else { ?>
-                                    <li class="empty">Не загружено ни одного файла</li>
-                                  <?php } ?>
-                                  <li id="upload-portfolio-file-container" class="upload-file-row upload-file-container" style="border: 2px solid red;">
-                                    <input id="portfolio-file" type="file" name="attached_file" value="" />
-                                    <input id="portfolio-file2" type="text" name="attached_file_text" value="" />
-                                    <a class="button" onclick="javascript:uploadFile($(this).closest('form'));">Загрузить</a>
-                                  </li>
-                                </ul>
-                            </div -->
-                            
-                            
                             <div class="input-group textarea-group">
                                 <div class="label-wrapper">
                                     <label for="customer-esse">Если бы Вы снимали короткометражный документальный фильм о Владимирской области, какие сюжеты, места, музыку или людей Вы бы включили в этот фильм? Напишите Ваше видение этого фильма:</label>
                                 </div>
                                 <textarea id="customer-esse" name="customer_esse"><?php echo $customer_level_1_esse; ?></textarea>
                             </div>
-                            
-                            <!-- div class="input-group textarea-group">
-                                <div class="label-wrapper">
-                                    <label for="film-information">Как бы Вы его сняли и как Вы его видите. Какие сюжеты, места или люди войдут в этот фильм. Какую музыку Вы будете использовать в фильме и т.д.)</label>
-                                </div>
-                                <textarea id="film-information" name="film_information"><?php echo $customer_level_1_film_information; ?></textarea>
-                            </div -->
                             
                             <div class="parent-area">
                                 <span class="parent-area-heading">Информация о родителе/законном представителе (для несовершеннолетних)</span>
