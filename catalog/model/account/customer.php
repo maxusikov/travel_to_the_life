@@ -394,10 +394,10 @@ class ModelAccountCustomer extends Model {
             return $result->row;
         }
         
-        public function deleteUploadedCustomerFIleById($file_id){
+        public function deleteUploadedCustomerFileById($file_id){
             $sql = "DELETE FROM `" . DB_PREFIX . "` customer_files WHERE file_id='" . (int)$file_id . "'";
             
-            $result = $thid->db->query($sql);
+            $result = $this->db->query($sql);
             
             return $result;
         }
@@ -659,6 +659,9 @@ class ModelAccountCustomer extends Model {
             return $result->rows;
         }
         
+        // Level 2 data
+        
+        
         // Clear all allowance
         public function clearAllAllowance(){
             $sql = "UPDATE `" .DB_PREFIX . "contestant_score_level_1` SET level_2_allowance='0'";
@@ -677,6 +680,276 @@ class ModelAccountCustomer extends Model {
             $sql .= "question_6_score = '0', ";
             $sql .= "checking = '', ";
             $sql .= "level_2_allowance = '0'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        // File uploads
+        public function addCustomerLevelFile($filedata){
+            $sql  = "INSERT INTO `" . DB_PREFIX . "customer_level_file` SET ";
+            $sql .= "customer_id='" . $filedata['customer_id'] . "', ";
+            $sql .= "filename='" . $filedata['filename'] . "', ";
+            $sql .= "filepath='" . $filedata['filepath'] . "', ";
+            $sql .= "type='" . $filedata['type'] . "', ";
+            $sql .= "purpose='" . $filedata['purpose'] . "', ";
+            $sql .= "sort_order='" . $filedata['sort_order'] . "', ";
+            $sql .= "date_added=NOW()";
+            
+            $this->db->query($sql);
+            
+            $result = $this->db->getLastId();
+            
+            return $result;
+        }
+        
+        public function deleteCustomerLevelFileById($file_id){
+            $sql = "DELETE FROM `" . DB_PREFIX . "customer_level_file` WHERE file_id='" . (int)$file_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function getCustomerLevelFileById($file_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_level_file` WHERE file_id='" . (int)$file_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        
+        public function getCustomerLevelFileByPathAndName($filepath, $filename){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_level_file` WHERE filepath='" . (string)$filepath . "' AND filename='" . (string)$filename . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        
+        public function getCustomerLevelFileByFullFilename($filename, $filepath){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_level_file` WHERE filename='" . (string)$filename . "' AND filepath='" . (string)$filepath . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        
+        public function getCustomerLevelFileListByCustomerId($customer_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_level_file` WHERE customer_id='" . (int)$customer_id . "' ORDER BY sort_order ASC";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        
+        public function getCustomerLevelFileListByPurpose($customer_id, $purpose){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_level_file` WHERE customer_id='" . (int)$customer_id . "' AND purpose='" . (string)$purpose . "' ORDER BY sort_order ASC";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        
+        public function updateCustomerLevelFilePropertyById($filedata){
+            $sql = "UPDATE `" . DB_PREFIX . "customer_level_file` SET " . (string)$filedata['property_name'] . "='" . (string)$filedata['property_value'] . "' WHERE file_id='" . (int)$filedata['file_id'] . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function getCustomerLevelFileWithClosestSmallerSortOrder($sort_order_data){
+            $sql  = "SELECT * FROM `" . DB_PREFIX . "customer_level_file` WHERE customer_id='" . (int)$sort_order_data['customer_id'] . "' ";
+            $sql .= "AND purpose='" . (string)$sort_order_data['purpose'] . "' ";
+            $sql .= "AND sort_order <= " . (int)$sort_order_data['sort_order'] . " ";
+            $sql .= "AND file_id <> " . (int)$sort_order_data['file_id'] . " ";
+            $sql .= "ORDER BY sort_order DESC LIMIT 1";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        
+        public function getCustomerLevelFileWithClosestBiggerSortOrder($sort_order_data){
+            $sql  = "SELECT * FROM `" . DB_PREFIX . "customer_level_file` WHERE customer_id='" . (int)$sort_order_data['customer_id'] . "' ";
+            $sql .= "AND purpose='" . (string)$sort_order_data['purpose'] . "' ";
+            $sql .= "AND sort_order >= " . (int)$sort_order_data['sort_order'] . " ";
+            $sql .= "AND file_id <> " . (int)$sort_order_data['file_id'] . " ";
+            $sql .= "ORDER BY sort_order ASC LIMIT 1";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        
+        public function getCustomerLevelFileBiggestSortOrder($sort_order_data){
+            $biggest_sort_order = 0;
+            
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_level_file` WHERE customer_id='" . (int)$sort_order_data['customer_id'] . "' AND purpose='" . (string)$sort_order_data['purpose'] . "' ORDER BY sort_order DESC LIMIT 1";
+            
+            $result = $this->db->query($sql);
+            
+            if(!empty($result->row)){
+                $res = $result->row;
+                $biggest_sort_order = $res['sort_order'];
+            }
+            
+            return $biggest_sort_order;
+        }
+        
+        // Level 2
+        public function saveLevel2SoundproducerData($soundproducer_data){
+            $sql  = "INSERT INTO `" . DB_PREFIX . "level_2_sound_producer` SET ";
+            $sql .= "customer_id='" . (int)$soundproducer_data['customer_id'] . "', ";
+            $sql .= "detective='" . (string)$soundproducer_data['detective'] . "', ";
+            $sql .= "melodrama='" . (string)$soundproducer_data['melodrama'] . "', ";
+            $sql .= "comedy='" . (string)$soundproducer_data['comedy'] . "', ";
+            $sql .= "triller='" . (string)$soundproducer_data['triller'] . "', ";
+            $sql .= "fantasy='" . (string)$soundproducer_data['fantasy'] . "', ";
+            $sql .= "drama='" . (string)$soundproducer_data['drama'] . "' ";
+            $sql .= "ON DUPLICATE KEY UPDATE ";
+            $sql .= "detective='" . (string)$soundproducer_data['detective'] . "', ";
+            $sql .= "melodrama='" . (string)$soundproducer_data['melodrama'] . "', ";
+            $sql .= "comedy='" . (string)$soundproducer_data['comedy'] . "', ";
+            $sql .= "triller='" . (string)$soundproducer_data['triller'] . "', ";
+            $sql .= "fantasy='" . (string)$soundproducer_data['fantasy'] . "', ";
+            $sql .= "drama='" . (string)$soundproducer_data['drama'] . "' ";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        public function getLevel2SoundproducerDataByCustomerId($customer_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "level_2_sound_producer` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        public function deleteLevel2SoundproducerDataByCustomerId($customer_id){
+            $sql = "DELETE FROM `" . DB_PREFIX . "level_2_sound_producer` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function saveLevel2ProductionInFilmmakingData($data){
+            $sql  = "INSERT INTO `" . DB_PREFIX . "level_2_production_in_filmmaking` SET ";
+            $sql .= "customer_id='" . (int)$data['customer_id'] . "', ";
+            $sql .= "question_1='" . (string)$data['question_1'] . "', ";
+            $sql .= "question_2='" . (string)$data['question_2'] . "', ";
+            $sql .= "question_3='" . (string)$data['question_3'] . "', ";
+            $sql .= "question_4='" . (string)$data['question_4'] . "', ";
+            $sql .= "question_5='" . (string)$data['question_5'] . "', ";
+            $sql .= "question_6='" . (string)$data['question_6'] . "', ";
+            $sql .= "question_7='" . (string)$data['question_7'] . "' ";
+            $sql .= "ON DUPLICATE KEY UPDATE ";
+            $sql .= "question_1='" . (string)$data['question_1'] . "', ";
+            $sql .= "question_2='" . (string)$data['question_2'] . "', ";
+            $sql .= "question_3='" . (string)$data['question_3'] . "', ";
+            $sql .= "question_4='" . (string)$data['question_4'] . "', ";
+            $sql .= "question_5='" . (string)$data['question_5'] . "', ";
+            $sql .= "question_6='" . (string)$data['question_6'] . "', ";
+            $sql .= "question_7='" . (string)$data['question_7'] . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }        
+        public function getLevel2ProductionInFilmmakingData($customer_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "level_2_production_in_filmmaking` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }        
+        public function deleteLevel2ProductionInFilmmakingData($customer_id){
+            $sql = "DELETE FROM `" . DB_PREFIX . "level_2_production_in_filmmaking` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function saveLevel2ActingSkillsData($data){
+            $sql  = "INSERT INTO `" . DB_PREFIX . "level_2_acting_skills` SET ";
+            $sql .= "customer_id='" . (int)$data['customer_id'] . "', ";
+            $sql .= "video_url='" . (string)$data['video_url'] . "' ";
+            $sql .= "ON DUPLICATE KEY UPDATE ";
+            $sql .= "video_url='" . (string)$data['video_url'] . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        public function getLevel2ActingSkillsData($customer_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "level_2_acting_skills` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        public function deleteLevel2ActingSkillsData($customer_id){
+            $sql = "DELETE FROM `" . DB_PREFIX . "level_2_acting_skills` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function saveLevel2DramaturgyScreenwriterData($data){
+            $sql  = "INSERT INTO `" . DB_PREFIX . "level_2_dramaturgy_screenwriter` SET ";
+            $sql .= "customer_id='" . (int)$data['customer_id'] . "', ";
+            $sql .= "theme_1='" . (string)$data['theme_1'] . "', ";
+            $sql .= "theme_2='" . (string)$data['theme_2'] . "', ";
+            $sql .= "theme_3='" . (string)$data['theme_3'] . "' ";
+            $sql .= "ON DUPLICATE KEY UPDATE ";
+            $sql .= "theme_1='" . (string)$data['theme_1'] . "', ";
+            $sql .= "theme_2='" . (string)$data['theme_2'] . "', ";
+            $sql .= "theme_3='" . (string)$data['theme_3'] . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        public function getLevel2DramaturgyScreenwriterData($customer_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "level_2_dramaturgy_screenwriter` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        public function deleteLevel2DramaturgyScreenwriterData($customer_id){
+            $sql = "DELETE FROM `" . DB_PREFIX . "level_2_dramaturgy_screenwriter` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function saveLevel2FilmDirectorData($data){
+            $sql  = "INSERT INTO `" . DB_PREFIX . "level_2_film_director` SET ";
+            $sql .= "customer_id='" . (int)$data['customer_id'] . "', ";
+            $sql .= "case_of_life='" . (string)$data['case_of_life'] . "' ";
+            $sql .= "ON DUPLICATE KEY UPDATE ";
+            $sql .= "case_of_life='" . (string)$data['case_of_life'] . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        public function getLevel2FilmDirectorData($customer_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "level_2_film_director` WHERE customer_id='" . (int)$customer_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        public function deleteLevel2FilmDirectorData($customer_id){
+            $sql = "DELETE FROM `" . DB_PREFIX . "level_2_film_director` WHERE customer_id='" . (int)$customer_id . "'";
             
             $result = $this->db->query($sql);
             

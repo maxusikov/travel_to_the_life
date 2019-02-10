@@ -1,5 +1,5 @@
 <?php
-class ControllerAccountAccount extends Controller {
+class ControllerAccountAccount extends Controller{
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/account', '', true);
@@ -83,7 +83,8 @@ class ControllerAccountAccount extends Controller {
                 $this->load->model('account/customer');
                 
                 if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-                    $customer_data = [
+                    if(isset($this->request->post['action_save_customer'])){
+                        $customer_data = [
                             'customer_id'              => $this->request->post['customer_id'],
                             'full_name'                => $this->request->post['full_name'],
                             'email'                    => $this->request->post['email'],
@@ -104,6 +105,7 @@ class ControllerAccountAccount extends Controller {
                         
                         $this->load->model('account/customer');
                         $add_customer_data = $this->model_account_customer->updateCustomerDataById($customer_data);
+                    }
                 }
                 
 		$data['wishlist'] = $this->url->link('account/wishlist');
@@ -121,8 +123,10 @@ class ControllerAccountAccount extends Controller {
                 
                 $data['save_profile_data'] = $this->url->link('account/account/saveProfileData', true);
                 $data['save_customer_level_data'] = $this->url->link('account/account/saveCustomerLevelData', true);
-                $data['upload_file'] = $this->url->link('account/account/uploadLevel1File', true);
+                $data['upload_file'] = $this->url->link('account/account/upload', true);
                 $data['delete_file'] = $this->url->link('account/account/deleteFile', true);
+                $data['sort_file'] = $this->url->link('account/account/sort', true);
+                $data['get_file'] = $this->url->link('account/account/getfile', true);
                 
                 $c_id = $this->customer->isLogged();
                 
@@ -283,7 +287,43 @@ class ControllerAccountAccount extends Controller {
 		$data['transaction'] = $this->url->link('account/transaction', '', true);
 		$data['newsletter'] = $this->url->link('account/newsletter', '', true);
 		$data['recurring'] = $this->url->link('account/recurring', '', true);
-		
+                
+		// Level 2 data
+                $data['save_contestant_level_2_data'] = $this->url->link('account/account/saveContestantLevel2Data');
+                
+                $customer_id = $this->customer->isLogged();
+                
+                $data['level_2'] = [
+                    'soundproducer'             => $this->model_account_customer->getLevel2SoundproducerDataByCustomerId($customer_id),
+                    'production_in_filmmaking'  => $this->model_account_customer->getLevel2ProductionInFilmmakingData($customer_id),
+                    'acting_skills'             => $this->model_account_customer->getLevel2ActingSkillsData($customer_id),
+                    'dramaturgy_screenwriter'   => $this->model_account_customer->getLevel2DramaturgyScreenwriterData($customer_id),
+                    'film_director'             => $this->model_account_customer->getLevel2FilmDirectorData($customer_id)
+                ];
+                
+                // Customer files
+                $data['get_uploaded_file_list'] = $this->url->link('account/account/filelist', true);
+                
+                $customer_files = $this->model_account_customer->getCustomerLevelFileListByCustomerId($this->customer->isLogged());
+                
+                $data['customer_files'] = [];
+                
+                foreach($customer_files as $customer_file){
+                    if(!isset($data['customer_files'][$customer_file['purpose']])){
+                        $data['customer_files'][$customer_file['purpose']] = [];
+                    }
+                    
+                    $data['customer_files'][$customer_file['purpose']][] = [
+                        'file_id'  => $customer_file['file_id'],
+                        'filename' => $customer_file['filename'],
+                        'filepath' => $customer_file['filepath'],
+                        'fullname' => $customer_file['filepath'] . '/' . $customer_file['filename'],
+                        'purpose'  => $customer_file['purpose'],
+                        'filetype'   => $customer_file['type'],
+                        'sort_order' => $customer_file['sort_order']
+                    ];
+                }
+                
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
 		$data['content_top'] = $this->load->controller('common/content_top');
@@ -338,6 +378,491 @@ class ControllerAccountAccount extends Controller {
 
 		return !$this->error;
 	}
+        
+        public function upload(){
+            $response_data = [
+                'status' => 'success'
+            ];
+            
+            $processed_files = [];
+            
+            $this->load->language('account/account');
+            
+            $this->load->model('account/customer');
+            
+            if(isset($this->request->post['level'])){
+                (string)$level = $this->request->post['level'];
+            } else {
+                (string)$level = '';
+            }
+            
+            $customer = $this->model_account_customer->getCustomer($this->customer->isLogged());
+            
+            $customer_dir = CUSTOMER_UPLOAD . $level;
+            if(!is_dir($customer_dir)){
+                mkdir($customer_dir);
+            }
+            
+            $customer_dir .= '/' . $customer['customer_id'];
+            if(!is_dir($customer_dir)){
+                mkdir($customer_dir);
+            }
+            
+            $file_purpose = isset($this->request->post['purpose']) ? $this->request->post['purpose'] : '';
+            
+            $customer_dir_purpose = $customer_dir . '/' . $file_purpose;
+            if(!is_dir($customer_dir_purpose)){
+                mkdir($customer_dir_purpose);
+            }
+            
+            // Check if multiple files are uploaded or just one
+            $files = array();
+
+            if (!empty($this->request->files['file']['name']) && is_array($this->request->files['file']['name'])) {
+                foreach (array_keys($this->request->files['file']['name']) as $key) {
+                    $files[] = array(
+                        'name'     => $this->request->files['file']['name'][$key],
+                        'type'     => $this->request->files['file']['type'][$key],
+                        'tmp_name' => $this->request->files['file']['tmp_name'][$key],
+                        'error'    => $this->request->files['file']['error'][$key],
+                        'size'     => $this->request->files['file']['size'][$key]
+                    );
+                }
+            }
+
+            foreach ($files as $file) {
+                $file_validation = [
+                    'status' => 'success'
+                ];
+
+                if (is_file($file['tmp_name'])) {
+                    // Sanitize the filename
+                    $filename = basename($this->translit(html_entity_decode($file['name'], ENT_QUOTES, 'UTF-8')));
+
+                    // Validate the filename length
+                    if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 255)) {
+                        $file_validation = [
+                            'status' => 'error',
+                            'error'  => [
+                                'code' => 'filename_length',
+                                'info' => 'Имя файла должно быть от 3 до 255 символов'
+                            ],
+                            'notification' => [
+                                'type' => 'error',
+                                'info' => 'Имя файла должно быть от 3 до 255 символов'
+                            ]
+                        ];
+                    }
+                    
+                    if(isset($this->request->post['filetype'])){
+                        if($this->request->post['filetype'] == 'doc'){
+                            // Allowed file extension types
+                            $allowed = array(
+                                'doc',
+                                'docx'
+                            );
+
+                            // Allowed file mime types
+                            $allowed_mimetype = array(
+                                'application/msword',
+                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                            );
+
+                            $filetype = 'word_doc';
+                        } else {
+                            // Allowed file extension types
+                            $allowed = array(
+                                'jpg',
+                                'jpeg',
+                                'gif',
+                                'png'
+                            );
+
+                            // Allowed file mime types
+                            $allowed_mimetype = array(
+                                'image/jpeg',
+                                'image/pjpeg',
+                                'image/png',
+                                'image/x-png',
+                                'image/gif'
+                            );
+
+                            $filetype = 'image';
+                        }
+                    } else {
+                        // Allowed file extension types
+                        $allowed = array(
+                            'jpg',
+                            'jpeg',
+                            'gif',
+                            'png'
+                        );
+
+                        // Allowed file mime types
+                        $allowed_mimetype = array(
+                            'image/jpeg',
+                            'image/pjpeg',
+                            'image/png',
+                            'image/x-png',
+                            'image/gif'
+                        );
+
+                        $filetype = 'image';
+                    }
+
+                    $directory = $customer_dir . '/' . $file_purpose;
+
+                    if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
+                        $file_validation = [
+                            'status' => 'error',
+                            'error'  => [
+                                'code'     => 'file_extension',
+                                'info'     => 'Неправильное расширение файла',
+                                'filename' => $filename
+                            ],
+                            'notification' => [
+                                'type' => 'error',
+                                'info' => 'Неправильное расширение файла ' . $filename . '. Допустимы следующие расширения файлов: ' . implode(', ', $allowed) . '.'
+                            ]
+                        ];
+                    }
+
+                    if (!in_array($file['type'], $allowed_mimetype)) {
+                        $file_validation = [
+                            'status' => 'error',
+                            'error'  => [
+                                'code'     => 'file_mimetype',
+                                'info'     => 'Неправильный mime-тип файла',
+                                'filename' => $filename
+                            ],
+                            'notification' => [
+                                'type' => 'error',
+                                'info' => 'Неправильный mime-тип файла ' . $filename . '. Допустимы следующие mime-типы файлов: ' . implode(', ', $allowed_mimetype) . '.'
+                            ]
+                        ];
+                    }
+
+                    // Return any upload error
+                    if ($file['error'] != UPLOAD_ERR_OK) {
+                        $file_validation = [
+                            'status' => 'error',
+                            'error'  => [
+                                'code'     => 'upload',
+                                'info'     => 'Ошибка загрузки файла',
+                                'filename' => $filename
+                            ],
+                            'notification' => [
+                                'type' => 'error',
+                                'info' => 'Ошибка загрузки файла ' . $filename
+                            ]
+                        ];
+                    }
+                } else {
+                    $file_validation = [
+                        'status' => 'error',
+                        'error'  => [
+                            'code'     => 'error_upload',
+                            'info'     => 'Ошибка загрузки файла',
+                            'filename' => $filename
+                        ],
+                        'notification' => [
+                            'type' => 'error',
+                            'info' => 'Ошибка загрузки файла' . $filename
+                        ]
+                    ];
+                }
+
+                $full_filename = $directory . '/' . $filename;
+
+                $filedata = $this->model_account_customer->getCustomerLevelFileByFullFilename($filename, $directory);
+
+                if(!empty($filedata)){
+                    $file_validation = [
+                        'status'  => 'warning',
+                        'warning' => [
+                            'code'     => 'file_exists',
+                            'info'     => 'Для данной формы этот файл уже загружен',
+                            'filename' => $filename
+                        ],
+                        'notification' => [
+                            'type' => 'warning',
+                            'info' => 'Для данной формы файл ' . $filename . ' уже загружен'
+                        ]
+                    ];
+                }
+
+                if ($file_validation['status'] == 'success') {
+                    move_uploaded_file($file['tmp_name'], $full_filename);
+
+                    $customer_purpose_file_list = $this->model_account_customer->getCustomerLevelFileListByPurpose($this->customer->isLogged(), $file_purpose);
+
+                    $customer_file_data = [
+                        'customer_id'   => $this->customer->isLogged(),
+                        'filename'      => $filename,
+                        'filepath'      => $directory,
+                        'type'          => $filetype,
+                        'purpose'       => $file_purpose,
+                        'sort_order'    => count($customer_purpose_file_list)
+                    ];
+
+                    $this->model_account_customer->addCustomerLevelFile($customer_file_data);
+
+                    $file_validation = [
+                        'status'   => 'success',
+                        'success'  => [
+                            'info'     => 'Файл успешно загружен',
+                            'filename' => $filename
+                        ]
+                    ];
+                } else {
+                    $response_data['status'] = 'warning';
+                }
+
+                $processed_files[] = $file_validation;
+            }
+            
+            $response_data['processed_files'] = $processed_files;
+            
+            echo json_encode($response_data);
+        }
+        
+        public function sort(){
+            $this->load->model('account/customer');
+            
+            $response_data = [
+                'status' => 'success',
+                'info'   => 'Not processed'
+            ];
+            
+            if(isset($this->request->post['file_id'])){
+                $file_id = (int)$this->request->post['file_id'];
+            } else {
+                $file_id = (bool)false;
+            }
+            
+            if((bool)$file_id){
+                $filedata = $this->model_account_customer->getCustomerLevelFileById($file_id);
+                
+                if(isset($filedata['purpose'])){
+                    $purpose = (string)$filedata['purpose'];
+                } else {
+                    $purpose = '';
+                }
+                
+                if(isset($filedata['sort_order'])){
+                    $sort_order = (string)$filedata['sort_order'];
+                } else {
+                    $sort_order = 0;
+                }
+                
+                $sort_order_data = [
+                    'customer_id' => $this->customer->isLogged(),
+                    'file_id'     => $file_id,
+                    'purpose'     => $purpose,
+                    'sort_order'  => $sort_order
+                ];
+                
+                if(!empty($this->request->post['forward'])){
+                    $closest_bigger = $this->model_account_customer->getCustomerLevelFileWithClosestBiggerSortOrder($sort_order_data);
+                    
+                    if(!empty($closest_bigger)){
+                        $temp_sort_order = $closest_bigger['sort_order'];
+                        
+                        $property_filedata = [
+                            'file_id'        => $closest_bigger['file_id'],
+                            'property_name'  => 'sort_order',
+                            'property_value' => $sort_order
+                        ];
+                        
+                        $property_filedata_2 = [
+                            'file_id'        => $file_id,
+                            'property_name'  => 'sort_order',
+                            'property_value' => $temp_sort_order
+                        ];
+                        
+                        if($this->model_account_customer->updateCustomerLevelFilePropertyById($property_filedata) &&
+                           $this->model_account_customer->updateCustomerLevelFilePropertyById($property_filedata_2)){
+                            $response_data = [
+                                'status' => 'success',
+                                'info'   => 'Moved forward successfull'
+                            ];
+                        } else {
+                            $response_data = [
+                                'status' => 'error',
+                                'info'   => 'Sort error(Update file property error)'
+                            ];
+                        }
+                    } else {
+                        $biggest_number = $this->model_account_customer->getCustomerLevelFileBiggestSortOrder($sort_order_data);
+                        
+                        $property_filedata = [
+                            'file_id'        => $file_id,
+                            'property_name'  => 'sort_order',
+                            'property_value' => $biggest_number + 1
+                        ];
+                        
+                        if($this->model_account_customer->updateCustomerLevelFilePropertyById($property_filedata)){
+                            $response_data = [
+                                'status' => 'success',
+                                'info'   => 'Moved forward successfull'
+                            ];
+                        } else {
+                            $response_data = [
+                                'status' => 'error',
+                                'info'   => 'Sort error(Update file property error)'
+                            ];
+                        }
+                    }
+                } else {
+                    $closest_smaller = $this->model_account_customer->getCustomerLevelFileWithClosestSmallerSortOrder($sort_order_data);
+                
+                    if(!empty($closest_smaller)){
+                        $temp_order = $closest_smaller;
+
+                        $property_filedata = [
+                            'file_id'        => $closest_smaller['file_id'],
+                            'property_name'  => 'sort_order',
+                            'property_value' => $filedata['sort_order']
+                        ];
+
+                        $property_filedata_2 = [
+                            'file_id' => $filedata['file_id'],
+                            'property_name' => 'sort_order',
+                            'property_value' => $temp_order['sort_order']
+                        ];
+
+                        if($this->model_account_customer->updateCustomerLevelFilePropertyById($property_filedata_2) &&
+                           $this->model_account_customer->updateCustomerLevelFilePropertyById($property_filedata)){
+                            $response_data = [
+                                'status' => 'success',
+                                'info'   => 'Moved back'
+                            ];
+                        }
+
+                    } else {
+                        $response_data = [
+                            'status' => 'success',
+                            'info'   => 'This is the first item in the list'
+                        ];
+                    }
+                }
+                
+
+                $response_data['postdata'] = $this->request->post;
+            } else {
+                $response_data = [
+                    'status' => 'fail',
+                    'info'   => 'There are no file ID'
+                ];
+            }
+            
+            echo json_encode($response_data);
+        }
+        
+        public function filelist(){
+            $response = [];
+            
+            $this->load->model('account/customer');
+            
+            $customer_id = $this->customer->isLogged();
+            
+            if(isset($this->request->post['purpose'])){
+                $purpose = $this->request->post['purpose'];
+            } else if(isset($this->request->post['file_id'])){
+                $file_data = $this->model_account_customer->getCustomerLevelFileById($this->request->post['file_id']);
+
+                if(!empty($file_data['purpose'])){
+                    $purpose = $file_data['purpose'];
+                } else {
+                    $purpose = '';
+                }
+            } else {
+                $purpose = "";
+            }
+            
+            $customer_file_list = $this->model_account_customer->getCustomerLevelFileListByPurpose($customer_id, $purpose);
+            
+            $response['filelist'] = [];
+            
+            foreach($customer_file_list as $customer_file){
+                $response['filelist'][] = [
+                    'file_id'       => $customer_file['file_id'],
+                    'filename'      => $customer_file['filename'],
+                    'filepath'      => $customer_file['filepath'],
+                    'fullname'      => $customer_file['filepath'] . '/' . $customer_file['filename'],
+                    'filetype'      => $customer_file['type'],
+                    'purpose'       => $customer_file['purpose'],
+                    'sort_order'    => $customer_file['sort_order'],
+                    'date_added'    => $customer_file['date_added']
+                    
+                ];
+            }
+            
+            //var_dump($response); 
+            
+            echo json_encode($response);
+        }
+        
+        public function getfile(){
+            $response_data = [
+                'status' => 'success'
+            ];
+            
+            if(!empty($this->request->post['file_id'])){
+                $file_id = $this->request->post['file_id'];
+                
+                $this->load->model('account/customer');
+                
+                $filedata = $this->model_account_customer->getCustomerLevelFileById($file_id);
+                
+                //var_dump($filedata);
+                
+                $response_data['filedata'] = [
+                    'file_id'    => $filedata['file_id'],
+                    'filename'   => $filedata['filename'],
+                    'filepath'   => $filedata['filepath'],
+                    'fullname'   => $filedata['filepath'] . '/' .$filedata['filename'],
+                    'sort_order' => $filedata['sort_order']
+                ];
+            } else {
+                $response_data = [
+                    'status' => 'error',
+                    'info'   => 'There are no file ID in request'
+                ];
+            }
+            
+            echo json_encode($response_data);
+        }
+        
+        public function changeCustomerFileSortOrder($file_id, $sort_order){
+            $response_status = [
+                'status' => 'info',
+                'info' => 'Выберите файл'
+            ];
+            
+            $this->load->model('account/customer');
+            
+            $file_id = $this->request->post['file_id'];
+            
+            $filedata = [
+                'file_id'        => $file_id,
+                'property_name'  => 'sort_order'
+            ];
+            
+            if($this->model_account_customer->updateCustomerLevelFilePropertyById($filedata)){
+                $response_status = [
+                    'status' => 'success',
+                    'info'   => 'Порядок сортировки успешно обновлен'
+                ];
+            } else {
+                $response_status = [
+                    'status' => 'fail',
+                    'info'   => 'Порядок сортировки не обновлен!!!'
+                ];
+            }
+            
+            echo json_encode($status_data);
+        }
         
         public function uploadLevel1File(){
             $response_status = [
@@ -404,12 +929,56 @@ class ControllerAccountAccount extends Controller {
                         ];
                     }
                 }
+                
+                if($upload_status){
+                    $c_id = $this->customer->isLogged();
+                    $customer_dir = $upload_directory . "/" . $_id;
+                    
+                    if(!is_dir($upload_directory)){
+                        mkdir($customer_directory);
+                    }
+                        
+                    $uploads_customer_directory = $customer_directory . "/" . "uploads";
+                    
+                    if(!is_dir($uploads_customer_directory)){
+                        mkdir($uploads_customer_directory);
+                    }
+                    
+                    $full_file_name = $uploads_customer_directory . "/" . $file['name'];
+                    
+                    if (move_uploaded_file($file['tmp_name'], $full_file_name)) {
+                        $file_data = [
+                            'customer_id' => $c_id,
+                            'filename'    => $file['name'],
+                            'purpose'     => 'level1__files'
+                        ];
+                    
+                        if($this->model_account_customer->addCustomerFile($file_data)){
+                            $response_status = [
+                                'result' => 'success',
+                                'info'   => 'Файл загружен успешно'
+                            ];
+                        } else {
+                            $response_status = [
+                                'result' => 'fail',
+                                'info'   => 'Ошибка записи базы данных!!!'
+                            ];
+                        };
+                    } else {
+                        $response_status = [
+                            'result' => 'fail',
+                            'info'   => 'Ошибка сохранения файла!!!'
+                        ];
+                    }
+                }
             }
             
             echo json_encode($response_status);
         }     
         
         public function deleteFile(){
+            $this->load->model('account/customer');
+            
             $response_data = [
                 'result' => 'info',
                 'info'   => 'Файл отстутствует'
@@ -417,29 +986,29 @@ class ControllerAccountAccount extends Controller {
             
             if(isset($this->request->post['file_id'])) {
                 $file_id = $this->request->post['file_id'];
-                
-                $filedata = $this->model_account_customer->getUploadedFileById($file_id);
-                $full_filename = DIR_UPLOAD . "/" . $this->customer->isLogged() . "/" . $filedata['filename'];
+
+                $filedata = $this->model_account_customer->getCustomerLevelFileById($file_id);
+
+                $full_filename = CUSTOMER_UPLOAD . '/' . $filedata['filepath'] . '/' . $filedata['filename'];
                 
                 if(is_file($full_filename)){
-                    if(unlink($full_filename)) {
-                        if($this->model_account_customer->deleteUploadedCustomerFIleById($file_id)){
-                            $response_data = [
-                                'status' => 'success',
-                                'info'   => 'Файл удален успешно'
-                            ];
-                        } else {
-                            $response_data = [
-                                'status' => 'fail',
-                                'info'   => 'Ощибка удаления файла из БД!!!'
-                            ];
-                        };
+                    $is_file_in_use = $this->model_account_customer->getCustomerLevelFileByPathAndName($filepath, $filename);
+                    
+                    if(empty($is_file_in_use)){
+                        unlink($full_filename);
+                    }
+                    
+                    if($this->model_account_customer->deleteCustomerLevelFileById($file_id)){
+                        $response_data = [
+                            'status' => 'success',
+                            'info'   => 'Файл удален успешно'
+                        ];
                     } else {
                         $response_data = [
                             'status' => 'fail',
-                            'info'   => 'Ощибка удаления файла!!!'
+                            'info'   => 'Ощибка удаления файла из БД!!!'
                         ];
-                    }
+                    };
                 } else {
                     $response_data = [
                         'status' => 'info',
@@ -447,11 +1016,26 @@ class ControllerAccountAccount extends Controller {
                     ];
                 }
                 
-                if ($this->model_account_customer->deleteUploadedFile($file_id)){
-                    $response_data = [
-                        'status' => 'success',
-                        'info'   => 'Файл успешно удален'
-                    ];
+                $customer_file_to_delete = $this->model_account_customer->getCustomerLevelFileById($file_id);
+                
+                if ($customer_file_to_delete){
+                    if($this->model_account_customer->deleteCustomerLevelFileById($file_id)){
+                        $full_filename = $customer_file_to_delete['filepath'] . '/' . $customer_file_to_delete['filename'];
+                        
+                        if(is_file($full_filename)){
+                            unlink($full_filename);
+                        }
+                        
+                        $response_data = [
+                            'status' => 'success',
+                            'info'   => 'Файл успешно удален'
+                        ];
+                    } else {
+                        $response_data = [
+                            'status' => 'fail',
+                            'info'   => 'Ошибка удаления файла'
+                        ];
+                    }
                 } else {
                     $response_data = [
                         'status' => 'fail',
@@ -555,7 +1139,79 @@ class ControllerAccountAccount extends Controller {
                 ];
             }
             
-            
             echo json_encode($response);
         }
+        
+        public function saveContestantLevel2Data(){
+            $this->load->model('account/customer');
+            
+            $post_data = $this->request->post;
+            
+            $data['level_2'] = [];
+            
+            $data['level_2']['film_director'] = [];
+            if(isset($post_data['level_2']['film_director'])){
+                if(!empty($post_data['level_2']['film_director'])){
+                    $data['level_2']['film_director'] = $post_data['level_2']['film_director'];
+                    $data['level_2']['film_director']['customer_id'] = $this->customer->isLogged();
+                    
+                    $this->model_account_customer->saveLevel2FilmDirectorData($data['level_2']['film_director']);
+                }
+            }
+            
+            $data['level_2']['dramaturgy_screenwriter'] = [];
+            if(isset($post_data['level_2']['dramaturgy_screenwriter'])){
+                if(!empty($post_data['level_2']['dramaturgy_screenwriter'])){
+                    $data['level_2']['dramaturgy_screenwriter'] = $post_data['level_2']['dramaturgy_screenwriter'];
+                    $data['level_2']['dramaturgy_screenwriter']['customer_id'] = $this->customer->isLogged();
+                    
+                    $this->model_account_customer->saveLevel2DramaturgyScreenwriterData($data['level_2']['dramaturgy_screenwriter']);
+                }
+            }
+            
+            $data['level_2']['acting_skills'] = [];
+            if(isset($post_data['level_2']['acting_skills'])){
+                if(!empty($post_data['level_2']['acting_skills'])){
+                    $data['level_2']['acting_skills'] = $post_data['level_2']['acting_skills'];
+                    $data['level_2']['acting_skills']['customer_id'] = $this->customer->isLogged();
+                    
+                    $this->model_account_customer->saveLevel2ActingSkillsData($data['level_2']['acting_skills']);
+                }
+            }
+            
+            $data['level_2']['production_in_filmmaking'] = [];
+            if(isset($post_data['level_2']['production_in_filmmaking'])){
+                if(!empty($post_data['level_2']['production_in_filmmaking'])){
+                    $data['level_2']['production_in_filmmaking'] = $post_data['level_2']['production_in_filmmaking'];
+                    $data['level_2']['production_in_filmmaking']['customer_id'] = $this->customer->isLogged();
+                    
+                    $this->model_account_customer->saveLevel2ProductionInFilmmakingData($data['level_2']['production_in_filmmaking']);
+                }
+            }
+            
+            $data['level_2']['soundproducer'] = [];
+            if(isset($post_data['level_2']['soundproducer'])){
+                if(!empty($post_data['level_2']['soundproducer'])){
+                    $data['level_2']['soundproducer'] = $post_data['level_2']['soundproducer'];
+                    $data['level_2']['soundproducer']['customer_id'] = $this->customer->isLogged();
+                    
+                    $this->model_account_customer->saveLevel2SoundproducerData($data['level_2']['soundproducer']);
+                }
+            }
+            
+            $this->index();
+        }
+        
+        protected function translit($text) {
+            $rus = array("а","А","б","Б","в","В","г","Г","д","Д","е","Е","ё","Ё","є","Є","ж", "Ж",  "з","З","и","И","і","І","ї","Ї","й","Й","к","К","л","Л","м","М","н","Н","о","О","п","П","р","Р", "с","С","т","Т","у","У","ф","Ф","х","Х","ц","Ц","ч", "Ч", "ш", "Ш", "щ",  "Щ", "ъ","Ъ", "ы","Ы","ь","Ь","э","Э","ю", "Ю", "я","Я",'/',' ');
+            $eng =array("a","A","b","B","v","V","g","G","d","D","e","E","e","E","e","E", "zh","ZH","z","Z","i","I","i","I","yi","YI","j","J","k","K","l","L","m","M","n","N","o","O", "p","P","r","R","s","S","t","T","u","U","f","F","h","H","c","C","ch","CH", "sh","SH","sch","SCH","", "", "y","Y","","","e","E","ju","JU","ja","JA",'','');
+            $text = strtolower(str_replace($rus,$eng,$text));
+                
+            $disallow_symbols = array(
+                ' ' => '-', '\\' => '-', '/' => '-', ':' => '-', '*' => '',
+                '?' => '', ',' => '', '"' => '', '\'' => '', '<' => '', '>' => '', '|' => ''
+            );
+            
+            return trim(strip_tags(str_replace(array_keys($disallow_symbols), array_values($disallow_symbols), trim(html_entity_decode($text, ENT_QUOTES, 'UTF-8')))), '-');
+	}
 }

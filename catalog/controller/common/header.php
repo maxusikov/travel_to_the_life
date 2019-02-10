@@ -9,6 +9,9 @@ class ControllerCommonHeader extends Controller {
                 $this->document->addScript('/catalog/view/javascript/slick-master/slick/slick.min.js');
                 $this->document->addStyle('/catalog/view/javascript/slick-master/slick/slick.css');
                 
+                $this->document->addScript('/catalog/view/javascript/page_notification.min.js');
+                $this->document->addScript('/catalog/view/javascript/image_slider.min.js');
+                
 		$analytics = $this->model_extension_extension->getExtensions('analytics');
 
 		foreach ($analytics as $analytic) {

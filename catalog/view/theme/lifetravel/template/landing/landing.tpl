@@ -187,6 +187,14 @@
                     </div>
                 </li>
                 <li>
+                    <img class="jury-photo" src="/catalog/view/theme/lifetravel/image/theme_images/jury/ostrovskaya.jpg" alt="Ксения Викторовна Островская" title="Ксения Викторовна Островская" />
+                    <div class="jury-info-wrapper">
+                        <span class="jury-position">Режиссёр</span>
+                        <span class="jury-name">Ксения Викторовна Островская</span>
+                        <span class="jury-description">Режиссёр фильма о Родном крае ( Владимирская область), продюсер, автор социально-культурных проектов (<a href="www.ostrov-tv.com">www.ostrov-tv.com</a>)</span>
+                    </div>
+                </li>
+                <li>
                     <img class="jury-photo" src="/catalog/view/theme/lifetravel/image/theme_images/jury/gurn.jpg" alt="Гурницкая Ирина Александровна" title="Гурницкая Ирина Александровна" />
                     <div class="jury-info-wrapper">
                         <span class="jury-position">Руководитель программы «Путевка в жизнь»</span>
@@ -262,6 +270,9 @@
             <span class="assistance-heading">При поддержке:</span>
             <div class="logo-carousel-wrapper">
                 <div class="logo-carousel">
+                    <div class="carousel-item">
+                        <img class="carousel-item-image" src="/catalog/view/theme/lifetravel/image/theme_images/logo/ostrov_tv_logo_without_bg.png" alt="Социально-культурный канал Ксении Островской" title="Социально-культурный канал Ксении Островской" />
+                    </div>
                     <div class="carousel-item">
                         <img class="carousel-item-image" src="/catalog/view/theme/lifetravel/image/theme_images/logo/administraciya_vladimirskoy_oblasti.png" alt="Администрация Владимирской области" title="Администрация Владимирской области" />
                     </div>

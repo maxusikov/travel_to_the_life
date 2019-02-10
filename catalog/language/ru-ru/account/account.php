@@ -31,5 +31,10 @@ $_['text_settings']        = 'Настройки';
 $_['text_photo']           = 'Сменить фото';
 $_['text_change_password'] = 'Сменить пароль';
 $_['text_logout']          = 'Выйти';
+$_['text_allowed_doc_extension']   = 'Допустимы файлы .doc и .docx';
+$_['text_allowed_image_extension'] = 'Допустимы файлы .jpg, .jpeg, .gif и .png';
 
 $_['error_agreement'] = 'Необходимо дать согласие на подписание Договора на отчуждение исключительных прав.';
+$_['error_upload']    = 'Ошибка загрузки файла';
+$_['error_filetype']  = 'Неправильный тип файла';
+$_['error_file_exists'] = 'Файл уже существует';

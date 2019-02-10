@@ -1028,7 +1028,7 @@ footer {
     }
 }
 
-.account-account {
+.account-account, .account-account-saveContestantLevel2Data {
     .container {
         #content {
             display: flex;
@@ -1367,6 +1367,465 @@ footer {
                             }
                         }
                     }
+                    
+                    &#level-2 {
+                        .form-wrapper {
+                            form {
+                                .form-heading {
+                                    margin: 0px 0px 15px 0px;
+                                }
+                                
+                                .speciality-selection {
+                                    border-radius: 10px 10px 0px 0px;
+                                    border: 5px solid rgba(214, 174, 117, 0.3);
+                                    margin: 0px 0px 5px 0px;
+                                    
+                                    ul.selection-list {
+                                        display: flex;
+                                        flex-direction: row;
+                                        align-items: center;
+                                        justify-content: stretch;
+                                        flex-wrap: wrap;
+                                        
+                                        li.item {
+                                            flex: 1;
+                                            padding: 0px 0px 0px 0px;
+                                            margin: 10px 10px 10px 10px;
+                                            display: flex;
+                                            flex-direction: row;
+                                            align-items: center;
+                                            justify-content: center;
+                                            
+                                            a {
+                                                padding: 10px 13px 10px 13px;
+                                                background-color: rgba(214, 174, 117, 0.1);
+                                                cursor: pointer;
+                                                white-space: nowrap;
+                                                border-radius: 10px 10px 10px 10px;
+                                                flex: 1;
+                                                text-align: center;
+                                                transition: background-color 0.2s ease-out, color 0.2s ease-out;
+                                                
+                                                &:hover {
+                                                    transition: background-color 0.2s ease-out;
+                                                    background-color: rgba(214, 174, 117, 0.3);
+                                                }
+                                            }
+                                            
+                                            &.active {
+                                                a {
+                                                    background-color: $primary-color;
+                                                    color: #ffffff;
+                                                    transition: background-color 0.2s ease-out, color 0.2s ease-out;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                .question-list {
+                                    border-radius: 0px 0px 10px 10px;
+                                    border: 5px solid rgba(214, 174, 117, 0.3);
+                                    padding: 10px 13px 10px 13px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: stretch;
+                                    justify-content: flex-start;
+                                    
+                                    .level-2-question-tab {
+                                        display: none;
+                                        
+                                        &.active {
+                                            display: block;
+                                        }
+                                        
+                                        .tab-heading {
+                                            text-align: center;
+                                            font-style: italic;
+                                            margin: 5px 0px 5px 0px;
+                                            display: flex;
+                                            flex-direction: row;
+                                            align-items: center;
+                                            justify-content: flex-end;
+                                            
+                                            .heading-text {
+                                                display: block;
+                                                background-color: rgba(214, 174, 117, 0.3);
+                                                border-radius: 10px 0px 0px 10px;
+                                                margin: 5px -13px 5px 0px;
+                                                padding: 5px 13px 5px 13px;
+                                            }
+                                        }
+                                        
+                                        .input-wrapper {
+                                            flex-direction: column;
+                                            align-items: stretch;
+                                            
+                                            .label-wrapper {
+                                                flex: 1;
+                                                margin: 10px 0px 10px 0px;
+                                                
+                                                label {
+                                                    &.sub-label {
+                                                        background-color: rgba(214, 174, 117, 0.3);
+                                                        border-radius: 0px 10px 10px 0px;
+                                                        margin: 5px 0px 5px -13px;
+                                                        padding: 5px 13px 5px 13px;
+                                                    }
+                                                }
+                                            }
+                                            
+                                            input, textarea {
+                                                border-color: #d6ae75;
+                                                padding: 5px 10px 5px 10px;
+                                                border: 1px solid;
+                                                border-radius: 10px 10px 10px 10px;
+                                                margin: 0px 0px 0px 0px;
+                                                resize: none;
+                                                width: auto;
+                                            }
+                                            
+                                            textarea {
+                                                
+                                            }
+                                        }
+                                        .file-uploading-form {
+                                            .uploaded-file-list {
+                                                display: flex;
+                                                flex-direction: row;
+                                                align-items: flex-start;
+                                                justify-content: flex-start;
+                                                flex-wrap: wrap;
+                                                
+                                                .list-item {
+                                                    position: relative;
+                                                    overflow: hidden;
+                                                    min-height: 10vw;
+                                                    border: 3px solid $primary-color;
+                                                    border-radius: 10px 10px 10px 10px;
+                                                    padding: 0px 0px 0px 0px;
+                                                    margin: 10px 10px 10px 10px;
+                                                    
+                                                    > a {
+                                                        flex: 1;
+                                                        display: flex;
+                                                        flex-direction: row;
+                                                        align-items: stretch;
+                                                        justify-content: stretch;
+                                                        position: absolute;
+                                                        top: 0px;
+                                                        left: 0px;
+                                                        bottom: 0px;
+                                                        right: 0px;
+                                                        cursor: pointer;
+
+                                                        img.customer-image {
+                                                            min-width: 100%;
+                                                            min-height: 100%;
+                                                            width: 100%;
+                                                            position: absolute;
+                                                            transform: translate(-50%, -50%);
+                                                            top: 50%;
+                                                            left: 50%;
+                                                        }
+                                                    }
+                                                    
+                                                    .remove-button {
+                                                        padding: 7px 7px 7px 7px;
+                                                        cursor: pointer;
+                                                        top: 10px;
+                                                        right: 10px;
+                                                        left: auto;
+                                                        width: 30px;
+                                                        height: 30px;
+                                                        
+                                                        svg {
+                                                            width: 100%;
+                                                            height: 100%;
+                                                            
+                                                            line {
+                                                                stroke: rgba(255, 255, 255, 1);
+                                                                stroke-width: 7px;
+                                                            }
+                                                        }
+                                                        
+                                                        &:hover {
+                                                            
+                                                        }
+                                                    }
+                                                    
+                                                    .sort-buttons {
+                                                        display: flex;
+                                                        flex-direction: row;
+                                                        align-items: center;
+                                                        justify-content: space-between;
+                                                        transform: translate(-50%, 0);
+                                                        bottom: 0px;
+                                                        left: 50%;
+                                                        width: 100%;
+                                                        height: 30px;
+                                                        position: absolute;
+                                                        pointer-events: none;
+                                                        margin: 10px 0px 10px 0px;
+                                                        
+                                                        .sort-button {
+                                                            pointer-events: auto;
+                                                            position: relative;
+                                                            display: flex;
+                                                            flex-direction: row;
+                                                            align-items: center;
+                                                            justify-content: center;
+                                                            width: 30px;
+                                                            height: 30px;
+                                                            
+                                                            .arrow {
+                                                                border-top: 3px solid #ffffff;
+                                                                border-right: 3px solid #ffffff;
+                                                                display: block;
+                                                                width: 15px;
+                                                                height: 15px;
+                                                                transform: translate(-50%, -50%);
+                                                            }
+                                                            
+                                                            &.back {
+                                                                margin: 0px 0px 0px 10px;
+                                                                
+                                                                .arrow {
+                                                                    transform: rotateZ(-135deg);
+                                                                }
+                                                            }
+                                                            
+                                                            &.forward {
+                                                                margin: 0px 10px 0px 0px;
+                                                                
+                                                                .arrow {
+                                                                    transform: rotateZ(45deg);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                    &:first-child {
+                                                        .sort-buttons {
+                                                            .sort-button {
+                                                                &.back {
+                                                                    opacity: 0;
+                                                                    pointer-events: none;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                    &:last-child {
+                                                        .sort-buttons {
+                                                            .sort-button {
+                                                                &.forward {
+                                                                    opacity: 0;
+                                                                    pointer-events: none;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                    &.img {
+                                                        
+                                                    }
+                                                    
+                                                    &.word-doc {
+                                                        display: flex;
+                                                        flex-direction: row;
+                                                        align-items: stretch;
+                                                        justify-content: stretch;
+                                                        min-width: 22%;
+                                                        max-width: 22%;
+                                                        
+                                                        .download {
+                                                            display: flex;
+                                                            flex-direction: row;
+                                                            align-items: flex-end;
+                                                            justify-content: center;
+                                                            position: relative;
+                                                            max-width: 100%;
+                                                            
+                                                            .icon {
+                                                                position: absolute;
+                                                                transform: translate(-50%, -50%);
+                                                                top: 50%;
+                                                                left: 50%;
+                                                                max-height: 50%;
+                                                            }
+                                                            
+                                                            .filename {
+                                                                display: block;
+                                                                margin: 0px 10px 10px 10px;
+                                                                overflow: hidden; 
+                                                                text-overflow: ellipsis;
+                                                                white-space: nowrap;
+                                                            }
+                                                        }
+                                                        
+                                                        .sort-buttons {
+                                                            transform: translate(-50%, -50%);
+                                                            top: 50%;
+                                                            left: 50%;
+                                                            width: 100%;
+                                                            height: 30px;
+                                                            margin: 0px 0px 0px 0px;
+                                                        }
+                                                    }
+                                                }
+                                                
+                                                &.image {
+                                                    .list-item {
+                                                        flex: 1;
+                                                        display: flex;
+                                                        flex-direction: row;
+                                                        align-items: stretch;
+                                                        justify-content: stretch;
+                                                        width: 24%;
+                                                        max-width: 24%;
+                                                        min-width: 22%;
+                                                        margin: 5px 5px 5px 5px;
+                                                        
+                                                    }
+                                                }
+                                                &.word-doc {
+                                                    
+                                                }
+                                            }
+                                            .upload-line {
+                                                display: flex;
+                                                flex-direction: row;
+                                                justify-content: stretch;
+                                                
+                                                .upload-button {
+                                                    flex: 1;
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                    margin: 10px 0px 10px 0px;
+                                                }
+                                            }
+                                        }
+                                        
+                                        &#level-2-tab-1 {
+                                            
+                                        }
+                                        
+                                        &#level-2-tab-2 {
+                                            
+                                        }
+                                        
+                                        &#level-2-tab-3 {
+                                            .input-wrapper{
+                                                textarea {
+                                                    min-height: 300px;
+                                                }
+                                                
+                                                .file-uploading-form {
+                                                    margin: 10px 0px 0px 0px;
+                                                }
+                                            }
+                                        }
+                                        
+                                        &#level-2-tab-4 {
+                                            .input-wrapper{
+                                                textarea {
+                                                    min-height: 150px;
+                                                }
+                                                
+                                                .file-uploading-form {
+                                                    margin: 10px 0px 0px 0px;
+                                                }
+                                            }
+                                        }
+                                        
+                                        &#level-2-tab-5 {
+                                            
+                                        }
+                                        
+                                        &#level-2-tab-6 {
+                                            
+                                        }
+                                        
+                                        &#level-2-tab-7 {
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#big-image-container {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255, 0.7);
+    
+    .big-image-wrapper {
+        width: 80vw;
+        height: 80vh;
+        position: relative;
+        overflow: hidden;
+        border: 5px solid rgba(214, 174, 117, 0.3);
+        border-radius: 10px 10px 10px 10px;
+        
+        > img {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            min-height: 100%;
+            min-width: 100%;
+            width: 100%;
+            heigh: 100%;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-transform: uppercase;
+        }
+        
+        .scroll-buttons {
+            position: absolute;
+            transform: translateY(-50%);
+            left: 10px;
+            right: 10px;
+            top: 50%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            
+            .scroll-button {
+                font-size: 35px;
+                line-height: 35px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 7px 15px 7px;
+                
+                &.prev {
+                    
+                }
+                &.next {
+                    
                 }
             }
         }
@@ -1384,6 +1843,7 @@ footer {
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
+    user-select: none;
     opacity: 0.8;
     transition: opacity 0.3s ease-out;
 
@@ -1475,31 +1935,49 @@ form {
     top: 0px;
     right: 0px;
     left: 0px;
-    flex-direction: row;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.75);
-    display: flex;
+    overflowY: scroll;
+    padding: 20px 40px 20px 40px;
     opacity: 0;
     height: 0px;
     transition: opacity 0.2s ease-out, height 0.2s 0.2s ease-out;
     
-    &.info {
-        info-wrapper {
+    .info-wrapper {
+        padding: 30px 40px 30px 40px;
+        border-radius: 10px 10px 10px 10px;
+        border-color: $primary-color;
+        border: 1px solid;
+        margin: 20px 0px 0px 0px;
+        
+        &:first-child {
+            margin: 0px 0px 0px 0px;
+        }
+        
+        .info-content {
+            background-color: transparent;
+            transition: background-color 0.2s ease-out;
+        }
+        
+        &.info {
             background-color: rgba(113, 113, 113, 0.2);
             transition: background-color 0.2s ease-out;
         }
-    }
-    
-    &.success {
-        .info-wrapper {
+
+        &.success {
             background-color: rgba(0, 255, 137, 0.2);
             transition: background-color 0.2s ease-out;
         }
-    }
-    
-    &.fail {
-        .info-wrapper {
+        
+        &.warning {
+            background-color: rgba(255, 247, 1, 0.34);
+            transition: background-color 0.2s ease-out;
+        }
+
+        &.fail, &.error {
             background-color: rgba(255, 0, 0, 0.34);
             transition: background-color 0.2s ease-out;
         }
@@ -1509,18 +1987,6 @@ form {
         height: 100vh;
         opacity: 1;
         transition: opacity 0.2s ease-out;
-    }
-    
-    .info-wrapper {
-        padding: 30px 40px 30px 40px;
-        border-radius: 10px 10px 10px 10px;
-        border-color: $primary-color;
-        border: 1px solid;
-        
-        .info-content {
-            background-color: transparent;
-            transition: background-color 0.2s ease-out;
-        }
     }
 }
 
