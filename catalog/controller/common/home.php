@@ -4,6 +4,9 @@ class ControllerCommonHome extends Controller {
                 $this->load->language('landing/landing');
             
 		$data['navbar'] = $this->load->controller('landing/navbar');
+                $data['news_slider'] = $this->load->controller('landing/news');
+                $data['video_carousel'] = $this->load->controller('landing/video_carousel');
+                
                 $data['registration'] = $this->url->link('account/register');
                 
                 define('MONTHES', [

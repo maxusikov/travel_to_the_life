@@ -53,8 +53,16 @@
 <body class="<?php echo $class; ?>">
 <header>
   <div class="container">
-    <div class="row">
-      
+    <div class="container-row">
+        <?php if(!empty($top_navbar)){ ?> 
+        <!--ul class="top-navbar">
+            <?php foreach($top_navbar as $item_key => $top_navbar_item){ ?>
+            <li class="level<?php echo ' ' . $item_key; ?>">
+                <a href="<?php echo $top_navbar_item['href']; ?>"><?php echo $top_navbar_item['name']; ?></a>
+            </li>
+            <?php } ?>
+        </ul -->
+        <?php } ?>
     </div>
   </div>
 </header>

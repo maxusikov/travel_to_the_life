@@ -36,13 +36,17 @@ class ControllerAccountLogin extends Controller {
 				if ($this->config->get('config_tax_customer') == 'shipping') {
 					$this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
 				}
-
+                                
 				$this->response->redirect($this->url->link('account/account', '', true));
 			}
 		}
 
 		if ($this->customer->isLogged()) {
-			$this->response->redirect($this->url->link('account/account', '', true));
+                    if($this->customer->isCurator()){
+                        $this->response->redirect($this->url->link('account/curator', '', true));
+                    } else {
+                        $this->response->redirect($this->url->link('account/account', '', true));
+                    }
 		}
                 
 		$this->load->language('account/login');

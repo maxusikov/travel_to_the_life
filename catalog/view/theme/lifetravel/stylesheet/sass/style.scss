@@ -359,6 +359,7 @@ footer {
                     align-items: center;
                     justify-content: center;
                     color: #ffffff;
+                    text-align: center;
                 }
                 
                 &:hover {
@@ -460,6 +461,7 @@ footer {
                         position: relative;
                         background-color: #ffffff;
                         border-radius: 10px;
+                        overflow: hidden;
                         margin: 0px 0px 0px 30px;
                         
                         &:first-child {
@@ -503,7 +505,7 @@ footer {
             background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
             
             .container-row {
-                margin: 10px auto 150px auto;
+                margin: 10px auto 25px auto;
                 
                 .top-area {
                     display: flex;
@@ -553,7 +555,111 @@ footer {
                     text-align: center;
                     font-size: 40px;
                     line-height: 36px;
-                    margin: 80px 0px 0px 0px;
+                    margin: 20px 0px 20px 0px;
+                }
+                
+                .video-block {
+                    border-radius: 10px 10px 10px 10px;
+                    background-color: rgba(255, 255, 255, 0.75);
+                    padding: 30px 0px 30px 0px;
+                    
+                    .screen-heading {
+                        text-transform: uppercase;
+                        line-height: 30px;
+                        margin: 0px 0px 30px 0px;
+                    }
+                    
+                    .video-carousel {
+                        margin: 0px 0px 0px 0px;
+                    }
+                }
+            }
+        }
+        
+        &#news {
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5), rgba(255,255,255,0.8));
+            padding: 25px 0px 25px 0px;
+            
+            .container-row {
+                border-radius: 10px 10px 10px 10px;
+                background-color: rgba(255, 255, 255, 0.75);
+                padding: 30px 0px 30px 0px;
+
+                .screen-heading {
+                    text-transform: uppercase;
+                    line-height: 30px;
+                    margin: 0px 0px 30px 0px;
+                }
+                
+                .slide-item {
+                    padding: 10px 15px 45px 15px;
+                    border-radius: 10px 10px 10px 10px;
+                    border: 5px solid rgba(255, 255, 255, 0.5);
+                    color: $secondary-text-color;
+                    display: flex!important;
+                    flex-direction: column;
+                    align-items: stretch;
+                    justify-content: stretch;
+                    
+                    .slide-heading {
+                        font-size: 20px;
+                        font-weight: 800;
+                        font-style: italic;
+                        margin: 0px 0px 10px 0px;
+                    }
+                    
+                    .slide-inner-wrapper {
+                        padding: 10px 15px 10px 15px;
+                        margin: 0px 0px 0px 0px;
+                        max-height: 100%;
+                        overflow-y: scroll;
+                        background-color: rgba(255, 255, 255, 0.25);
+                        border-radius: 10px 10px 10px 10px;
+                        
+                        .bold-text {
+                            font-weight: 600;
+                        }
+
+                        p {
+                            margin: 10px 0px 10px 0px;
+                        }
+                        
+                        .round-before-text {
+                            display: block;
+                            
+                            &:before {
+                                float: left;
+                                display: block;
+                                content: "";
+                                width: 6px;
+                                height: 6px;
+                                border-radius: 3px;
+                                background-color: #000000;
+                                margin: 8px 25px 0px 10px;
+                            }
+                        }
+
+                        .publication-area {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            justify-content: flex-start;
+
+                            .publication-heading {
+                                font-size: 16px;
+                                font-style: italic;
+                                text-decoration: underline;
+                            }
+
+                            .publication-link {
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                
+                .arrow-navigation {
+                    display: none;
                 }
             }
         }
@@ -1028,7 +1134,12 @@ footer {
     }
 }
 
-.account-account, .account-account-saveContestantLevel2Data {
+.account-account, 
+.account-account-profile, 
+.account-account-level1, 
+.account-account-level2, 
+.account-account-psychotest, 
+.account-account-saveContestantLevel2Data {
     .container {
         #content {
             display: flex;
@@ -1090,20 +1201,9 @@ footer {
     .panel {
         flex: 1;
         flex-direction: row;
-        padding: 0px 0px 0px 0px;
+        padding: 20px 30px 20px 30px;
         margin: 0px 0px 0px 0px;
-        display: none;
-        opacity: 0;
-        height: 0px;
-        transition: opacity 0.3s ease-out, height 0.3s ease-out;
-        
-        &.active {
-            padding: 20px 30px 20px 30px;
-            display: block;
-            opacity: 1;
-            height: auto;
-            transition: opacity 0.3s ease-out, height 0.3s ease-out;
-        }
+        display: block;
         
         .form-wrapper {
             form {
@@ -1155,44 +1255,71 @@ footer {
                 display: flex;
             }
             
-            .level-tabs {
+            .top-line {
                 display: flex;
                 flex-direction: row;
-                align-items: flex-end;
-                justify-content: flex-start;
-                height: 40px;
+                align-items: stertch;
+                justify-content: stretch;
                 
-                li {
+                .level-tabs {
                     display: flex;
                     flex-direction: row;
-                    align-items: stretch;
-                    justify-content: stretch;
-                    cursor: pointer;
-                    
-                    a {
-                        padding: 4px 10px 4px 10px;
-                        border-color: $primary-color;
-                        border-top: 1px solid;
-                        border-left: 1px solid;
-                        border-right: 1px solid;
-                        border-radius: 10px 10px 0px 0px;
-                        user-select: none;
-                        background-color: transparent;
-                        transition: background-color 0.3s ease-out, padding 0.2s ease-out;
-                    }
-                    
-                    &:hover {
+                    align-items: flex-end;
+                    justify-content: flex-start;
+                    height: 40px;
+
+                    li {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: stretch;
+                        justify-content: stretch;
+                        cursor: pointer;
+
                         a {
-                            background-color: rgba(0, 0, 0, 0.1);
-                            transition: background-color 0.3s ease-out;
+                            padding: 4px 10px 4px 10px;
+                            border-color: $primary-color;
+                            border-top: 1px solid;
+                            border-left: 1px solid;
+                            border-right: 1px solid;
+                            border-radius: 10px 10px 0px 0px;
+                            user-select: none;
+                            background-color: transparent;
+                            transition: background-color 0.3s ease-out, padding 0.2s ease-out;
+                        }
+
+                        &:hover {
+                            a {
+                                background-color: rgba(0, 0, 0, 0.1);
+                                transition: background-color 0.3s ease-out;
+                            }
+                        }
+
+                        &.active {
+                            a {
+                                padding: 4px 10px 9px 10px;
+                                transition: padding 0.2s ease-out;
+                            }
                         }
                     }
+                }
+                
+                .contestant-score {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-end;
+                    justify-content: space-between;
                     
-                    &.active {
-                        a {
-                            padding: 4px 10px 9px 10px;
-                            transition: padding 0.2s ease-out;
-                        }
+                    .level-score {
+                        font-style: italic;
+                        margin: 0px 0px 5px 10px;
+                    }
+                    
+                    .total-score {
+                        font-style: italic;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        margin: 0px 10px 5px 0px;
                     }
                 }
             }
@@ -1203,17 +1330,11 @@ footer {
                     overflow: hidden;
                     border-radius: 0px 10px 10px 10px;
                     border-color: $primary-color;
-                    height: 0px;
-                    opacity: 0;
-                    transition: opacity 0.3s ease-out, height 0.3s ease-out;
                     
                     &.active {
                         padding: 10px 20px 10px 20px;
                         border: 1px solid;
                         min-height: 300px;
-                        height: auto;
-                        opacity: 1;
-                        transition: opacity 0.3s ease-out, height 0.3s ease-out;
                     }
                     
                     &#level-1 {
@@ -1256,6 +1377,7 @@ footer {
                                         border-color: $primary-color;
                                         padding: 5px 10px 5px 10px;
                                         border: 1px solid;
+                                        width: auto;
                                         min-height: 300px;
                                         border-radius: 0px 10px 10px 0px;
                                         margin: 0px 0px 0px 0px;
@@ -1446,7 +1568,7 @@ footer {
                                             display: flex;
                                             flex-direction: row;
                                             align-items: center;
-                                            justify-content: flex-end;
+                                            justify-content: space-between;
                                             
                                             .heading-text {
                                                 display: block;
@@ -1454,6 +1576,49 @@ footer {
                                                 border-radius: 10px 0px 0px 10px;
                                                 margin: 5px -13px 5px 0px;
                                                 padding: 5px 13px 5px 13px;
+                                            }
+                                            
+                                            .score {
+                                                display: flex;
+                                                flex-direction: row;
+                                                align-items: center;
+                                                justify-content: space-between;
+                                                
+                                                .score-value {
+                                                    color: #4788ff;
+                                                    border: 2px solid #4788ff;
+                                                    border-radius: 10px 10px 10px 10px;
+                                                    text-align: center;
+                                                    width: 100px;
+                                                    padding: 5px 30px 5px 30px;
+                                                    margin: 0px 10px 0px 0px;
+                                                }
+                                                
+                                                .score-text {
+                                                    font-size: 16px;
+                                                    color: #4788ff;
+                                                }
+                                            }
+                                        }
+                                        
+                                        .recommendation {
+                                            display: flex;
+                                            flex-direction: column;
+                                            align-items: stretch;
+                                            justify-content: flex-start;
+                                            border: 2px solid #d6ae75;
+                                            border-radius: 10px 10px 10px 10px;
+                                            
+                                            .recommendation-heading {
+                                                padding: 8px 13px 8px 13px;
+                                                font-weight: 600;
+                                                border-bottom: 1px dotted $primary-color;
+                                            }
+                                            
+                                            .recommendation-text {
+                                                padding: 8px 13px 8px 13px;
+                                                margin: 3px 0px 0px 0px;
+                                                font-style: italic;
                                             }
                                         }
                                         
@@ -1757,6 +1922,37 @@ footer {
                             }
                         }
                     }
+                    
+                    &#psychotest {
+                        align-items: stretch;
+                        
+                        .form-wrapper {
+                            flex: 1;
+                            display: flex;
+                            
+                            .recommendation {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: stretch;
+                                justify-content: flex-start;
+                                border: 2px solid #d6ae75;
+                                border-radius: 10px 10px 10px 10px;
+                                
+                                .recommendation-heading {
+                                    padding: 8px 13px 8px 13px;
+                                    font-weight: 600;
+                                    border-bottom: 1px dotted #d6ae75;
+                                }
+                                
+                                .recommendation-text {
+                                    padding: 8px 13px 8px 13px;
+                                    margin: 3px 0px 0px 0px;
+                                    font-style: italic;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1776,22 +1972,23 @@ footer {
     background-color: rgba(255,255,255, 0.7);
     
     .big-image-wrapper {
-        width: 80vw;
-        height: 80vh;
+        width: 100%;
+        height: 100%;
         position: relative;
         overflow: hidden;
         border: 5px solid rgba(214, 174, 117, 0.3);
         border-radius: 10px 10px 10px 10px;
+        background-color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
         
         > img {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            left: 50%;
-            min-height: 100%;
-            min-width: 100%;
-            width: 100%;
-            heigh: 100%;
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            heigh: auto;
         }
         
         .close-button {
@@ -1872,7 +2069,7 @@ form {
             }
         }
         
-        input, input:not(.browser-default) {
+        input, input:not(.browser-default), textarea {
             font-size: 1em;
             line-height: 1em;
             width: 200px;
@@ -1942,6 +2139,7 @@ form {
     background-color: rgba(255, 255, 255, 0.75);
     overflowY: scroll;
     padding: 20px 40px 20px 40px;
+    z-index: -1;
     opacity: 0;
     height: 0px;
     transition: opacity 0.2s ease-out, height 0.2s 0.2s ease-out;
@@ -1985,6 +2183,7 @@ form {
     
     &.active {
         height: 100vh;
+        z-index: 10000;
         opacity: 1;
         transition: opacity 0.2s ease-out;
     }
@@ -2068,102 +2267,157 @@ form {
                     padding: 10px 20px 10px 20px;
                     
                     form {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: stretch;
-                        justify-content: flex-start;
-                        
-                        .contestant-registration-date {
-                            min-width: 70px;
-                        }
-                        
-                        .contestant-fio {
-                            min-width: 140px;
-                        }
-                        
-                        .contestant-email {
-                            min-width: 140px;
-                        }
-                        
-                        .contestant-telephone {
-                            min-width: 100px;
-                        }
-                        
-                        .contestant-birthdate {
-                            min-width: 70px;
-                        }
-                        .contestant-cinema-speciality {
-                            min-width: 140px;
-                        }
-                        .contestant-school {
-                            min-width: 100px;
-                        }
-                        .contestant-question-4-score {
-                            min-width: 40px;
-                        }
-                        .contestant-question-5-score {
-                            min-width: 40px;
-                        }
-                        .contestant-question-6-score {
-                            min-width: 40px;
-                        }
-                        .contestant-total-score {
-                            min-width: 40px;
-                        }
-                        .contestant-level-2-allowance {
-                            min-width: 40px;
-                        }
-                        .contestant-checking-curator {
-                            min-width: 140px;
-                        }
-                        .contestant-action {
-                            min-width: 100px;
-                        }
-                        
-                        
-                        .contestant-list-heading {
-                            display: flex;
-                            flex-direction: row;
-                            align-items: center;
-                            justify-content: stretch;
+                        table.contestant-list {
+                            tr, th, td {
+                                margin: 0px 0px 0px 0px;
+                                padding: 0px 0px 0px 0px;
+                            }
                             
-                            .contestant-list-heading-item {
-                                flex: 1;
-                                display: flex;
-                                flex-direction: row;
-                                align-items: center;
-                                justify-content: center;
-                                text-align: center;
-                                font-size: 14px;
-                                font-weight: 600;
-                                
-                                &.contestant-question-4-score, 
-                                &.contestant-question-5-score, 
-                                &.contestant-question-6-score {
-                                    font-size: 10px;
+                            thead {
+                                tr {
+                                    border: none;
+                                    
+                                    th {
+                                        font-size: 14px;
+                                        line-height: 17px;
+                                        font-weight: 600;
+                                        text-align: center;
+                                        vertical-align: bottom;
+                                        padding: 2px 2px 2px 2px;
+                                        
+                                        a, span {
+                                            display: block;
+                                            padding: 0px 0px 0px 0px;
+                                            margin: 0px 0px 0px 0px;
+                                            
+                                            &.sorting {
+                                                background-color: rgba(255, 255, 255, 0.5);
+                                                border-radius: 3px 3px 3px 3px;
+                                                border: 1px solid #ffffff;
+                                                padding: 2px 5px 2px 5px;
+                                                
+                                                .arrow {
+                                                    border-top: 2px solid blue;
+                                                    border-right: 2px solid blue;
+                                                    width: 10px;
+                                                    height: 10px;
+                                                    line-height: 10px;
+                                                    display: inline-block;
+                                                }
+                                                
+                                                &.sort-asc {
+                                                    .arrow {
+                                                        transform: rotateZ(-45deg);
+                                                    }
+                                                }
+                                                
+                                                &.sort-desc {
+                                                    .arrow {
+                                                        transform: rotateZ(135deg);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        }
-                        
-                        .contestant-list-item {
-                            display: flex;
-                            flex-direction: row;
-                            align-items: center;
-                            justify-content: stretch;
-                            height: 50px;
                             
-                            &:nth-child(2n){
-                                background-color: rgba(255, 255, 255, 0.25);
+                            tbody {
+                                tr {
+                                    td {
+                                        font-size: 14px;
+                                        padding: 2px 2px 2px 2px;
+                                    }
+                                }
                             }
                             
-                            .contestant-list-item-item {
-                                flex: 1;
-                                display: flex;
-                                flex-direction: row;
-                                align-items: center;
-                                justify-content: center;
+                            .contestant-id {
+                                width: 10px;
+                            }
+                            
+                            .contestant-registration-date {
+                                
+                            }
+
+                            .contestant-fio {
+                                min-width: 100px;
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                word-break: break-word;
                                 text-align: center;
-                                font-size: 14px;
+                            }
+
+                            .contestant-email {
+                                min-width: 100px;
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                word-break: break-word;
+                            }
+
+                            .contestant-telephone {
+
+                            }
+
+                            .contestant-birthdate {
+
+                            }
+                            
+                            .contestant-cinema-speciality {
+                                min-width: 100px;
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                word-break: break-word;
+                                text-align: center;
+                            }
+                            
+                            .contestant-school {
+                                min-width: 100px;
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                word-break: break-word;
+                            }
+                            
+                            .contestant-level-1-score {
+                                text-align: center;
+                            }
+                            
+                            .contestant-question-4-score {}
+                            .contestant-question-5-score {}
+                            .contestant-question-6-score {}
+                            
+                            .contestant-level-1-total-score {
+                                text-align: center;
+                            }
+                            
+                            .contestant-level-1-checking-curator {
+                                text-align: center;
+                            }
+                            
+                            .contestant-level-2-allowance {
+                                text-align: center;
+                            }
+                            
+                            .contestant-level-2-score {
+                                text-align: center;
+                            }
+                            
+                            .contestant-level-2-selected-speciality {
+                                text-align: center;
+                            }
+                            
+                            .contestant-action {
+                                a.edit {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border: 1px solid gray;
+                                    border-radius: 10px 10px 10px 10px;
+                                    
+                                    svg {
+                                        height: 25px;
+                                    }
+                                }
                             }
                         }
                     }
@@ -2173,16 +2427,42 @@ form {
     }
 }
 
-.account-curator-getContestantForm, .account-curator-save {
+#curator-top-navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    margin: 0px 13px 0px 13px;
+
+    .level-navbar {
+
+    }
+
+    .nav-buttons {
+        .button {
+            &.back {
+
+            }
+
+            &.logout{
+
+            }
+        }
+    }
+}
+
+.account-curator-level1, .account-curator-level2, .account-curator-psychotest, .account-curator-save {
     .container {
         .content-container {
             #content {
+                
                 .form-wrapper {
                     background-color: rgba(255, 255, 255, 0.75);
                     border-radius: 10px 10px 10px 10px;
                     border: 5px solid $primary-text-color;
                     overflow: hidden;
-                    margin: 10px 0px 10px 0px;
+                    margin: 0px 0px 10px 0px;
                     
                     form {
                         margin: 10px 20px 10px 20px;
@@ -2203,6 +2483,31 @@ form {
 
                             input {
                                 flex: 1;
+                            }
+                        }
+                        
+                        .psychologist-test-data {
+                            .input-wrapper {
+                                .label-wrapper {
+                                    width: 200px;
+                                }
+                                
+                                input {
+                                    flex: 1;
+                                    width: auto;
+                                }
+                                
+                                textarea {
+                                    flex: 1;
+                                    width: auto;
+                                    min-height: 300px;
+                                    resize: none;
+                                }
+                                
+                                &.psychologist-recommendation {
+                                    align-items: flex-start;
+                                    margin: 10px 0px 0px 0px;
+                                }
                             }
                         }
                         
@@ -2242,8 +2547,8 @@ form {
                         
                         .contestant-info {
                             display: flex;
-                            flex-direction: row;
-                            align-items: flex-start;
+                            flex-direction: column;
+                            align-items: stretch;
                             justify-content: stretch;
                             margin: 40px 0px 0px 0px;
 
@@ -2253,7 +2558,7 @@ form {
                                 flex-direction: column;
                                 align-items: stretch;
                                 justify-content: stretch;
-                                margin: 0px 10px 0px 0px;
+                                margin: 0px 0px 0px 0px;
                                 
                                 .label-wrapper {
                                     display: flex;
@@ -2266,11 +2571,29 @@ form {
                                     display: flex;
                                     flex-direction: row;
                                     align-items: stretch;
-                                    justify-content: space-between;
+                                    justify-content: stretch;
                                     border-radius: 10px 10px 10px 10px;
                                     background-color: rgba(255, 255, 255, 0.7);
                                     padding: 5px 10px 5px 10px;
                                     margin: 5px 0px 5px 0px;
+                                    
+                                    .label-wrapper {
+                                        flex: 1;
+                                        max-width: 250px;
+                                    }
+                                    
+                                    .inner-wrapper {
+                                        flex: 1;
+                                        display: flex;
+                                        flex-direction: row;
+                                        align-items: center;
+                                        justify-content: stretch;
+                                        
+                                        input {
+                                            width: auto;
+                                            flex: 1;
+                                        }
+                                    }
                                 }
                             }
 
@@ -2280,12 +2603,15 @@ form {
                                 flex-direction: column;
                                 align-items: stretch;
                                 justify-content: stretch;
+                                margin: 20px 0px 0px 0px;
                                 
                                 .label-wrapper {
+                                    flex: 1;
+                                    max-width: 250px;
                                     display: flex;
                                     flex-direction: row;
                                     align-items: center;;
-                                    justify-content: flex-start;
+                                    justify-content: stretch;
                                 }
                                 
                                 .input-wrapper {
@@ -2297,13 +2623,26 @@ form {
                                     background-color: rgba(255, 255, 255, 0.7);
                                     padding: 5px 10px 5px 10px;
                                     margin: 5px 0px 5px 0px;
+                                    
+                                    .inner-wrapper {
+                                        flex: 1;
+                                        display: flex;
+                                        flex-direction: row;
+                                        align-items: center;
+                                        justify-content: stretch;
+                                        
+                                        input {
+                                            width: auto;
+                                            flex: 1;
+                                        }
+                                    }
                                 }
                             }
                         }
 
                         .contestant-question-data {
                             display: flex;
-                            flex-direction: row;
+                            flex-direction: column;
                             align-items: stretch;
                             justify-content: stretch;
                             margin: 40px 0px 0px 0px;
@@ -2382,6 +2721,7 @@ form {
                                     
                                     textarea {
                                         flex: 1;
+                                        min-height: 300px;
                                         margin: 10px 0px 5px 0px;
                                         resize: none;
                                     }
@@ -2433,6 +2773,238 @@ form {
                             }
                         }
                     }
+                    
+                    &#level-2, &#psychotest {
+                        form {
+                            .contestant-question-data {
+                                flex-direction: column;
+                                
+                                .contestant-question-wrapper {
+                                    border: 5px solid rgba(214, 174, 117, 0.5);
+                                    border-radius: 10px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: stretch;
+                                    justify-content: flex-start;
+                                    padding: 0px 0px 0px 0px;
+                                    margin: 10px 0px 0px 0px;
+                                    
+                                    &:first-child {
+                                        margin: 0px 0px 0px 0px;
+                                    }
+                                    
+                                    .speciality-heading {
+                                        display: flex;
+                                        flex-direction: row;
+                                        align-items: center;
+                                        justify-content: space-between;
+                                        margin: 15px 0px 15px 0px;
+                                        
+                                        .heading-text {
+                                            display: flex;
+                                            flex-direction: row;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            background-color: rgba(214, 174, 117, 0.5);
+                                            border-radius: 0px 10px 10px 0px;
+                                            margin: 5px -13px 5px 0px;
+                                            padding: 5px 13px 5px 13px;
+                                        }
+                                        
+                                        .speciality-score {
+                                            position: relative;
+                                            margin: 0px 13px 0px 0px;
+                                            
+                                            label {
+                                                color: #4788ff;
+                                                font-size: 14px;
+                                                position: absolute;
+                                                transform: translate(-50%, -50%);
+                                                left: 50%;
+                                                white-space: nowrap;
+                                            }
+                                            
+                                            input {
+                                                font-size: 20px;
+                                                color: #4788ff;
+                                                border: 2px solid #4788ff;
+                                                border-radius: 10px 10px 10px 10px;
+                                                text-align: center;
+                                                width: 100px;
+                                                margin: 10px 0px 5px 0px;
+                                                padding-left: 10px;
+                                            }
+                                        }
+                                    }
+                                    
+                                    .speciality-question {
+                                        margin: 15px 13px 15px 13px;
+                                    }
+                                    
+                                    .speciality-answer {
+                                        display: flex;
+                                        flex-direction: column;
+                                        align-items: stretch;
+                                        justify-content: flex-start;
+                                        margin: 0px 13px 15px 13px;
+                                        
+                                        .answer {
+                                            background-color: rgba(214, 174, 117, 0.25);
+                                            border-radius: 10px 10px 10px 10px;
+                                            border: 1px solid $primary-text-color;
+                                            padding: 10px 10px 10px 10px;
+                                            margin: 10px 0px 0px 0px;
+                                        }
+                                        
+                                        ul.sub-answers {
+                                            display: flex;
+                                            flex-direction: column;
+                                            align-items: stretch;
+                                            justify-content: flex-start;
+                                            
+                                            > li {
+                                                display: flex;
+                                                flex-direction: column;
+                                                align-items: stretch;
+                                                justify-content: flex-start;
+                                                margin: 0px 0px 10px 0px;
+                                                
+                                                .question {
+                                                    font-style: italic;
+                                                }
+                                                
+                                                .answer {}
+                                                
+                                                &:last-child {
+                                                    margin: 0px 0px 10px 0px;
+                                                }
+                                            }
+                                        }
+                                        
+                                        .uploaded-file-list {
+                                            display: flex;
+                                            flex-direction: row;
+                                            align-item: flex-start;
+                                            justify-content: flex-start;
+                                            flex-wrap: wrap;
+                                            
+                                            .list-item {
+                                                flex: 1;
+                                                display: flex;
+                                                flex-direction: row;
+                                                align-items: stretch;
+                                                justify-content: stretch;
+                                                position: relative;
+                                                overflow: hidden;
+                                                min-height: 10vw;
+                                                border: 3px solid #d6ae75;
+                                                border-radius: 10px 10px 10px 10px;
+                                                width: 24%;
+                                                max-width: 24%;
+                                                min-width: 22%;
+                                                padding: 0px 0px 0px 0px;
+                                                margin: 5px 5px 5px 5px;
+                                                
+                                                .image-link {
+                                                    flex: 1;
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    align-items: stretch;
+                                                    justify-content: stretch;
+                                                    position: absolute;
+                                                    top: 0px;
+                                                    left: 0px;
+                                                    bottom: 0px;
+                                                    right: 0px;
+                                                    cursor: pointer;
+                                                    
+                                                    .customer-image {
+                                                        min-width: 100%;
+                                                        min-height: 100%;
+                                                        width: 100%;
+                                                        position: absolute;
+                                                        transform: translate(-50%, -50%);
+                                                        top: 50%;
+                                                        left: 50%;
+                                                    }
+                                                }
+                                                
+                                                &.word-doc {
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    align-items: stretch;
+                                                    justify-content: flex-end;
+                                                    background-color: rgba(255, 255, 255, 0.25);
+                                                    
+                                                    .download {
+                                                        display: flex;
+                                                        flex-direction: row;
+                                                        align-items: center;
+                                                        justify-content: center;
+
+                                                        .icon {
+                                                            position: absolute;
+                                                            transform: translate(-50%, -50%);
+                                                            top: 40%;
+                                                            left: 50%;
+                                                            max-height: 50%;
+                                                        }
+
+                                                        .filename {
+                                                            display: block;
+                                                            margin: 0px 10px 10px 10px;
+                                                            overflow: hidden;
+                                                            text-overflow: ellipsis;
+                                                            white-space: nowrap;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
+                                            &.doc {}
+                                        }
+                                    }
+                                    
+                                    .curator-recommendation {
+                                        border-top: 5px solid rgba(214, 174, 117, 0.5);
+                                        display: flex;
+                                        flex-direction: column;
+                                        align-items: stretch;
+                                        justify-content: flex-start;
+                                        
+                                        .recommendation-heading {
+                                            font-size: 20px;
+                                            font-weight: 600;
+                                            font-style: italic;
+                                            text-transform: uppercase;
+                                            border-bottom: 1px dotted $primary-color;
+                                            padding: 15px 13px 15px 13px;
+                                        }
+                                        
+                                        textarea {
+                                            border-radius: 10px 10px 10px 10px;
+                                            width: auto;
+                                            min-height: 150px;
+                                            padding: 10px 15px 10px 15px;
+                                            margin: 15px 13px 15px 13px;
+                                            
+                                            &:focus {
+                                                outline: none;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            .bottom-area {
+                                margin: 0px 0px 0px 0px;
+                                
+                                .buttons {
+                                    margin: 0px 0px 0px 0px;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -2440,7 +3012,8 @@ form {
 }
 
 #pagination {
-    display: flex;
+    /* display: flex; */
+    display: none;
     flex-direction: row;
     align-items: stretch;
     justify-content: center;

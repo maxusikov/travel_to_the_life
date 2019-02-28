@@ -155,7 +155,32 @@ class ControllerCommonHeader extends Controller {
 		} else {
 			$data['class'] = 'common-home';
 		}
-
+                $data['top_navbar'] = [];
+                
+                $data['top_navbar'] = [
+                    'level_1' => [
+                        'name' => 'Этап 1',
+                        'href' => $this->url->link('account/account/getContestantForm')
+                    ],
+                    'level_2' => [
+                        'name' => 'Этап 2',
+                        'href' => $this->url->link('account/account/level2')
+                    ]
+                ];
+                
+                // Lifetravel
+                /*
+                if($this->customer->isLogged()){
+                    if($this->customer->isCurator()){
+                        echo "<br /><br /><br />TEST HEADER CURATOR!!!!<br /><br /><br />";
+                    } else {
+                        echo "<br /><br /><br />TEST HEADER CONTESTANT!!!!<br /><br /><br />";
+                    }
+                    
+                    //var_dump($this->customer);
+                }
+                */
+                
 		return $this->load->view('common/header', $data);
 	}
 }

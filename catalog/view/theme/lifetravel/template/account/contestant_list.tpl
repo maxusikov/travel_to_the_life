@@ -7,45 +7,102 @@
   </ul>
   <div class="content-container container-row">
     <div id="content" class="">
+        <div id="curator-top-navbar" class="top-navbar">
+          <div class="level-navbar">
+            
+          </div>
+          <div class="nav-buttons">
+            <a href="<?php echo $logout; ?>" class="logout button">Выход</a>
+          </div>
+        </div>
         <div class="form-wrapper">
             <form method="POST" enctype="multipart/form-data">
-                <div class="contestant-list-heading">
-                    <span class="contestant-list-heading-item contestant-registration-date">Дата регистрации</span>
-                    <span class="contestant-list-heading-item contestant-fio">Ф.И.О.</span>
-                    <span class="contestant-list-heading-item contestant-email">E-mail</span>
-                    <span class="contestant-list-heading-item contestant-telephone">Телефон</span>
-                    <span class="contestant-list-heading-item contestant-birthdate">Дата рождения</span>
-                    <span class="contestant-list-heading-item contestant-cinema-speciality">Специальность кинообразования</span>
-                    <span class="contestant-list-heading-item contestant-school">№ школы</span>
-                    <span class="contestant-list-heading-item contestant-question-4-score">Бал вопроса №4</span>
-                    <span class="contestant-list-heading-item contestant-question-5-score">Бал вопроса №5</span>
-                    <span class="contestant-list-heading-item contestant-question-6-score">Бал вопроса №6</span>
-                    <span class="contestant-list-heading-item contestant-total-score">Сумма баллов</span>
-                    <span class="contestant-list-heading-item contestant-level-2-allowance">Допущен на Этап II</span>
-                    <span class="contestant-list-heading-item contestant-checking-curator">Проверил</span>
-                    <span class="contestant-list-heading-item contestant-action">Действия</span>
-                </div>
-                <?php foreach($contestants as $contestant){ ?>
-                <div id="contestant-<?php echo $contestant['contestant_id']; ?>" class="contestant-list-item">
-                    <span class="contestant-list-item-item contestant-registration-date"><?php echo $contestant['contestant_id']; ?></span>
-                    <span class="contestant-list-item-item contestant-registration-date"><?php echo $contestant['registration_date']; ?></span>
-                    <span class="contestant-list-item-item contestant-fio"><?php echo $contestant['fio']; ?></span>
-                    <span class="contestant-list-item-item contestant-email"><?php echo $contestant['email']; ?></span>
-                    <span class="contestant-list-item-item contestant-telephone"><?php echo $contestant['telephone']; ?></span>
-                    <span class="contestant-list-item-item contestant-birthdate"><?php echo $contestant['birthdate']; ?></span>
-                    <span class="contestant-list-item-item contestant-cinema-speciality"><?php echo $contestant['speciality']; ?></span>
-                    <span class="contestant-list-item-item contestant-school"><?php echo $contestant['school']; ?></span>
-                    <span class="contestant-list-item-item contestant-question-4-score"><?php echo $contestant['question_4_score']; ?></span>
-                    <span class="contestant-list-item-item contestant-question-5-score"><?php echo $contestant['question_5_score']; ?></span>
-                    <span class="contestant-list-item-item contestant-question-6-score"><?php echo $contestant['question_6_score']; ?></span>
-                    <span class="contestant-list-item-item contestant-total-score"><?php echo $contestant['total_score_level_1']; ?></span>
-                    <span class="contestant-list-item-item contestant-level-2-allowance">
-                        <?php echo ($contestant['level_2_allowance']) ? 'Да' : 'Нет'; ?>
-                    </span>
-                    <span class="contestant-list-item-item contestant-checking-curator"><?php echo $contestant['checking']; ?></span>
-                    <span class="contestant-list-item-item contestant-actions"><a href="<?php echo $contestant['edit']; ?>">Редактировать</a></span>
-                </div>
-                <?php } ?>
+                <table class="contestant-list">
+                    <thead>
+                        <tr>
+                            <th rowspan=2 class="contestant-id">
+                                <a class="sorting sort-asc" href="<?php echo $column_id_sort_asc; ?>"><span class="arrow"></span></a>
+                                <span class="">ID</span>
+                                <a class="sorting sort-desc" href="<?php echo $column_id_sort_desc; ?>"><span class="arrow"></span></a>
+                            </th>
+                            <th rowspan=2 class="contestant-registration-date">
+                                <a class="sorting sort-asc" href="<?php echo $column_date_added_sort_asc; ?>"><span class="arrow"></span></a>
+                                <span class="">Дата регистрации</span>
+                                <a class="sorting sort-desc" class="sorting sort-desc" href="<?php echo $column_date_added_sort_desc; ?>"><span class="arrow"></span></a>
+                            </th>
+                            <th rowspan=2 class="contestant-fio">
+                                <a class="sorting sort-asc" href="<?php echo $column_contestant_fio_sort_asc; ?>"><span class="arrow"></span></a>
+                                <span class="">Ф.И.О.</span>
+                                <a class="sorting sort-desc" href="<?php echo $column_contestant_fio_sort_desc; ?>"><span class="arrow"></span></a>
+                            </th>
+                            <th rowspan=2 class="contestant-email">E-mail</th>
+                            <th rowspan=2 class="contestant-telephone">Телефон</th>
+                            <th rowspan=2 class="contestant-birthdate">Дата рождения</th>
+                            <th rowspan=2 class="contestant-cinema-speciality">Специальность кинообразования</th>
+                            <th rowspan=2 class="contestant-school">№ школы</th>
+                            
+                            <th colspan=3>Этап №1</th>
+                            
+                            <th rowspan=2 class="contestant-level-2-allowance">Допущен на этап №2</th>
+                            
+                            <th colspan=3>Этап №2</th>
+                            
+                            <th rowspan=2 class="contestant-action">Действия</th>
+                        </tr>
+                        <tr>
+                            <th class="contestant-level-1-score">Баллы</th>
+                            <th class="contestant-level-1-total-score">Сумма</th>
+                            <th class="contestant-level-1-checking-curator">Проверил</th>
+                            
+                            <th class="contestant-level-2-score">
+                                <a class="sorting sort-asc" href="<?php echo $column_total_score_sort_asc; ?>"><span class="arrow"></span></a>
+                                <span class="">Балл</span>
+                                <a class="sorting sort-desc" href="<?php echo $column_total_score_sort_desc; ?>"><span class="arrow"></span></a>
+                            </th>
+                            <th class="contestant-level-2-selected-speciality">Специальности</th>
+                            <th class="contestant-level-2-checking-curator">Проверил</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($contestants as $contestant){ ?>
+                        <tr id="contestant-<?php echo $contestant['contestant_id']; ?>">
+                            <td class="contestant-id"><?php echo $contestant['contestant_id']; ?></td>
+                            <td class="contestant-registration-date"><?php echo $contestant['registration_date']; ?></td>
+                            <td class="contestant-fio"><?php echo $contestant['fio']; ?></td>
+                            <td class="contestant-email"><?php echo $contestant['email']; ?></td>
+                            <td class="contestant-telephone"><?php echo $contestant['telephone']; ?></td>
+                            <td class="contestant-birthdate"><?php echo $contestant['birthdate']; ?></td>
+                            <td class="contestant-cinema-speciality"><?php echo $contestant['speciality']; ?></td>
+                            <td class="contestant-school"><?php echo $contestant['school']; ?></td>
+                            <td class="contestant-level-1-score">
+                                <span><?php echo $contestant['question_4_score']; ?></span>/
+                                <span><?php echo $contestant['question_5_score']; ?></span>/
+                                <span><?php echo $contestant['question_6_score']; ?></span>
+                            </td>
+                            <td class="contestant-level-1-total-score"><?php echo $contestant['total_score_level_1']; ?></td>
+                            <td class="contestant-level-1-checking-curator"><?php echo $contestant['level_1_checking']; ?></td>
+                            <td class="contestant-level-2-allowance">
+                                <span><?php echo ($contestant['level_2_allowance']) ? 'Да' : 'Нет'; ?></span>
+                            </td>
+                            <!--td class="contestant-level-2-score"><?php echo $contestant['level_2_score']; ?></td-->
+                            <td class="contestant-level-2-score"><?php echo $contestant['all_total_score']; ?></td>
+                            <td class="contestant-level-2-selected-speciality"><?php echo $contestant['level_2_selected_speciality']; ?></td>
+                            <td class="contestant-level-2-checking-curator"><?php echo $contestant['level_2_checking_fullname']; ?></td>
+                            <td class="contestant-action">
+                                <a class="edit" href="<?php echo $contestant['edit']; ?>">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.651 18.651" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 18.651 18.651">
+                                      <g>
+                                        <g>
+                                          <path fill="#020400" fill-rule="evenodd" d="m9.324,4.667c-3.759,0-7.112,1.816-9.324,4.659 2.212,2.842 5.565,4.658 9.324,4.658 3.759,0 7.116-1.816 9.327-4.658-2.212-2.843-5.568-4.659-9.327-4.659zm-6.371,4.659c1.501-1.804 3.78-2.955 6.334-2.962-1.631,0.007-2.95,1.33-2.95,2.962 0,1.632 1.32,2.955 2.95,2.962-2.554-0.008-4.833-1.159-6.334-2.962zm5.075,0c0-0.703 0.568-1.272 1.271-1.272 0.7,0 1.268,0.569 1.268,1.272 0,0.699-0.568,1.271-1.268,1.271-0.702-1.77636e-15-1.271-0.572-1.271-1.271zm1.282,2.963c-0.002,0-0.004,0-0.007,0 1.635-0.002 2.96-1.328 2.96-2.963 0-1.636-1.325-2.961-2.96-2.963 0.002,0 0.004,0 0.007,0 2.564,0 4.851,1.154 6.357,2.963-1.506,1.809-3.793,2.963-6.357,2.963z"/>
+                                        </g>
+                                      </g>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </form>
         </div>
         <div id="pagination">

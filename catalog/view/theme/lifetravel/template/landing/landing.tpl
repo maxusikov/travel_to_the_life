@@ -8,7 +8,7 @@
                     <img class="logo foundation" src="/catalog/view/theme/lifetravel/image/theme_images/logo/grant_foundation.png" title="Фонд президентских грантов" alt="Фонд президентских грантов" />
                 </div>
                 <div class="logo-wrapper">
-                    <img class="logo ipces" src="/catalog/view/theme/lifetravel/image/theme_images/logo/_ipces_tr_BIG.png" title="IPCES production" alt="IPCES production" />
+                    <img class="logo ipces" src="/catalog/view/theme/lifetravel/image/theme_images/logo/ipces_logo.jpg" title="IPCES production" alt="IPCES production" />
                 </div>
             </div>
             <h2 class="heading">Проект поддержки талантливых детей в рамках<br />
@@ -21,7 +21,7 @@
            <?php } ?>
         </div>
     </div>
-
+    
     <div id="program-description" class="screen-container screen-2">
         <div class="container-row">
             <div class="top-area">
@@ -45,9 +45,14 @@
 	Благодаря программе «Путевка в жизнь» в нашей стране в будущем появятся кинематографисты, которые смогут поднять отечественное киноискусство на новый уровень.
             </div>
             <span class="free-price-text">Участие в программе бесплатное.</span>
+            <?php echo $video_carousel; ?>
         </div>
     </div>
-
+    
+    <div id="news" class="screen-container screen-2-2">
+        <?php echo $news_slider; ?>
+    </div>
+    
     <div id="levels" class="screen-container screen-3">
         <div class="container-row">
             <div class="slider levels-slider">
@@ -219,10 +224,10 @@
                     </div>
                 </li>
                 <li>
-                    <img class="jury-photo" src="/catalog/view/theme/lifetravel/image/theme_images/jury/karina_gurnitskaya.jpg" alt="Карина Гурницкая" title="Карина Гурницкая" />
+                    <img class="jury-photo" src="/catalog/view/theme/lifetravel/image/theme_images/jury/karina_gurnitskaya.jpg" alt="Гурницкая Карина Дмитриевна" title="Гурницкая Карина Дмитриевна" />
                     <div class="jury-info-wrapper">
                         <span class="jury-position">Координатор программы «Путевка в жизнь»</span>
-                        <span class="jury-name">Карина Дмитриевна Гурницкая</span>
+                        <span class="jury-name">Гурницкая Карина Дмитриевна</span>
                         <span class="jury-description">Координатор проектов АНО «Агентство по международным проектам в области культуры, образования и спорта»</span>
                     </div>
                 </li>
@@ -264,7 +269,7 @@
                     <img class="" src="/catalog/view/theme/lifetravel/image/theme_images/logo/grant_foundation.png" alt="Фонд президентских грантов" title="Фонд президентских грантов" />
                 </div>
                 <div class="logo ipces-logo">
-                    <img class="" src="/catalog/view/theme/lifetravel/image/theme_images/logo/_ipces_tr_BIG.png" title="IPCES" alt="IPCES" />
+                    <img class="" src="/catalog/view/theme/lifetravel/image/theme_images/logo/ipces_logo.jpg" title="IPCES" alt="IPCES" />
                 </div>
             </div>
             <span class="assistance-heading">При поддержке:</span>
@@ -272,6 +277,9 @@
                 <div class="logo-carousel">
                     <div class="carousel-item">
                         <img class="carousel-item-image" src="/catalog/view/theme/lifetravel/image/theme_images/logo/ostrov_tv_logo_without_bg.png" alt="Социально-культурный канал Ксении Островской" title="Социально-культурный канал Ксении Островской" />
+                    </div>
+                    <div class="carousel-item">
+                        <img class="carousel-item-image" src="/catalog/view/theme/lifetravel/image/theme_images/logo/logo_GFF.jpg" alt="Госфильмофонд" title="Госфильмофонд" />
                     </div>
                     <div class="carousel-item">
                         <img class="carousel-item-image" src="/catalog/view/theme/lifetravel/image/theme_images/logo/administraciya_vladimirskoy_oblasti.png" alt="Администрация Владимирской области" title="Администрация Владимирской области" />

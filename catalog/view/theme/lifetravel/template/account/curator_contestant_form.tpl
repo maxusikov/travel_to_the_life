@@ -7,7 +7,18 @@
   </ul>
   <div class="content-container container-row">
     <div id="content" class="">
-        <div class="form-wrapper">
+        <div id="curator-top-navbar" class="top-navbar">
+          <div class="level-navbar">
+            <?php foreach($level_navbar as $level_key => $level_value){ ?>
+            <a class="button <?php echo $level_key; ?>" href="<?php echo $level_value['href']; ?>"><?php echo $level_value['name']; ?></a>
+            <?php } ?>
+          </div>
+          <div class="nav-buttons">
+            <a href="<?php echo $back_to_list; ?>" class="back button">Назад к списку</a>
+            <a href="<?php echo $logout; ?>" class="logout button">Выход</a>
+          </div>
+        </div>
+        <div id="level-1" class="form-wrapper">
           <form action="<?php echo $save_contestant_data; ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="contestant_id" value="<?php echo $contestant_data['contestant_id']; ?>" />
                 <div class="input-wrapper checker-fio">

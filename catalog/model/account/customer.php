@@ -499,114 +499,82 @@ class ModelAccountCustomer extends Model {
 		return $query->rows;
 	}
         
-        /*
-        public function getContestantList2($data = []){
-            $sql = "SELECT *, CONCAT(c.firstname, ' ', c.lastname) AS name, cgd.name AS customer_group FROM " . DB_PREFIX . "customer c LEFT JOIN " . DB_PREFIX . "customer_group_description cgd ON (c.customer_group_id = cgd.customer_group_id) WHERE cgd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
-
-		$implode = array();
-
-		if (!empty($data['filter_name'])) {
-			$implode[] = "CONCAT(c.firstname, ' ', c.lastname) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
-		}
-
-		if (!empty($data['filter_email'])) {
-			$implode[] = "c.email LIKE '" . $this->db->escape($data['filter_email']) . "%'";
-		}
-
-		if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])) {
-			$implode[] = "c.newsletter = '" . (int)$data['filter_newsletter'] . "'";
-		}
-
-		if (!empty($data['filter_customer_group_id'])) {
-			$implode[] = "c.customer_group_id = '" . (int)$data['filter_customer_group_id'] . "'";
-		}
-
-		if (!empty($data['filter_ip'])) {
-			$implode[] = "c.customer_id IN (SELECT customer_id FROM " . DB_PREFIX . "customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
-		}
-
-		if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
-			$implode[] = "c.status = '" . (int)$data['filter_status'] . "'";
-		}
-
-		if (isset($data['filter_approved']) && !is_null($data['filter_approved'])) {
-			$implode[] = "c.approved = '" . (int)$data['filter_approved'] . "'";
-		}
-
-		if (!empty($data['filter_date_added'])) {
-			$implode[] = "DATE(c.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
-		}
-
-		if ($implode) {
-			$sql .= " AND " . implode(" AND ", $implode);
-		}
-
-		$sort_data = array(
-			'name',
-			'c.email',
-			'customer_group',
-			'c.status',
-			'c.approved',
-			'c.ip',
-			'c.date_added'
-		);
-
-		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
-		} else {
-			$sql .= " ORDER BY name";
-		}
-
-		if (isset($data['order']) && ($data['order'] == 'DESC')) {
-			$sql .= " DESC";
-		} else {
-			$sql .= " ASC";
-		}
-
-		if (isset($data['start']) || isset($data['limit'])) {
-			if (!isset($data['start'])) {
-				$data['start'] = 0;
-			}
-
-                        echo "<br />" . $data['start'] . "<br />";
-                        
-			if (!isset($data['limit'])) {
-				$data['limit'] = 20;
-			}
-
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}
-
-		$query = $this->db->query($sql);
-
-		return $query->rows;
-        }
-        
-        public function getContestantList32($data = []){
-            $sql = "SELECT * FROM (SELECT c.customer_id as customer_id, c.date_added as date_added, c.email as email, (csl1.question_4_score + csl1.question_5_score + csl1.question_6_score) as score_sum FROM `" . DB_PREFIX . "customer` c LEFT JOIN `" . DB_PREFIX . "contestant_score_level_1` csl1 ON c.customer_id=csl1.contestant_id ORDER BY score_sum DESC, customer_id ASC) AS all_contestants";
-
-            if (!isset($data['start'])) {
-                $data['start'] = 0;
-            }
-
-            if (!isset($data['limit'])) {
-                $data['limit'] = 5;
-            }
-
-            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-            
-            $result = $this->db->query($sql);
-            
-            return $result->rows;
-        }
-        */
-        
         public function getContestantList($data = []){
-            $sql = "SELECT c.customer_id as customer_id, c.date_added as date_added, c.email as email, (csl1.question_4_score + csl1.question_5_score + csl1.question_6_score) as score_sum FROM `" . DB_PREFIX . "customer` c LEFT JOIN `" . DB_PREFIX . "contestant_score_level_1` csl1 ON c.customer_id=csl1.contestant_id ORDER BY score_sum DESC";
+            $sql = "SELECT c.customer_id as customer_id, cd.full_name as customer_fullname, c.date_added as date_added, c.email as email, (csl1.question_4_score + csl1.question_5_score + csl1.question_6_score) as score_sum, (csl1.question_4_score + csl1.question_5_score + csl1.question_6_score + (SELECT MAX(score_value) FROM `" . DB_PREFIX . "contestant_score_level_2` WHERE contestant_id=c.customer_id) + csp.score_value) as total_score FROM `" . DB_PREFIX . "customer` c LEFT JOIN `" . DB_PREFIX . "contestant_score_level_1` csl1 ON c.customer_id=csl1.contestant_id LEFT JOIN `" . DB_PREFIX . "contestant_score_level_2` csl2 ON c.customer_id=csl2.contestant_id LEFT JOIN `" . DB_PREFIX . "contestant_score_psychologist` csp ON c.customer_id=csp.contestant_id LEFT JOIN `" . DB_PREFIX . "customer_data` cd ON c.customer_id=cd.customer_id";
+            
+            if(!empty($data['sort_order'])){
+                $sql .= " ORDER BY ";
+                
+                if($data['sort_order'] == 'id'){
+                    $sql .= "customer_id";
+                }
+                
+                if($data['sort_order'] == 'date_added'){
+                    $sql .= "date_added";
+                }
+                
+                if($data['sort_order'] == 'total_score'){
+                    $sql .= "total_score";
+                }
+                
+                if($data['sort_order'] == 'contestant_fio'){
+                    $sql .= "customer_fullname";
+                }
+                
+                if(!empty($data['sort_order_order'])){
+                    if($data['sort_order_order'] == 'ASC'){
+                        $sql .= " ASC";
+                    } else {
+                        $sql .= " DESC";
+                    }
+                } else {
+                    $sql .= " DESC";
+                }
+            }
             
             $result = $this->db->query($sql);
             
             return $result->rows;
+        }
+        
+        // Checking data
+        public function saveCheckingData($checking_data){
+            $sql  = "INSERT INTO `" . DB_PREFIX . "checking_data` SET ";
+            $sql .= "curator_id='" . (int)$checking_data['curator_id'] . "', ";
+            $sql .= "contestant_id='" . (int)$checking_data['contestant_id'] . "', ";
+            $sql .= "level='" . (string)$checking_data['level'] . "', ";
+            $sql .= "checking_fullname='" . (string)$checking_data['checking_fullname'] . "' ";
+            $sql .= "ON DUPLICATE KEY UPDATE ";
+            $sql .= "curator_id='" . (int)$checking_data['curator_id'] . "', ";
+            $sql .= "checking_fullname='" . (string)$checking_data['checking_fullname'] . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
+        }
+        
+        public function getCheckingDataByContestantIdAndLevel($contestant_id, $level){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "checking_data` WHERE contestant_id='" . (int)$contestant_id . "' AND level='" . (string)$level . "'";
+        
+            $result = $this->db->query($sql);
+            
+            return $result->row;
+        }
+        
+        public function getAllCheckingDataByLevel($level){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "checking_data` WHERE level='" . (string)$level . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        
+        public function deleteCheckingDataByContestantIdAndLevel($contestant_id, $level){
+            $sql = "DELETE FROM `" . DB_PREFIX . "checking_data` WHERE contestant_id='" . (int)$contestant_id . "' AND level='" . (string)$level . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result;
         }
         
         // Contestant score
@@ -635,12 +603,39 @@ class ModelAccountCustomer extends Model {
             return $result;
         }
         
+        public function saveContestantScoreByLevelAndCustomerId($score_data){
+            $result = [];
+            
+            foreach($score_data['score'] as $score_key => $score_value){
+                $sql  = "INSERT INTO `" . DB_PREFIX . "contestant_score_" . (string)$score_data['level'] . "` SET ";
+                $sql .= "contestant_id='" . (int)$score_data['contestant_id'] . "', ";
+                $sql .= "curator_id='" . (int)$score_data['curator_id'] . "', ";
+                $sql .= "score_key='" . (string)$score_key . "', ";
+                $sql .= "score_value='" . (int)$score_value . "' ";
+                $sql .= "ON DUPLICATE KEY UPDATE ";
+                $sql .= "curator_id='" . (int)$score_data['curator_id'] . "', ";
+                $sql .= "score_value='" . (int)$score_value . "' ";
+
+                $result[] = $this->db->query($sql);
+            }
+            
+            return $result;
+        }
+        
         public function deleteContestantScore($contestant_id, $level){
             $sql = "DELETE FROM `" . DB_PREFIX . "contestant_score_" . (string)$level . "` WHERE contestant_id='" . (int)$contestant_id . "'";
             
             $result = $this->db->query($sql);
             
             return $result;
+        }
+        
+        public function getContestantScoreByContestantIdAndLevel($contestant_id, $level){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "contestant_score_" . (string)$level . "` WHERE contestant_id='" . (int)$contestant_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
         }
         
         public function getContestantScoreById($contestant_id, $level){
@@ -651,6 +646,14 @@ class ModelAccountCustomer extends Model {
             return $result->row;
         }
 
+        public function getAllContestantScoreListByLevel($level){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "contestant_score_" . (string)$level . "`";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        
         public function getAllowedToNextLevelList($level="level_1", $field_name="level_2_allowance"){
             $sql = "SELECT * FROM `" . DB_PREFIX . "contestant_score_" . (string)$level . "` WHERE " . (string)$field_name . "='1'";
             
@@ -752,6 +755,14 @@ class ModelAccountCustomer extends Model {
             return $result->rows;
         }
         
+        public function getAllCustomerLevelFileList(){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "customer_level_file`";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        
         public function updateCustomerLevelFilePropertyById($filedata){
             $sql = "UPDATE `" . DB_PREFIX . "customer_level_file` SET " . (string)$filedata['property_name'] . "='" . (string)$filedata['property_value'] . "' WHERE file_id='" . (int)$filedata['file_id'] . "'";
             
@@ -828,6 +839,13 @@ class ModelAccountCustomer extends Model {
             
             return $result->row;
         }
+        public function getLevel2AllSoundproducerData(){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "level_2_sound_producer`";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
         public function deleteLevel2SoundproducerDataByCustomerId($customer_id){
             $sql = "DELETE FROM `" . DB_PREFIX . "level_2_sound_producer` WHERE customer_id='" . (int)$customer_id . "'";
             
@@ -865,8 +883,15 @@ class ModelAccountCustomer extends Model {
             $result = $this->db->query($sql);
             
             return $result->row;
-        }        
-        public function deleteLevel2ProductionInFilmmakingData($customer_id){
+        }
+        public function getLevel2AllProductionInFilmmakingData(){
+            $sql = "SELECT * FROM `" .  DB_PREFIX . "level_2_production_in_filmmaking`";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        public function deleteLevel2ProductionInFilmmakingDataByCustomerId($customer_id){
             $sql = "DELETE FROM `" . DB_PREFIX . "level_2_production_in_filmmaking` WHERE customer_id='" . (int)$customer_id . "'";
             
             $result = $this->db->query($sql);
@@ -892,7 +917,14 @@ class ModelAccountCustomer extends Model {
             
             return $result->row;
         }
-        public function deleteLevel2ActingSkillsData($customer_id){
+        public function getLevel2AllActingSkillsData(){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "level_2_acting_skills`";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        public function deleteLevel2ActingSkillsDataByCustomerId($customer_id){
             $sql = "DELETE FROM `" . DB_PREFIX . "level_2_acting_skills` WHERE customer_id='" . (int)$customer_id . "'";
             
             $result = $this->db->query($sql);
@@ -922,7 +954,14 @@ class ModelAccountCustomer extends Model {
             
             return $result->row;
         }
-        public function deleteLevel2DramaturgyScreenwriterData($customer_id){
+        public function getLevel2AllDramaturgyScreenwriterData(){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "level_2_dramaturgy_screenwriter`";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        public function deleteLevel2DramaturgyScreenwriterDataCustomerId($customer_id){
             $sql = "DELETE FROM `" . DB_PREFIX . "level_2_dramaturgy_screenwriter` WHERE customer_id='" . (int)$customer_id . "'";
             
             $result = $this->db->query($sql);
@@ -948,11 +987,53 @@ class ModelAccountCustomer extends Model {
             
             return $result->row;
         }
-        public function deleteLevel2FilmDirectorData($customer_id){
+        public function getLevel2AllFilmDirectorData(){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "level_2_film_director`";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        public function deleteLevel2FilmDirectorDataByCustomerId($customer_id){
             $sql = "DELETE FROM `" . DB_PREFIX . "level_2_film_director` WHERE customer_id='" . (int)$customer_id . "'";
             
             $result = $this->db->query($sql);
             
             return $result;
+        }
+        
+        public function saveCuratorRecommendation($recommendation_data){
+            $result = [];
+            
+            foreach($recommendation_data['recommendation'] as $recommendation_key => $recommendation_text){
+                $sql  = "INSERT INTO `" . DB_PREFIX . "curator_recommendation` SET ";
+                $sql .= "curator_id='" . (int)$recommendation_data['curator_id'] . "', ";
+                $sql .= "contestant_id='" . (int)$recommendation_data['contestant_id'] . "', ";
+                $sql .= "recommendation_key='" . (string)$recommendation_key . "', ";
+                $sql .= "recommendation_text='" . (string)$recommendation_text . "' ";
+                $sql .= "ON DUPLICATE KEY UPDATE ";
+                $sql .= "curator_id='" . (int)$recommendation_data['curator_id'] . "', ";
+                $sql .= "recommendation_text='" . (string)$recommendation_text . "'";
+                
+                $result[] = $this->db->query($sql);
+            }
+            
+            return $result;
+        }
+        
+        public function getCuratorRecommendationByContestantId($contestant_id){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "curator_recommendation` WHERE contestant_id='" . (int)$contestant_id . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->rows;
+        }
+        
+        public function getCuratorRecommendationByContestantIdAndKey($contestant_id, $recommendation_key){
+            $sql = "SELECT * FROM `" . DB_PREFIX . "curator_recommendation` WHERE contestant_id='" . (int)$contestant_id . "' AND recommendation_key='" . (string)$recommendation_key . "'";
+            
+            $result = $this->db->query($sql);
+            
+            return $result->row;
         }
 }

@@ -7,6 +7,9 @@
       <a href="#program-description">Программа</a>
     </li>
     <li>
+      <a href="#news">Новости</a>
+    </li>
+    <li>
       <a href="#levels">Этапы</a>
     </li>
     <li>

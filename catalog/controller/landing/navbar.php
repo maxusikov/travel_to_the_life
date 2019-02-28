@@ -12,6 +12,10 @@ class ControllerLandingNavbar extends Controller {
                         'text' => $this->language->get('text_program_description'),
                         'href' => $this->url->link('landing/landing', '#program-description')
                     ],
+                    'news' => [
+                        'text' => $this->language->get('text_news'),
+                        'href' => $this->url->link('landing/landing', '#news')
+                    ],
                     'levels' => [
                         'text' => $this->language->get('text_levels'),
                         'href' => $this->url->link('landing/landing', '#levels')
